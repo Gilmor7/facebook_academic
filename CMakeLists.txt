@@ -3,4 +3,4 @@ project(facebook_academic)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(facebook_academic main.cpp)
+add_executable(facebook_academic main.cpp Status.cpp Status.h)
