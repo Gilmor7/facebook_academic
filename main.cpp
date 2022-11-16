@@ -1,9 +1,8 @@
 
-#include <iostream>
-#include "Date.h"
-using namespace std;
+#include "Status.h"
 
 int main()
 {
 
+    return 0;
 }
