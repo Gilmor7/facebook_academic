@@ -17,6 +17,7 @@ private:
 public:
     Status(const char* text);
     Status(const Status& other);
+    Status(Status&& other);
     ~Status();
     void showStatus() const;
 };

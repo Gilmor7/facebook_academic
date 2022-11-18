@@ -13,6 +13,14 @@ Status::Status(const Status &other)
     this->statusTime = other.statusTime;
 }
 
+Status::Status(Status &&other)
+{
+    this->text = other.text;
+    other.text = nullptr;
+
+    this->statusTime = other.statusTime;
+}
+
 Status::~Status()
 {
     delete[] text;
