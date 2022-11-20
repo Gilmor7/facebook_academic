@@ -19,7 +19,7 @@ public:
     void displayMenu();
     void setChoiceFromUserInput();
 
-    eOption getChoice() {return currOption;}
+    eOption getChoice() {return this->currOption;}
 
 
 };

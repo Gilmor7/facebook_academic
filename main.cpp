@@ -1,14 +1,15 @@
 
-#include "Menu.h"
-
+#include "Bookface.h"
 
 int main()
 {
-    // init facebook system
-    // loop:
-    //      menu.display()
-    //      menu.getOptionFromUser()
-    //      system.activateOptionFromMenu()
+    BookFace system;
+    do {
+        system.showMenu();
+        system.setOptionInMenu();
+        system.activateMenuOption();
+
+    } while(system.getRunningState());
 
     return 0;
 }
