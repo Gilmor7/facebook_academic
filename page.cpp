@@ -1,22 +1,25 @@
 #include <string.h>
+#include <iostream>
 #include "page.h"
 #include "status.h"
 
 Page::Page(const char* name)
 {
     setName(name);
-    statuses = nullptr;
-    numOfStatuses = 0;
+    this->logicNumOfStatuses = 0;
+    this->physiqueNumOfStatuses = 2;
+    statuses = new Status*[this->physiqueNumOfStatuses];
 }
 
 Page::Page(const Page& otherPage)
 {
     setName(name);
 
-    this->numOfStatuses = otherPage.numOfStatuses;
-    this->statuses = new Status*[this->numOfStatuses];
+    this->logicNumOfStatuses = otherPage.logicNumOfStatuses;
+    this->physiqueNumOfStatuses = otherPage.physiqueNumOfStatuses;
+    this->statuses = new Status*[this->physiqueNumOfStatuses];
 
-    for (int i = 0; i < this->numOfStatuses; ++i) {
+    for (int i = 0; i < this->logicNumOfStatuses; ++i) {
         this->statuses[i] = new Status(*otherPage.statuses[i]);
     }
 }
@@ -29,45 +32,67 @@ Page::Page(Page&& otherPage)
     this->statuses = otherPage.statuses;
     otherPage.statuses = nullptr;
 
-    this->numOfStatuses = otherPage.numOfStatuses;
+    this->logicNumOfStatuses = otherPage.logicNumOfStatuses;
+    this->physiqueNumOfStatuses = otherPage.physiqueNumOfStatuses;
 }
 
 Page::~Page()
 {
     delete[] name;
 
-    for (int i = 0; i < this->numOfStatuses; ++i) {
+    for (int i = 0; i < this->logicNumOfStatuses; ++i) {
         delete this->statuses[i];
     }
     delete[] statuses;
 }
 
-char* Page::getName()
+char* Page::getName() const
 {
     return this->name;
 }
 
 void Page::setName(const char* name)
 {
+    this->name = new char[strlen(name) + 1];
     strcpy(this->name, name);
 }
 
-void Page::addStatus(Status& status)
+void Page::addStatus(Status*& status)
 {
-    if(numOfStatuses == 0)
+    if(this->logicNumOfStatuses == this->physiqueNumOfStatuses)
     {
-        this->statuses = new Status*[2];
+        this->physiqueNumOfStatuses *= 2;
+        reallocStatuses(this->logicNumOfStatuses, this->physiqueNumOfStatuses);
     }
-    // Need To agree how to handle allocatoion
-    // Should we have logic and phsy sizes?
 
-    this->statuses[this->numOfStatuses] = &status;
-    this->numOfStatuses += 1;
-
+    this->statuses[this->logicNumOfStatuses] = status;
+    this->logicNumOfStatuses += 1;
 }
 
-void Page::showStatuses(const int amount) const
+// Display statuses from the newest to oldest.
+// Default value amount = -1 Means Show All Statuses.
+void Page::showStatuses(int amount) const
 {
-    // need to discuss regarding it's for specific friend or for all friend last 10
-    // if all friends - we need to move this method from here.
+    if (amount == -1 || (amount < -1 )|| (amount > this->logicNumOfStatuses))
+        amount = this->logicNumOfStatuses;
+
+    int stopIndex = this->logicNumOfStatuses - amount;
+    int startIndex = this->logicNumOfStatuses - 1;
+
+    for (int i = startIndex; i >= stopIndex; --i) {
+        this->statuses[i]->showStatus();
+    }
+}
+
+void Page::reallocStatuses(const int size, const int newSize)
+{
+    std::cout <<"was here" <<std::endl;
+    Status** UpdatedStatuses = new Status*[newSize];
+
+    for (int i = 0; i < size; ++i) {
+        UpdatedStatuses[i] = this->statuses[i];
+    }
+
+    delete[] this->statuses;
+    this->statuses = UpdatedStatuses;
 }

@@ -8,7 +8,8 @@ class Page
 private:
     char* name;
     Status** statuses;
-    int numOfStatuses;
+    int physiqueNumOfStatuses;
+    int logicNumOfStatuses;
 
 public:
     Page(const char* name);
@@ -17,12 +18,17 @@ public:
     ~Page();
 
     //Getters and Setters
-    char* getName();
+    char* getName() const;
     void setName(const char* name);
 
     //Methods
-    void addStatus(Status& status);
-    void showStatuses(const int amount = -1) const;
+    void addStatus(Status*& status);
+    void showStatuses(int amount = -1) const;
+
+private:
+    //private methods
+    void reallocStatuses(const int size, const int newSize);
+
 };
 
 #endif //FACEBOOK_ACADEMIC_PAGE_H
