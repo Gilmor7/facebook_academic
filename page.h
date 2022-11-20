@@ -5,7 +5,7 @@ class Status;
 
 class Page
 {
-private:
+protected:
     char* name;
     Status** statuses;
     int physiqueNumOfStatuses;
