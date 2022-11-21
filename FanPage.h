@@ -13,6 +13,7 @@ public:
 
     FanPage(const char* pageName);
     FanPage(const FanPage& other);
+    FanPage(FanPage&& other);
     ~FanPage();
 
     void addFollower(FriendPage& user);

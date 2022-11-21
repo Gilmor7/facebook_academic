@@ -24,6 +24,16 @@ FanPage::FanPage(const FanPage &other) : Page(other)
     }
 }
 
+FanPage::FanPage(FanPage &&other) : Page(std::move(other))
+{
+    cout << "FanPage move constructor" << endl;
+    this->followers = other.followers;
+    other.followers = nullptr;
+
+    this->followersLogSize = other.followersLogSize;
+    this->followersPhySize = other.followersPhySize;
+}
+
 FanPage::~FanPage()
 {
     cout << "FanPage destructor" << endl;
