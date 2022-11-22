@@ -1,6 +1,6 @@
 #include "friend_page.h"
 
-FriendPage::FriendPage(char* name, Date birthDate):Page(name)
+FriendPage::FriendPage(const char* name, Date birthDate):Page(name)
 {
     this->birthDate = birthDate;
 }

@@ -1,7 +1,7 @@
 
 #include "Bookface.h"
 
-BookFace::BookFace(): menu()
+BookFace::BookFace()
 {
     // allocate arrays here
     // set logical & physical sizes here
@@ -9,73 +9,45 @@ BookFace::BookFace(): menu()
     this->is_running = true;
 }
 
-bool BookFace::addUser()
+bool BookFace::addUser(const char *name, Date date)
 {
-    char name[MAX_NAME_LEN];
-    int day, month, year;
-    cout << "Enter name: [max 50 characters]";
-    cin >> name;
-    cout << "Enter birth date (day month year): ";
-    cin >> day >> month >> year;
-    if(this->isEntityInArr(name, true))
+    if(isEntityInArr(name, true))
     {
-        cout << "User already exists!" << endl;
+        cout << "User already exists in the system!" << endl;
         return false;
     }
-    if(this->usersLogSize == this->usersPhySize)
+    else
     {
-        reallocArr(true);
+        if(this->usersLogSize == this->usersPhySize)
+        {
+            doubleArrSize(true);
+        }
+        this->usersArr[this->usersLogSize] = new FriendPage(name, date);
+        this->usersLogSize++;
+        return true;
     }
-    this->usersArr[usersLogSize] = new FriendPage(name, Date(day, month, year));
-    this->usersLogSize++;
-    return true;
 }
 
-
-void BookFace::showMenu()
+bool BookFace::addPage(const char *name)
 {
-    this->menu.displayMenu();
-}
-
-void BookFace::setOptionInMenu()
-{
-    this->menu.setChoiceFromUserInput();
-}
-
-void BookFace::activateMenuOption()
-{
-    switch(this->menu.getChoice())
+    if(isEntityInArr(name, false))
     {
-        case Menu::eOption::ADD_USER:
-            addUser();
-            break;
-        case Menu::eOption::ADD_PAGE:
-            break;
-        case Menu::eOption::ADD_STATUS:
-            break;
-        case Menu::eOption::SHOW_ENTITY_STATUSES:
-            break;
-        case Menu::eOption::SHOW_LAST_STATUSES:
-            break;
-        case Menu::eOption::CONNECT_USERS:
-            break;
-        case Menu::eOption::REMOVE_USERS_CONNECTION:
-            break;
-        case Menu::eOption::ADD_USER_TO_PAGE:
-            break;
-        case Menu::eOption::REMOVE_USER_FROM_PAGE:
-            break;
-        case Menu::eOption::SHOW_ALL_ENTITIES:
-            break;
-        case Menu::eOption::SHOW_ALL_FOLLOWERS_OF_ENTITY:
-            break;
-        case Menu::eOption::EXIT:
-            break;
+        cout << "Page already exists in the system!" << endl;
+        return false;
     }
-
+    else
+    {
+        if(this->fanPageLogSize == this->fanPagePhySize)
+        {
+            doubleArrSize(false);
+        }
+        this->fanPagesArr[this->fanPageLogSize] = new FanPage(name);
+        this->fanPageLogSize++;
+        return true;
+    }
 }
 
-void BookFace::reallocArr(bool isUserArr)
+void BookFace::doubleArrSize(bool isUserArr)
 {
     if(isUserArr)
     {

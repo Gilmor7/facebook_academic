@@ -20,7 +20,7 @@ private:
     int logicNumOfFanPages;
 
 public:
-    FriendPage(char* name, Date birthDate);
+    FriendPage(const char* name, Date birthDate);
     FriendPage(FriendPage& otherFriend);
     FriendPage(FriendPage&& otherFriend);
     ~FriendPage();
