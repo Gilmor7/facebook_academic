@@ -1,18 +1,14 @@
-
-#include "Bookface.h"
-#include "Utilities.h"
+#include "FanPage.h"
+#include "FriendPage.h"
 
 int main()
 {
-    BookFace system;
-    eOption currChoice;
-    do {
 
-        displayMenu();
-        currChoice = getUserInput();
-        activateEOption(currChoice, &system);
+    const char* fanPageName = "Labron James Fan Page";
+    FriendPage f1;
 
-    } while(system.getRunningState());
+    FanPage testPage(fanPageName);
+    testPage.showName();
 
     return 0;
 }

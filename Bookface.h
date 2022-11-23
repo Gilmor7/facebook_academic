@@ -1,7 +1,7 @@
 
 #ifndef FACEBOOK_ACADEMIC_BOOKFACE_H
 #define FACEBOOK_ACADEMIC_BOOKFACE_H
-#include "friend_page.h"
+#include "FriendPage.h"
 #include "page.h"
 #include <iostream>
 using namespace std;

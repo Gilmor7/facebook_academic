@@ -1,77 +1,125 @@
 
 #include "FanPage.h"
-#include <iostream>
-using namespace std;
 
-FanPage::FanPage(const char* pageName) : Page(pageName)
+
+/// C'tors and D'tors
+
+FanPage::FanPage(const char *name)
 {
-    cout << "FanPage constructor" << endl;
+    this->statuses = new const Status*[1];
     this->followers = new FriendPage*[1];
-    this->followersLogSize = 1;
-    this->followersPhySize = 0;
+
+    this->followersLogSize = this->statusesLogSize = 0;
+    this->followersPhySize = this->statusesPhySize = 1;
+
+    int len = strlen(name) + 1;
+    this->pageName = new char[len];
+    strcpy(this->pageName, name);
 }
 
-FanPage::FanPage(const FanPage &other) : Page(other)
+FanPage::FanPage(FanPage &&other)
 {
-    cout << "FanPage copy constructor" << endl;
-    this->followers = new FriendPage*[other.followersPhySize];
-    this->followersLogSize = other.followersLogSize;
-    this->followersPhySize = other.followersPhySize;
+    this->pageName = other.pageName;
+    other.pageName = nullptr;
 
-    for (int i = 0; i < other.followersLogSize; i++)
-    {
-        this->followers[i] = other.followers[i];
-    }
-}
+    this->statuses = other.statuses;
+    other.statuses = nullptr;
 
-FanPage::FanPage(FanPage &&other) : Page(std::move(other))
-{
-    cout << "FanPage move constructor" << endl;
     this->followers = other.followers;
     other.followers = nullptr;
 
-    this->followersLogSize = other.followersLogSize;
     this->followersPhySize = other.followersPhySize;
+    this->followersLogSize = other.followersLogSize;
+
+    this->statusesPhySize = other.statusesPhySize;
+    this->statusesLogSize = other.statusesLogSize;
+
 }
 
 FanPage::~FanPage()
 {
-    cout << "FanPage destructor" << endl;
+    delete[] this->pageName;
     delete[] this->followers;
+    delete[] this->statuses;
 }
 
-void FanPage::addFollower(FriendPage &user)
-{
-    cout << "FanPage::addFollower" << endl;
-    if (this->followersLogSize == this->followersPhySize)
-    {
-        this->doubleFollowersSize();
-    }
 
-    this->followers[this->followersLogSize] = &user;
+/// followers methods
+
+void FanPage::addFollower(FriendPage &follower)
+{
+    if(this->followersLogSize == this->followersPhySize)
+    {
+        this->doubleFollowersArr();
+    }
+    this->followers[this->followersLogSize] = &follower;
     this->followersLogSize++;
-}
 
-void FanPage::doubleFollowersSize()
-{
-    cout << "FanPage::doubleFollowersSize" << endl;
-    int i;
-    this->followersPhySize *= 2;
-    FriendPage** newArr = new FriendPage* [this->followersPhySize];
-    for(i=0; i<this->followersLogSize; i++)
-    {
-        newArr[i] = this->followers[i];
-    }
-    delete[] this->followers;
-    this->followers = newArr;
+    //follower.followFanPage(*this);
 }
 
 void FanPage::showFollowers() const
 {
-    cout << "FanPage::showFollowers" << endl;
     int i;
     for(i=0; i<this->followersLogSize; i++)
     {
-        cout << this->followers[i]->getName() << endl;
+        this->followers[i]->showName();
     }
+}
+
+
+/// statuses methods
+
+void FanPage::showStatuses() const
+{
+    int i;
+    for(i=0; i<this->statusesLogSize; i++)
+    {
+        this->statuses[i]->showStatus();
+    }
+}
+
+void FanPage::addStatues(const Status &status)
+{
+    if(this->statusesLogSize == this->statusesPhySize)
+    {
+        this->doubleStatusesArr();
+    }
+    this->statuses[this->statusesLogSize] = &status;
+
+}
+
+
+
+/// realloc methods
+
+void FanPage::doubleFollowersArr()
+{
+    this->followersPhySize *= 2;
+    FriendPage** temp = new FriendPage*[this->followersPhySize];
+    int i;
+    for(i=0; i<this->followersLogSize; i++)
+    {
+        temp[i] = this->followers[i];
+    }
+    delete[] this->followers;
+    this->followers = temp;
+}
+
+void FanPage::doubleStatusesArr()
+{
+    this->statusesPhySize *= 2;
+    const Status** temp = new const Status*[this->statusesPhySize];
+    int i;
+    for(i=0; i<this->statusesLogSize; i++)
+    {
+        temp[i] = this->statuses[i];
+    }
+    delete[] this->statuses;
+    this->statuses = temp;
+}
+
+void FanPage::showName() const
+{
+    cout << this->pageName << endl;
 }
