@@ -1,26 +1,18 @@
-
 #ifndef FACEBOOK_ACADEMIC_FANPAGE_H
 #define FACEBOOK_ACADEMIC_FANPAGE_H
 
-#include "FriendPage.h"
-#include "Status.h"
-#include <iostream>
-using namespace std;
+#include "StatusArray.h"
+#include "FriendArray.h"
 
+class Status;
 class FriendPage;
 
 class FanPage
 {
 private:
     char* pageName;
-    const Status** statuses;
-    FriendPage** followers;
-    int followersLogSize, followersPhySize;
-    int statusesLogSize, statusesPhySize;
-
-    // private utility functions
-    void doubleFollowersArr();
-    void doubleStatusesArr();
+    StatusArray statusesArr;
+    FriendArray followersArr;
 
 public:
     FanPage(const char* name);
@@ -32,7 +24,7 @@ public:
     void showFollowers() const;
 
     void showStatuses() const;
-    void addStatues(const Status& status);
+    void addStatus(Status& status);
 
     void showName() const;
 };

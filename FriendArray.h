@@ -5,21 +5,23 @@ class FriendPage;
 
 class FriendArray
 {
+private:
     FriendPage** friends;
     int phySize;
     int logSize;
 
 public:
     FriendArray();
+    FriendArray(const FriendArray& arr) = delete;
+    //TODO: Move Ctor??
     ~FriendArray();
 
     // Methods
     void push(FriendPage& newFriend);
     bool remove(int& indexToRemove);
+    void show() const;
 
 private:
-    FriendArray(const FriendArray& arr);
-
     void realloc();
 };
 

@@ -1,8 +1,10 @@
+#include <iostream>
 #include "FriendArray.h"
 #include "FriendPage.h"
 
 FriendArray::FriendArray()
 {
+    std::cout << "in empty constructor of FriendArray"<< std::endl; //To remove
     this->logSize = 0;
     this->phySize = 2;
     friends = new FriendPage*[phySize];
@@ -10,10 +12,11 @@ FriendArray::FriendArray()
 
 FriendArray::~FriendArray()
 {
+    std::cout << "in D'tor of FriendArray"<< std::endl; //To remove
     delete[] friends;
 }
 
-// Methods
+/// Methods
 void FriendArray::push(FriendPage& newFriend)
 {
     if(this->logSize == this->phySize)
@@ -35,6 +38,13 @@ bool FriendArray::remove(int& indexToRemove)
     return true;
 }
 
+void FriendArray::show() const
+{
+    for(int i = 0; i < this->logSize; i++)
+        this->friends[i]->showName();
+}
+
+/// Private Methods
 void FriendArray::realloc()
 {
     this->phySize *= 2;

@@ -13,7 +13,7 @@ class FriendPage
 private:
     // Date birthDate;
 
-    const char* name;
+    char* name;
 
     FriendArray friends;
     StatusArray statuses;
@@ -21,7 +21,7 @@ private:
 
 
 public:
-    FriendPage() = default; // for testing only
+    FriendPage(const char* name);
 
     void showName() const;
 };
