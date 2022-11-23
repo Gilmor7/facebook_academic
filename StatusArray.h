@@ -19,7 +19,7 @@ public:
 private:
     StatusArray(const StatusArray& arr);
 
-    void realloc(const int size, const int newSize);
+    void realloc();
 };
 
 #endif //FACEBOOK_ACADEMIC_STATUSARRAY_H

@@ -17,10 +17,7 @@ FriendArray::~FriendArray()
 void FriendArray::push(FriendPage& newFriend)
 {
     if(this->logSize == this->phySize)
-    {
-        this->phySize *= 2;
-        realloc(this->logSize, this->phySize);
-    }
+        realloc();
 
     this->friends[this->logSize] = &newFriend;
     this->logSize += 1;
@@ -38,11 +35,12 @@ bool FriendArray::remove(int& indexToRemove)
     return true;
 }
 
-void FriendArray::realloc(const int size, const int newSize)
+void FriendArray::realloc()
 {
-    FriendPage** updatedFriendArray = new FriendPage*[newSize];
+    this->phySize *= 2;
+    FriendPage** updatedFriendArray = new FriendPage*[this->phySize];
 
-    for (int i = 0; i < size; ++i) {
+    for (int i = 0; i < this->logSize; ++i) {
         updatedFriendArray[i] = this->friends[i];
     }
 

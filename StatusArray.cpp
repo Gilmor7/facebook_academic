@@ -20,22 +20,19 @@ StatusArray::~StatusArray()
 void StatusArray::push(Status& newStatus)
 {
     if(this->logSize == this->phySize)
-    {
-        this->phySize *= 2;
-        realloc(this->logSize, this->phySize);
-    }
+        realloc();
 
     this->statuses[this->logSize] = &newStatus;
     this->logSize += 1;
 }
 
-void StatusArray::realloc(const int size, const int newSize)
+void StatusArray::realloc()
 {
-    Status** updatedStatuses = new Status*[newSize];
+    this->phySize *= 2;
+    Status** updatedStatuses = new Status*[this->phySize];
 
-    for (int i = 0; i < size; ++i) {
+    for (int i = 0; i < this->logSize; ++i)
         updatedStatuses[i] = this->statuses[i];
-    }
 
     delete[] this->statuses;
     this->statuses = updatedStatuses;

@@ -20,7 +20,7 @@ public:
 private:
     FriendArray(const FriendArray& arr);
 
-    void realloc(const int size, const int newSize);
+    void realloc();
 };
 
 #endif //FACEBOOK_ACADEMIC_MEMBERARRAY_H
