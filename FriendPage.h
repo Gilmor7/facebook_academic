@@ -2,8 +2,11 @@
 #define FACEBOOK_ACADEMIC_FRIENDPAGE_H
 
 #include "Date.h"
-#include "FanPage.h"
-#include "Status.h"
+#include "FriendArray.h"
+#include "StatusArray.h"
+//#include "FanPageArray.h"
+
+const int NOT_FOUND = -1;
 
 class FriendPage
 {
@@ -12,13 +15,10 @@ private:
 
     const char* name;
 
-    FriendPage** friends;
-    int physiqueNumOfFriends;
-    int logicNumOfFriends;
+    FriendArray friends;
+    StatusArray statuses;
+//    FanPageArray fanPages;
 
-
-    int physiqueNumOfFanPages;
-    int logicNumOfFanPages;
 
 public:
     FriendPage() = default; // for testing only

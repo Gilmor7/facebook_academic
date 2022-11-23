@@ -1,4 +1,7 @@
 #include "FriendPage.h"
+#include <iostream>
+
+using namespace std;
 
  void FriendPage::showName() const
 {
