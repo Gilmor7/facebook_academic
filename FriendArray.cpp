@@ -7,7 +7,7 @@ FriendArray::FriendArray()
     std::cout << "in empty constructor of FriendArray"<< std::endl; //To remove
     this->logSize = 0;
     this->phySize = 2;
-    friends = new FriendPage*[phySize];
+    this->friends = new FriendPage*[phySize];
 }
 
 FriendArray::~FriendArray()
