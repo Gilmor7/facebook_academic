@@ -2,26 +2,25 @@
 #ifndef FACEBOOK_ACADEMIC_BOOKFACE_H
 #define FACEBOOK_ACADEMIC_BOOKFACE_H
 #include "FriendPage.h"
-#include "page.h"
+#include "FanPage.h"
 #include <iostream>
 using namespace std;
 
 class BookFace
 {
 private:
-    FriendPage** usersArr;
-    FanPage** fanPagesArr;
-    int usersLogSize, usersPhySize, fanPageLogSize, fanPagePhySize;
-    bool is_running;
+     FriendPage** usersArr;
+     FanPage** fanPagesArr;
+     int usersLogSize, usersPhySize, fanPageLogSize, fanPagePhySize;
+     bool is_running;
 
 
 public:
 
-    BookFace();   // initialize some users and pages here  (in the future, load from files)
+    BookFace();
 
-    // copy and move, maybe not needed?
-    BookFace(const BookFace& other);
-    BookFace(BookFace&& other);
+    BookFace(const BookFace& other) = delete;
+    BookFace(BookFace&& other) = delete;
     ~BookFace();
 
     // main program methods
@@ -34,10 +33,10 @@ public:
     bool unfollowFanPage(const char* userName, const char* fanPage);
     bool showAllFromPage(const char* pageName);
 
+
     // helper methods
     bool isEntityInArr(const char* nameOfEntity, bool isUser);
     bool getRunningState() const {return this->is_running;}
-    void doubleArrSize(bool isUserArr);
 };
 
 #endif //FACEBOOK_ACADEMIC_BOOKFACE_H
