@@ -4,6 +4,7 @@
 
 #include "Bookface.h"
 #include <iostream>
+#include <string.h>
 using namespace std;
 
 enum eOption {ADD_USER, ADD_PAGE, ADD_STATUS, SHOW_ENTITY_STATUSES, SHOW_LAST_STATUSES, CONNECT_USERS

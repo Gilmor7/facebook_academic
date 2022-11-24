@@ -30,11 +30,14 @@ public:
     void addStatusToFanPage(const char* pageName, Status& status);
     void showAllStatusesFromFriend(const char* pageName) const;
     void showAllStatusesFromFanPage(const char* pageName) const;
+    void showAllStatusesFromUsersFriends(const char* pageName) const;
     void connectUsers(const char* name1, const char* name2);
     void removeUsersConnection(const char* name1, const char* name2);
     void followFanPage(const char* userName, const char* fanPage);
     void unfollowFanPage(const char* userName, const char* fanPage);
-    void showAllFromPage(const char* pageName);
+    void showAllFriendsOfAUser(const char* userName);
+    void showAllFollowersOfFanPage(const char* FanPage);
+    void stopTheProgram();
 
     // helper methods
     bool isUserInArr() const;
