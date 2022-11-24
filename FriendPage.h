@@ -23,6 +23,10 @@ private:
 public:
     FriendPage(const char* name);
 
+    // getters
+    const char* getName() const {return this->name;}
+
+
     void showName() const;
 };
 

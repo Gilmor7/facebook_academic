@@ -3,6 +3,12 @@
 
 #include "StatusArray.h"
 #include "FriendArray.h"
+#include <iostream>
+#include "Status.h"
+#include "FriendPage.h"
+#include <string.h>
+
+using namespace std;
 
 class Status;
 class FriendPage;
@@ -26,6 +32,7 @@ public:
     void showStatuses() const;
     void addStatus(Status& status);
 
+    int findFollowerIndexInArr(FriendPage& follower);
     void showName() const;
 };
 

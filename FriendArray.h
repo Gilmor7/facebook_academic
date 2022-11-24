@@ -21,6 +21,10 @@ public:
     bool remove(int& indexToRemove);
     void show() const;
 
+    // getters
+    const int getSize() const {return this->logSize;}
+    const FriendPage* getFriendAtIndex(const int index) const {return this->friends[index];}
+
 private:
     void realloc();
 };

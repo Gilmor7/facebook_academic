@@ -1,8 +1,4 @@
-#include <iostream>
 #include "FanPage.h"
-#include "Status.h"
-
-using namespace std;
 
 /// C'tors and D'tors
 
@@ -46,6 +42,20 @@ void FanPage::addFollower(FriendPage &follower)
    this->followersArr.push(follower);
 
     //follower.followFanPage(*this); //TODO: Handle this like the coach and team example
+}
+
+int FanPage::findFollowerIndexInArr(FriendPage& follower)
+{
+    int index = NOT_FOUND;
+    int i;
+    const int arrSize = this->followersArr.getSize();
+    const FriendPage* friendPtr = nullptr;
+    for(i=0; i < arrSize, index == NOT_FOUND; i++){
+        friendPtr = this->followersArr.getFriendAtIndex(i);
+        if(strcmp(friendPtr->getName(), follower.getName()) == 0)    // same name = same follower
+            index = i;
+    }
+    return index;
 }
 
 void FanPage::showFollowers() const
