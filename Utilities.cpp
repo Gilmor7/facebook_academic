@@ -17,6 +17,7 @@ const char* DISPLAY_MENU_MESSAGE=
         "11. Show all the friends/followers of a user/fanPage.\n"
         "12. Exit the Program.\n";
 
+
 const char* INVALID_CHOICE_MSG= "Invalid choice, try again!\n";
 
 const char* ADD_USER_NAME_MSG= "Enter a name [max 50 characters]: ";
@@ -36,7 +37,7 @@ eOption getUserInput()
     return (eOption) option;
 }
 
-void activateEOption(eOption option, BookFace* systemPtr)
+void activateEOption(eOption option, BookFace& systemPtr)
 {
     switch (option)
     {

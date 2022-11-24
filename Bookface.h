@@ -9,9 +9,8 @@ using namespace std;
 class BookFace
 {
 private:
-     FriendPage** usersArr;
-     FanPage** fanPagesArr;
-     int usersLogSize, usersPhySize, fanPageLogSize, fanPagePhySize;
+     FriendArray users;
+     // FanPageArr
      bool is_running;
 
 
@@ -24,19 +23,23 @@ public:
     ~BookFace();
 
     // main program methods
-    bool addUser(const char* name, Date date);
-    bool addPage(const char* name);
+    void addUser(const char* name, Date date);
+    void addPage(const char* name);
     void showAllRegistered() const;
-    bool connectUsers(const char* name1, const char* name2);
-    bool removeUsersConnection(const char* name1, const char* name2);
-    bool followFanPage(const char* userName, const char* fanPage);
-    bool unfollowFanPage(const char* userName, const char* fanPage);
-    bool showAllFromPage(const char* pageName);
-
+    void addStatusToFriendPage(const char* pageName, Status& status);
+    void addStatusToFanPage(const char* pageName, Status& status);
+    void showAllStatusesFromFriend(const char* pageName) const;
+    void showAllStatusesFromFanPage(const char* pageName) const;
+    void connectUsers(const char* name1, const char* name2);
+    void removeUsersConnection(const char* name1, const char* name2);
+    void followFanPage(const char* userName, const char* fanPage);
+    void unfollowFanPage(const char* userName, const char* fanPage);
+    void showAllFromPage(const char* pageName);
 
     // helper methods
-    bool isEntityInArr(const char* nameOfEntity, bool isUser);
-    bool getRunningState() const {return this->is_running;}
+    bool isUserInArr() const;
+    bool isFanPageInArr() const;
+
 };
 
 #endif //FACEBOOK_ACADEMIC_BOOKFACE_H
