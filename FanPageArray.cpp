@@ -4,7 +4,6 @@
 
 FanPageArray::FanPageArray()
 {
-    std::cout << "in empty constructor of FanPageArray"<< std::endl; //To remove
     this->logSize = 0;
     this->phySize = 2;
     this->fanPages = new FanPage*[phySize];
@@ -12,7 +11,6 @@ FanPageArray::FanPageArray()
 
 FanPageArray::~FanPageArray()
 {
-    std::cout << "in D'tor of FanPageArray"<< std::endl; //To remove
     delete[] fanPages;
 }
 

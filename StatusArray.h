@@ -1,5 +1,6 @@
 #ifndef FACEBOOK_ACADEMIC_STATUSARRAY_H
 #define FACEBOOK_ACADEMIC_STATUSARRAY_H
+const int ALL = -1;
 
 class Status;
 
@@ -18,7 +19,7 @@ public:
 
     // Methods
     void push(Status& newStatus);
-    void show() const;
+    void show(int amount = ALL) const;
 
 
 private:

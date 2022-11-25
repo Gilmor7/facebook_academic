@@ -3,7 +3,6 @@
 
 StatusArray::StatusArray()
 {
-    cout << "in empty constructor of statusArray"<< endl; //To remove
     this->logSize = 0;
     this->phySize = 2;
     statuses = new Status*[phySize];
@@ -11,7 +10,6 @@ StatusArray::StatusArray()
 
 StatusArray::~StatusArray()
 {
-    std::cout << "in D'tor of StatusArray"<< std::endl; //To remove
     delete[] statuses;
 }
 
@@ -25,9 +23,13 @@ void StatusArray::push(Status& newStatus)
     this->logSize += 1;
 }
 
-void StatusArray::show() const
+void StatusArray::show(int amount) const
 {
-    for(int i = 0; i < this->logSize; i++)
+    int statusesAmount = amount == ALL ? this->logSize : amount;
+    int stopIndex = this->logSize - statusesAmount;
+    int startIndex = this->logSize - 1;
+
+    for(int i = startIndex; i >= stopIndex; i--)
         this->statuses[i]->showStatus();
 }
 

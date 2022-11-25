@@ -4,7 +4,6 @@
 
 FriendArray::FriendArray()
 {
-    std::cout << "in empty constructor of FriendArray"<< std::endl; //To remove
     this->logSize = 0;
     this->phySize = 2;
     this->friends = new FriendPage*[phySize];
@@ -12,17 +11,16 @@ FriendArray::FriendArray()
 
 FriendArray::~FriendArray()
 {
-    std::cout << "in D'tor of FriendArray"<< std::endl; //To remove
     delete[] friends;
 }
 
 /// Methods
-void FriendArray::push(FriendPage& newFriend)
+void FriendArray::push(FriendPage* newFriend)
 {
     if(this->logSize == this->phySize)
         realloc();
 
-    this->friends[this->logSize] = &newFriend;
+    this->friends[this->logSize] = newFriend;
     this->logSize += 1;
 }
 
@@ -31,8 +29,10 @@ bool FriendArray::remove(int& indexToRemove)
     if(indexToRemove == NOT_FOUND || this->logSize == 0) // Nothing to remove
         return false;
 
-    for (int i = indexToRemove; i < this->logSize - 1; ++i)
-        this->friends[i] = this->friends[i + 1];
+    if(indexToRemove < this->logSize - 1) {
+        for (int i = indexToRemove; i < this->logSize - 1; ++i)
+            this->friends[i] = this->friends[i + 1];
+    }
 
     this->logSize--;
     return true;
