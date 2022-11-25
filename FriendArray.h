@@ -17,7 +17,7 @@ public:
     ~FriendArray();
 
     // Methods
-    void push(FriendPage& newFriend);
+    void push(FriendPage* newFriend);
     bool remove(int& indexToRemove);
     void show() const;
 

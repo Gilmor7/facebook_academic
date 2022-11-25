@@ -1,6 +1,9 @@
+#include <iostream>
 #include "FanPage.h"
 #include "Status.h"
 #include "FriendPage.h"
+
+using namespace std;
 
 int main()
 {
@@ -9,10 +12,12 @@ int main()
     FanPage testPage(fanPageName);
     testPage.showName();
 
-    //Test Fan Page friend methods
-    FriendPage f1("Gil");
-    FriendPage f2("Eli");
-    FriendPage f3("Keren");
+    Date d1(9, 1, 1997);
+    Date d2(9, 1, 1998);
+    Date d3(9, 1, 1999);
+    FriendPage f1("Gil", d1);
+    FriendPage f2("Eli", d2);
+    FriendPage f3("Keren", d3);
 
     testPage.addFollower(f1);
     testPage.addFollower(f2);
@@ -28,7 +33,26 @@ int main()
     testPage.addStatus(s2);
     testPage.addStatus(s3);
 
-    testPage.showStatuses();
+    f2.addStatus(s1);
+    f2.addStatus(s2);
+    f2.addStatus(s3);
+
+    //Test Fan Page friend methods
+    cout << "adding friends to f1: " << endl;
+    f1.addFriend(&f2);
+    f1.addFriend(&f3);
+
+    cout << "printing friends of f1: " << endl;
+    f1.showFriends();
+
+    cout << "removing a friend from f1: " << endl;
+    f1.removeFriend(&f3); //Should it be the name of f2 ?
+
+    cout << "printing friends of f1: " << endl;
+    f1.showFriends();
+    int num = 2;
+    cout << "calling showFriendsStatuses from f1 with 2: " << endl;
+    f1.showFriendsStatuses(num);
 
     return 0;
 }

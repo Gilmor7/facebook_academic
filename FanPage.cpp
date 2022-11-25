@@ -39,7 +39,7 @@ void FanPage::showName() const
 
 void FanPage::addFollower(FriendPage &follower)
 {
-   this->followersArr.push(follower);
+   this->followersArr.push(&follower);
 
     //follower.followFanPage(*this); //TODO: Handle this like the coach and team example
 }
