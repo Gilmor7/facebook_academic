@@ -52,6 +52,7 @@ void activateEOption(eOption option, BookFace& system)
     char name2[MAX_NAME_LEN];
     char text[MAX_STATUS_TEXT_LEN];
     char choice[MAX_USER_CHOICE];
+    FriendPage* newUser = nullptr;
     Status* status = nullptr;
 
     switch (option)
@@ -62,7 +63,8 @@ void activateEOption(eOption option, BookFace& system)
             cin >> name;
             cout << ENTER_BIRTH_DATE;
             cin >> day >> month >> year;
-            system.addUser(name, Date(day, month, year));
+            newUser = new FriendPage(name, Date(day, month, year));
+            system.addUser(*newUser);
             break;
 
         case ADD_PAGE:

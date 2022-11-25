@@ -19,7 +19,7 @@ private:
     StatusArray statusesArr;
 
 public:
-    FriendPage(const char* name, Date& birthDate);
+    FriendPage(const char* name, Date birthDate);
     FriendPage(const FriendPage& other) = delete;
 //    FanPage(FanPage&& other);
     ~FriendPage();
@@ -29,9 +29,9 @@ public:
 
     void showName() const;
 
-    int findFriendIndexByName(const char* nameToFind);
-    void addFriend(FriendPage* newFriend);
-    void removeFriend(FriendPage* friendToRemove);
+    int findFriendIndex(FriendPage& friendPage);
+    void addFriend(FriendPage& newFriend);
+    void removeFriend(FriendPage& friendToRemove);
     void showFriends() const;
     void showFriendsStatuses(int amount) const;
 

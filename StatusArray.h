@@ -21,6 +21,7 @@ public:
     void push(Status& newStatus);
     void show(int amount = ALL) const;
 
+    void changePtrForMoveCtor() {statuses = nullptr;}
 
 private:
     void realloc();

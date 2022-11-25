@@ -3,8 +3,7 @@
 
 using namespace std;
 
-FriendPage::FriendPage(const char* name, Date& birthDate):
-birthDate(birthDate.getDay(), birthDate.getMonth(), birthDate.getYear())
+FriendPage::FriendPage(const char* name, Date birthDate): birthDate(birthDate)
 {
     // Set Name
     int len = strlen(name) + 1;
@@ -22,14 +21,15 @@ FriendPage::~FriendPage()
     cout << this->name << endl;
 }
 
-int FriendPage::findFriendIndexByName(const char* nameToFind)
+int FriendPage::findFriendIndex(FriendPage& friendPage)
 {
     int index = NOT_FOUND;
     int friendsArrSize = this->friendsArr.getSize();
+    const char* friendsName = friendPage.getName();
 
-    for (int i = 0; i < friendsArrSize, index == NOT_FOUND; ++i) {
+    for (int i = 0; i < friendsArrSize && index == NOT_FOUND; ++i) {
         if(strcmp(
-                nameToFind,
+                friendsName,
                 this->friendsArr.getFriendAtIndex(i)->getName()
                 ) == 0)
         {
@@ -40,17 +40,14 @@ int FriendPage::findFriendIndexByName(const char* nameToFind)
     return index;
 }
 
-void FriendPage::addFriend(FriendPage* newFriend)
+void FriendPage::addFriend(FriendPage& newFriend)
 {
-    this->friendsArr.push(newFriend);
-
-    //newFriend.addFriend(*this); //TODO: Handle this like the coach and team example
+    this->friendsArr.push(&newFriend);
 }
 
-void FriendPage::removeFriend(FriendPage* friendToRemove) //TODO:[Gil] - in my opinion we even should get here a name to make our "library as easy to use as possible
+void FriendPage::removeFriend(FriendPage& friendToRemove)
 {
-    const char* name = friendToRemove->getName();
-    int indexToRemove = findFriendIndexByName(name);
+    int indexToRemove = findFriendIndex(friendToRemove);
     this->friendsArr.remove(indexToRemove);
 }
 

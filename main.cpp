@@ -18,13 +18,11 @@ int main()
     FriendPage f1("Gil", d1);
     FriendPage f2("Eli", d2);
     FriendPage f3("Keren", d3);
-
     testPage.addFollower(f1);
     testPage.addFollower(f2);
     testPage.addFollower(f3);
 
     testPage.showFollowers();
-
     //Test fanPage status methods
     Status s1("Hello 1");
     Status s2("Hello 2");
@@ -39,14 +37,14 @@ int main()
 
     //Test Fan Page friend methods
     cout << "adding friends to f1: " << endl;
-    f1.addFriend(&f2);
-    f1.addFriend(&f3);
+    f1.addFriend(f2);
+    f1.addFriend(f3);
 
     cout << "printing friends of f1: " << endl;
     f1.showFriends();
 
     cout << "removing a friend from f1: " << endl;
-    f1.removeFriend(&f3); //Should it be the name of f2 ?
+    f1.removeFriend(f3); //Should it be the name of f2 ?
 
     cout << "printing friends of f1: " << endl;
     f1.showFriends();

@@ -20,6 +20,8 @@ public:
     void push(FriendPage* newFriend);
     bool remove(int& indexToRemove);
     void show() const;
+    void changePtrForMoveCtor() {friends = nullptr;}
+
 
     // getters
     const int getSize() const {return this->logSize;}

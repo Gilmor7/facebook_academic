@@ -16,13 +16,10 @@ FanPage::FanPage(FanPage &&other)
 
     //TODO: Make sure we handle this part correctly
     this->statusesArr = other.statusesArr;
+    other.statusesArr.changePtrForMoveCtor();
     this->followersArr = other.followersArr;
+    other.followersArr.changePtrForMoveCtor();
 
-//    this->statusesArr = other.statusesArr;
-//    other.statuses = nullptr;
-//
-//    this->followersArr = other.followers;
-//    other.followersArr = nullptr;
 }
 
 FanPage::~FanPage()
@@ -39,9 +36,17 @@ void FanPage::showName() const
 
 void FanPage::addFollower(FriendPage &follower)
 {
-   this->followersArr.push(&follower);
+    if(this->findFollowerIndexInArr(follower) == NOT_FOUND)
+        this->followersArr.push(&follower);
+    cout << "You are already following this page" << endl;
+}
 
-    //follower.followFanPage(*this); //TODO: Handle this like the coach and team example
+void FanPage::removeFollower(FriendPage &follower)
+{
+    int indexToRemove = this->findFollowerIndexInArr(follower);
+    if(indexToRemove != NOT_FOUND)
+        this->followersArr.remove(indexToRemove);
+    cout << "You are not following this page" << endl;
 }
 
 int FanPage::findFollowerIndexInArr(FriendPage& follower)
@@ -50,7 +55,7 @@ int FanPage::findFollowerIndexInArr(FriendPage& follower)
     int i;
     const int arrSize = this->followersArr.getSize();
     const FriendPage* friendPtr = nullptr;
-    for(i=0; i < arrSize, index == NOT_FOUND; i++){
+    for(i=0; i < arrSize && index == NOT_FOUND; i++){
         friendPtr = this->followersArr.getFriendAtIndex(i);
         if(strcmp(friendPtr->getName(), follower.getName()) == 0)    // same name = same follower
             index = i;

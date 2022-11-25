@@ -23,7 +23,9 @@ public:
     ~BookFace();
 
     // main program methods
-    void addUser(const char* name, Date date);
+    /// TODO: change parameters to references
+    /// TODO: implement addUser,AddPage, showALL....
+    void addUser(FriendPage& newUser);
     void addPage(const char* name);
     void showAllRegistered() const;
     void addStatusToFriendPage(const char* pageName, Status& status);
