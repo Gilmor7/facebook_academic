@@ -37,7 +37,7 @@ void FanPage::addFollower(FriendPage &follower)
 {
     if(this->findFollowerIndexInArr(follower) == NOT_FOUND)
         this->followersArr.push(&follower);
-    cout << "You are already following this page" << endl;
+     else cout << "You are already following this page" << endl;
 }
 
 void FanPage::removeFollower(FriendPage &follower)
@@ -45,7 +45,7 @@ void FanPage::removeFollower(FriendPage &follower)
     int indexToRemove = this->findFollowerIndexInArr(follower);
     if(indexToRemove != NOT_FOUND)
         this->followersArr.remove(indexToRemove);
-    cout << "You are not following this page" << endl;
+    else cout << "You are not following this page" << endl;
 }
 
 int FanPage::findFollowerIndexInArr(FriendPage& follower)

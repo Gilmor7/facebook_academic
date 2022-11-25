@@ -35,8 +35,9 @@ public:
     void showFriends() const;
     void showFriendsStatuses(int amount) const;
 
+    int findFanPageIndex(FanPage& fanPage);
     void followFanPage(FanPage& fanPage);
-    void unfollowFanPage();
+    void unfollowFanPage(FanPage& fanPage);
 
     void showStatuses(int amount = ALL) const;
     void addStatus(Status& status);

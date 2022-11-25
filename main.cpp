@@ -55,5 +55,14 @@ int main()
     cout << "calling showFriendsStatuses from f1 with 2: " << endl;
     f1.showFriendsStatuses(num);
 
+    //test friendPage fanPages methods
+    cout << endl << "testing fanPage array under friend instance" << endl;
+    cout << endl<< "index of test page in arr" << f1.findFanPageIndex(testPage) << endl;
+    f1.followFanPage(testPage);
+    cout << "index of test page in arr" << f1.findFanPageIndex(testPage) << endl;
+
+    f1.unfollowFanPage(testPage);
+    cout << "index of test page in arr" << f1.findFanPageIndex(testPage) << endl;
+
     return 0;
 }

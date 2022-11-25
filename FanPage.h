@@ -26,6 +26,9 @@ public:
     FanPage(FanPage&& other);
     ~FanPage();
 
+    // Getters
+    const char* getName() const {return this->pageName;}
+
     void addFollower(FriendPage& follower);
     void removeFollower(FriendPage& follower);
     void showFollowers() const;

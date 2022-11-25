@@ -15,12 +15,12 @@ FanPageArray::~FanPageArray()
 }
 
 /// Methods
-void FanPageArray::push(FanPage& newFanPage)
+void FanPageArray::push(FanPage* newFanPage)
 {
     if(this->logSize == this->phySize)
         realloc();
 
-    this->fanPages[this->logSize] = &newFanPage;
+    this->fanPages[this->logSize] = newFanPage;
     this->logSize += 1;
 }
 

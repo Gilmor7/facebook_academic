@@ -20,7 +20,7 @@ public:
     const FanPage* getFanPageAtIndex(const int index) const {return this->fanPages[index];}
 
     // Methods
-    void push(FanPage& newFanPage);
+    void push(FanPage* newFanPage);
     bool remove(int& indexToRemove);
     void show() const;
 

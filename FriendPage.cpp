@@ -1,11 +1,11 @@
 #include <iostream>
 #include "FriendPage.h"
+#include "FanPage.h"
 
 using namespace std;
 
 FriendPage::FriendPage(const char* name, Date birthDate): birthDate(birthDate)
 {
-    // Set Name
     int len = strlen(name) + 1;
     this->name = new char[len];
     strcpy(this->name, name);
@@ -57,6 +57,25 @@ int FriendPage::findFriendIndex(FriendPage& friendPage)
     return index;
 }
 
+int FriendPage::findFanPageIndex(FanPage& fanPage)
+{
+    int index = NOT_FOUND;
+    int fanPagesArrSize = this->fanPagesArr.getSize();
+    const char* friendsName = fanPage.getName();
+
+    for (int i = 0; i < fanPagesArrSize && index == NOT_FOUND; ++i) {
+        if(strcmp(
+                friendsName,
+                this->fanPagesArr.getFanPageAtIndex(i)->getName()
+        ) == 0)
+        {
+            index = i;
+        }
+    }
+
+    return index;
+}
+
 void FriendPage::addFriend(FriendPage& newFriend)
 {
     this->friendsArr.push(&newFriend);
@@ -82,14 +101,19 @@ void FriendPage::showFriendsStatuses(int amount) const
     }
 }
 
-void followFanPage(FanPage& fanPage)
+void FriendPage::followFanPage(FanPage& fanPage)
 {
-
+    if(this->findFanPageIndex(fanPage) == NOT_FOUND)
+        this->fanPagesArr.push(&fanPage);
+    else cout << "You are already following this page" << endl;
 }
 
-void unfollowFanPage()
+void FriendPage::unfollowFanPage(FanPage& fanPage)
 {
-
+    int indexToRemove = this->findFanPageIndex(fanPage);
+    if(indexToRemove != NOT_FOUND)
+        this->fanPagesArr.remove(indexToRemove);
+    else cout << "You are not following this page" << endl;
 }
 
 /// statuses methods
