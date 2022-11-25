@@ -31,6 +31,9 @@ int main()
     testPage.addStatus(s2);
     testPage.addStatus(s3);
 
+    cout << "printing all testPage statuses" << endl;
+    testPage.showStatuses(15);
+
     f2.addStatus(s1);
     f2.addStatus(s2);
     f2.addStatus(s3);

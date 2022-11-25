@@ -11,14 +11,31 @@ FriendPage::FriendPage(const char* name, Date birthDate): birthDate(birthDate)
     strcpy(this->name, name);
 }
 
+FriendPage::FriendPage(FriendPage &&other): birthDate(other.birthDate)
+{
+    this->name = other.name;
+    other.name = nullptr;
+
+    this->statusesArr = other.statusesArr;
+    other.statusesArr.emptyArrPtr();
+
+    this->friendsArr = other.friendsArr;
+    other.friendsArr.emptyArrPtr();
+
+    this->fanPagesArr = other.fanPagesArr;
+    other.fanPagesArr.emptyArrPtr();
+}
+
 FriendPage::~FriendPage()
 {
     delete[] this->name;
 }
 
- void FriendPage::showName() const
+ void FriendPage::show() const
 {
-    cout << this->name << endl;
+    cout << "Name: " << this->name << endl << "Birth date: ";
+    this->birthDate.showDate();
+    cout << endl;
 }
 
 int FriendPage::findFriendIndex(FriendPage& friendPage)
@@ -61,7 +78,7 @@ void FriendPage::showFriendsStatuses(int amount) const
     int friendsArrSize = this->friendsArr.getSize();
 
     for (int i = 0; i < friendsArrSize; ++i) {
-        friendsArr.getFriendAtIndex(i)->statusesArr.show(amount);
+        friendsArr.getFriendAtIndex(i)->showStatuses(amount);
     }
 }
 
@@ -77,9 +94,9 @@ void unfollowFanPage()
 
 /// statuses methods
 
-void FriendPage::showStatuses() const
+void FriendPage::showStatuses(int amount) const
 {
-    this->statusesArr.show();
+    this->statusesArr.show(amount);
 }
 
 void FriendPage::addStatus(Status &status)

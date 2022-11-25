@@ -13,17 +13,18 @@ private:
 public:
     FanPageArray();
     FanPageArray(const FanPageArray& arr) = delete;
-    //TODO: Move Ctor??
     ~FanPageArray();
+
+    // getters
+    const int getSize() const {return this->logSize;}
+    const FanPage* getFanPageAtIndex(const int index) const {return this->fanPages[index];}
 
     // Methods
     void push(FanPage& newFanPage);
     bool remove(int& indexToRemove);
     void show() const;
 
-    // getters
-    const int getSize() const {return this->logSize;}
-    const FanPage* getFanPageAtIndex(const int index) const {return this->fanPages[index];}
+    void emptyArrPtr() {fanPages = nullptr;}
 
 private:
     void realloc();

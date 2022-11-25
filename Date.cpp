@@ -11,5 +11,9 @@ Date::Date(int day, int month, int year)
 
 void Date::showDate() const
 {
-    cout << "day: " << day << ", month: " << month << ", year: " << year << endl;
+    cout << (day < 10 ? "0" : "")
+         << day << "/"
+         << (month < 10 ? "0" : "")
+         << month << "/"
+         << year;
 }

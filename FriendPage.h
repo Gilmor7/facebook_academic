@@ -21,13 +21,13 @@ private:
 public:
     FriendPage(const char* name, Date birthDate);
     FriendPage(const FriendPage& other) = delete;
-//    FanPage(FanPage&& other);
+    FriendPage(FriendPage&& other);
     ~FriendPage();
 
     // getters
     const char* getName() const {return this->name;}
 
-    void showName() const;
+    void show() const;
 
     int findFriendIndex(FriendPage& friendPage);
     void addFriend(FriendPage& newFriend);
@@ -38,7 +38,7 @@ public:
     void followFanPage(FanPage& fanPage);
     void unfollowFanPage();
 
-    void showStatuses() const;
+    void showStatuses(int amount = ALL) const;
     void addStatus(Status& status);
 };
 

@@ -13,19 +13,17 @@ private:
 public:
     FriendArray();
     FriendArray(const FriendArray& arr) = delete;
-    //TODO: Move Ctor??
     ~FriendArray();
+
+    // getters
+    const int getSize() const {return this->logSize;}
+    const FriendPage* getFriendAtIndex(const int index) const {return this->friends[index];}
 
     // Methods
     void push(FriendPage* newFriend);
     bool remove(int& indexToRemove);
     void show() const;
-    void changePtrForMoveCtor() {friends = nullptr;}
-
-
-    // getters
-    const int getSize() const {return this->logSize;}
-    const FriendPage* getFriendAtIndex(const int index) const {return this->friends[index];}
+    void emptyArrPtr() {friends = nullptr;} // Empty friends pointer for using in Move C'tor of another class
 
 private:
     void realloc();

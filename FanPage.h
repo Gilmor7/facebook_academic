@@ -30,7 +30,7 @@ public:
     void removeFollower(FriendPage& follower);
     void showFollowers() const;
 
-    void showStatuses() const;
+    void showStatuses(int amount = ALL) const;
     void addStatus(Status& status);
 
     int findFollowerIndexInArr(FriendPage& follower);

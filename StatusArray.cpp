@@ -25,7 +25,15 @@ void StatusArray::push(Status& newStatus)
 
 void StatusArray::show(int amount) const
 {
-    int statusesAmount = amount == ALL ? this->logSize : amount;
+    int statusesAmount;
+    if(amount == ALL || amount > this->logSize)
+        statusesAmount = this->logSize;
+
+    else if (amount < -1)
+        statusesAmount = 0;
+
+    else statusesAmount = amount;
+
     int stopIndex = this->logSize - statusesAmount;
     int startIndex = this->logSize - 1;
 

@@ -41,7 +41,7 @@ bool FriendArray::remove(int& indexToRemove)
 void FriendArray::show() const
 {
     for(int i = 0; i < this->logSize; i++)
-        this->friends[i]->showName();
+        this->friends[i]->show();
 }
 
 /// Private Methods

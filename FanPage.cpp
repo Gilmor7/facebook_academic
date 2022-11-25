@@ -14,12 +14,11 @@ FanPage::FanPage(FanPage &&other)
     this->pageName = other.pageName;
     other.pageName = nullptr;
 
-    //TODO: Make sure we handle this part correctly
     this->statusesArr = other.statusesArr;
-    other.statusesArr.changePtrForMoveCtor();
-    this->followersArr = other.followersArr;
-    other.followersArr.changePtrForMoveCtor();
+    other.statusesArr.emptyArrPtr();
 
+    this->followersArr = other.followersArr;
+    other.followersArr.emptyArrPtr();
 }
 
 FanPage::~FanPage()
@@ -70,9 +69,9 @@ void FanPage::showFollowers() const
 
 /// statuses methods
 
-void FanPage::showStatuses() const
+void FanPage::showStatuses(int amount) const
 {
-    this->statusesArr.show();
+    this->statusesArr.show(amount);
 }
 
 void FanPage::addStatus(Status &status)

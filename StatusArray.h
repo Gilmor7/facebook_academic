@@ -14,14 +14,13 @@ private:
 public:
     StatusArray();
     StatusArray(const StatusArray& arr) = delete;
-    //TODO: Move Ctor??
     ~StatusArray();
 
     // Methods
     void push(Status& newStatus);
     void show(int amount = ALL) const;
 
-    void changePtrForMoveCtor() {statuses = nullptr;}
+    void emptyArrPtr() {statuses = nullptr;}
 
 private:
     void realloc();
