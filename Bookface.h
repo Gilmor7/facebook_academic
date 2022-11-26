@@ -10,9 +10,8 @@ class BookFace
 {
 private:
      FriendArray users;
-     // FanPageArr
+     FanPageArray fanPages;
      bool is_running;
-
 
 public:
 
@@ -26,20 +25,20 @@ public:
     /// TODO: change parameters to references
     /// TODO: implement addUser,AddPage, showALL....
     void addUser(FriendPage& newUser);
-    void addPage(const char* name);
+    void addPage(FanPage& newFanPage);
     void showAllRegistered() const;
-    void addStatusToFriendPage(const char* pageName, Status& status);
-    void addStatusToFanPage(const char* pageName, Status& status);
-    void showAllStatusesFromFriend(const char* pageName) const;
-    void showAllStatusesFromFanPage(const char* pageName) const;
-    void showAllStatusesFromUsersFriends(const char* pageName) const;
-    void connectUsers(const char* name1, const char* name2);
-    void removeUsersConnection(const char* name1, const char* name2);
-    void followFanPage(const char* userName, const char* fanPage);
-    void unfollowFanPage(const char* userName, const char* fanPage);
-    void showAllFriendsOfAUser(const char* userName);
-    void showAllFollowersOfFanPage(const char* FanPage);
-    void stopTheProgram();
+    void addStatusToFriendPage(FriendPage& user, Status& status);
+    void addStatusToFanPage(FanPage& fanPage, Status& status);
+    void showAllStatusesFromFriend(FriendPage& user) const;
+    void showAllStatusesFromFanPage(FanPage& fanPage) const;
+    void showAllStatusesFromUsersFriends(FriendPage& user) const;
+    void connectUsers(FriendPage& user1, FriendPage& user2);
+    void removeUsersConnection(FriendPage& user1, FriendPage& user2);
+    void followFanPage(FriendPage& user, FanPage& fanPage);
+    void unfollowFanPage(FriendPage& user, FanPage& fanPage);
+    void showAllFriendsOfAUser(FriendPage& user) const;
+    void showAllFollowersOfFanPage(FanPage& fanPage) const;
+    void stopTheProgram() {this->is_running = false;}
 
     // helper methods
     bool isUserInArr() const;
