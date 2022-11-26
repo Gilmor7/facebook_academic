@@ -21,7 +21,7 @@ public:
     void show(int amount = ALL) const;
 
     void emptyArrPtr() {statuses = nullptr;}
-
+    void deleteStatuses();
 private:
     void realloc();
 };

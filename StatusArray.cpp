@@ -41,6 +41,12 @@ void StatusArray::show(int amount) const
         this->statuses[i]->showStatus();
 }
 
+void StatusArray::deleteStatuses()
+{
+    for(int i = 0; i < this->logSize; i++)
+        delete this->statuses[i];
+}
+
 /// Private Methods
 void StatusArray::realloc()
 {

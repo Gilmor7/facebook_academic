@@ -23,6 +23,7 @@ FanPage::FanPage(FanPage &&other)
 
 FanPage::~FanPage()
 {
+    this->statusesArr.deleteStatuses();
     delete[] this->pageName;
 }
 

@@ -42,7 +42,7 @@ void BookFace::showAllRegistered() const
     this->fanPages.show();
 }
 
-void BookFace::addStatusToFriendPage(FriendPage &user, Status &status)
+void BookFace::addStatusToFriendPage(FriendPage &user, Status& status)
 {
     const bool isExists = this->users.isFriendInArr(user);
     if(isExists)
@@ -51,7 +51,7 @@ void BookFace::addStatusToFriendPage(FriendPage &user, Status &status)
         cout << "User doesn't exist" << endl;
 }
 
-void BookFace::addStatusToFanPage(FanPage &fanPage, Status &status)
+void BookFace::addStatusToFanPage(FanPage &fanPage, Status& status)
 {
     const bool isExists = this->fanPages.isFanPageInArr(fanPage);
     if(isExists)
