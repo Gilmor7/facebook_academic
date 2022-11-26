@@ -12,8 +12,6 @@ FriendArray::FriendArray()
 
 FriendArray::~FriendArray()
 {
-    for(int i = 0; i < this->logSize; i++)
-        delete this->friends[i];
     delete[] this->friends;
 }
 
