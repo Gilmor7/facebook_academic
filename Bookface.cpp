@@ -91,10 +91,19 @@ void BookFace::connectUsers(FriendPage &user1, FriendPage &user2)
 {
     const bool user1Exists = this->users.isFriendInArr(user1);
     const bool user2Exists = this->users.isFriendInArr(user2);
+
+    int indexOfFriend2 = user1.findFriendIndex(user2);
     if(user1Exists && user2Exists)
     {
-        user1.addFriend(user2);     /// no need to do couch/team example because we are the admin
-        user2.addFriend(user1);
+        if(indexOfFriend2 == -1)    // means they are not connected
+        {
+            user1.addFriend(user2);     /// no need to do couch/team example because we are the admin
+            user2.addFriend(user1);
+        }
+        else
+        {
+            cout << "Users are already connected" << endl;
+        }
     }
     else
         cout << "One of the users doesn't exist" << endl;
@@ -104,10 +113,19 @@ void BookFace::removeUsersConnection(FriendPage &user1, FriendPage &user2)
 {
     const bool user1Exists = this->users.isFriendInArr(user1);
     const bool user2Exists = this->users.isFriendInArr(user2);
+
+    int indexOfFriend2 = user1.findFriendIndex(user2);
     if(user1Exists && user2Exists)
     {
-        user1.removeFriend(user2);
-        user2.removeFriend(user1);
+        if (indexOfFriend2 != -1)     // means they are friends
+        {
+            user1.removeFriend(user2);
+            user2.removeFriend(user1);
+        }
+        else
+        {
+            cout << "Users are not connected" << endl;
+        }
     }
     else
         cout << "One of the users doesn't exist" << endl;
