@@ -17,4 +17,7 @@ eOption getUserInput();
 void activateEOption(eOption option, BookFace& system);
 
 
+// testing functions
+void gilTest();
+
 #endif //FACEBOOK_ACADEMIC_UTILITIES_H

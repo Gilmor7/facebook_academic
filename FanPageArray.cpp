@@ -42,6 +42,24 @@ void FanPageArray::show() const
         this->fanPages[i]->showName();
 }
 
+const bool FanPageArray::isFanPageInArr(FanPage& fanPage) const
+{
+    for(int i = 0; i < this->logSize; i++)
+        if(this->fanPages[i]->getName() == fanPage.getName())
+            return true;
+    return false;
+}
+
+void FanPageArray::deleteAllPages()
+{
+    for(int i = 0; i < this->logSize; i++)
+    {
+        cout << "Deleting page: " << this->fanPages[i]->getName() << endl;
+        delete this->fanPages[i];
+    }
+    this->logSize = 0;
+}
+
 /// Private Methods
 void FanPageArray::realloc()
 {

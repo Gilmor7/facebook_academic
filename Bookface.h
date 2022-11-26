@@ -14,9 +14,7 @@ private:
      bool is_running;
 
 public:
-
     BookFace();
-
     BookFace(const BookFace& other) = delete;
     BookFace(BookFace&& other) = delete;
     ~BookFace();
@@ -41,8 +39,9 @@ public:
     void stopTheProgram() {this->is_running = false;}
 
     // helper methods
-    bool isUserInArr() const;
     bool isFanPageInArr() const;
+
+    bool getRunningState() const {return this->is_running;}
 
 };
 

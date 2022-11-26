@@ -26,6 +26,9 @@ public:
 
     void emptyArrPtr() {fanPages = nullptr;}
 
+    const bool isFanPageInArr(FanPage& fanPage) const;
+    void deleteAllPages();
+
 private:
     void realloc();
 };

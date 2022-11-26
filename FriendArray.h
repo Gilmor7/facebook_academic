@@ -25,6 +25,10 @@ public:
     void show() const;
     void emptyArrPtr() {friends = nullptr;} // Empty friends pointer for using in Move C'tor of another class
 
+    const bool isFriendInArr(FriendPage& user) const;
+
+    void deleteAllUsers();
+
 private:
     void realloc();
 };

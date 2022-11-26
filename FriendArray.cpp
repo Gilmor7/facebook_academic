@@ -1,6 +1,7 @@
 #include <iostream>
 #include "FriendArray.h"
 #include "FriendPage.h"
+using namespace std;
 
 FriendArray::FriendArray()
 {
@@ -11,7 +12,9 @@ FriendArray::FriendArray()
 
 FriendArray::~FriendArray()
 {
-    delete[] friends;
+    for(int i = 0; i < this->logSize; i++)
+        delete this->friends[i];
+    delete[] this->friends;
 }
 
 /// Methods
@@ -42,6 +45,23 @@ void FriendArray::show() const
 {
     for(int i = 0; i < this->logSize; i++)
         this->friends[i]->show();
+}
+
+const bool FriendArray::isFriendInArr(FriendPage &user) const
+{
+    for(int i = 0; i < this->logSize; i++)
+        if(this->friends[i]->getName() == user.getName())
+            return true;
+    return false;
+}
+
+void FriendArray::deleteAllUsers() {
+    for (int i = 0; i < this->logSize; i++)
+    {
+        cout << "Deleting: " << this->friends[i]->getName() << endl;
+        delete this->friends[i];
+    }
+    this->logSize = 0;
 }
 
 /// Private Methods
