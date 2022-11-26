@@ -17,6 +17,10 @@ int main()
     Status* s3 = new Status("no gonna work");
     Status* s4 = new Status("also not gonna work");
 
+    Status* s5 = new Status("test1");
+    Status* s6 = new Status("test2");
+    Status* s7 = new Status("test3");
+
     {
         BookFace system;
 
@@ -68,11 +72,19 @@ int main()
 
         system.showAllStatusesFromFriend(*notInSystemUser); // error -> works
         system.showAllStatusesFromFanPage(*notInSystemPage);    // error -> works
+        cout << "\n\n";
 
+        system.addStatusToFriendPage(*f1, *s5);
+        system.addStatusToFriendPage(*f1, *s6);
+        system.addStatusToFriendPage(*f1, *s7);
+        system.connectUsers(*f1, *f2);
+        system.showAllStatusesFromUsersFriends(*f2);
+        cout << endl;
+        system.showAllStatusesFromUsersFriends(*f1);
+        cout << endl;
+        system.showAllStatusesFromUsersFriends(*notInSystemUser); // should give error
     }
 
     delete notInSystemUser;
     delete notInSystemPage;
-    delete s3;
-    delete s4;
 }

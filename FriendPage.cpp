@@ -28,8 +28,8 @@ FriendPage::FriendPage(FriendPage &&other): birthDate(other.birthDate)
 
 FriendPage::~FriendPage()
 {
-    delete[] this->name;
     this->statusesArr.deleteStatuses();
+    delete[] this->name;
 }
 
  void FriendPage::show() const
