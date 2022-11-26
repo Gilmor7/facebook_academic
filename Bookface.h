@@ -21,9 +21,9 @@ public:
     BookFace(BookFace&& other) = delete;
     ~BookFace();
 
-    // main program methods
-    /// TODO: change parameters to references
-    /// TODO: implement addUser,AddPage, showALL....
+    /// TODO: change the needed function to return bool to handle user/page deletion from the outside
+    /// (for example: a new user is malloced from outside, but the name already exists in users. so return false to the outside
+    /// and delete the new user. (the user inside the users will be freed in the D'tor)
     void addUser(FriendPage& newUser);
     void addPage(FanPage& newFanPage);
     void showAllRegistered() const;
