@@ -6,6 +6,8 @@
 #include <iostream>
 using namespace std;
 
+const int NUM_OF_FRIENDS_STATUSESS = 10;
+
 class BookFace
 {
 private:
@@ -39,7 +41,6 @@ public:
     void stopTheProgram() {this->is_running = false;}
 
     // helper methods
-    bool isFanPageInArr() const;
 
     bool getRunningState() const {return this->is_running;}
 
