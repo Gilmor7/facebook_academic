@@ -8,22 +8,35 @@ BookFace::BookFace()
 }
 
 /// Menu functions
-void BookFace::addUser(FriendPage &newUser)
+bool BookFace::addUser(FriendPage &newUser)
 {
     const bool isExists = this->users.isFriendInArr(newUser);
-    if(isExists)
-        cout << "User already exists" << endl;
+    if (isExists)
+    {
+        cout << "User already exists in the system" << endl;
+        return false;
+    }
     else
+    {
         this->users.push(&newUser);
+        return true;
+    }
+
 }
 
-void BookFace::addPage(FanPage &newFanPage)
+bool BookFace::addPage(FanPage &newFanPage)
 {
     const bool isExists = this->fanPages.isFanPageInArr(newFanPage);
     if(isExists)
+    {
         cout << "Page already exists" << endl;
+        return false;
+    }
     else
+    {
         this->fanPages.push(&newFanPage);
+        return true;
+    }
 }
 
 void BookFace::showAllRegistered() const

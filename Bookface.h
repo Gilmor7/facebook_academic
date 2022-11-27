@@ -23,8 +23,8 @@ public:
     /// TODO: change the needed function to return bool to handle user/page deletion from the outside
     /// (for example: a new user is malloced from outside, but the name already exists in users. so return false to the outside
     /// and delete the new user. (the user inside the users will be freed in the D'tor)
-    void addUser(FriendPage& newUser);
-    void addPage(FanPage& newFanPage);
+    bool addUser(FriendPage& newUser);
+    bool addPage(FanPage& newFanPage);
     void showAllRegistered() const;
     void addStatusToFriendPage(FriendPage& user, Status& status);
     void addStatusToFanPage(FanPage& fanPage, Status& status);
