@@ -1,19 +1,11 @@
 
 #include "Bookface.h"
 
-/// C'tor and D'tor
+/// C'tor
 BookFace::BookFace()
 {
     this->is_running = true;
 }
-
-BookFace::~BookFace()
-{
-    cout << "Goodbye!" << endl;
-    users.deleteAllUsers();
-    fanPages.deleteAllPages();
-}
-
 
 /// Menu functions
 void BookFace::addUser(FriendPage &newUser)
@@ -181,4 +173,14 @@ void BookFace::showAllFollowersOfFanPage(FanPage &fanPage) const
     }
     else
         cout << "Page doesn't exist" << endl;
+}
+
+void BookFace::deleteUsers()
+{
+    this->users.deleteAllUsers();
+}
+
+void BookFace::deleteFanPages()
+{
+    this->fanPages.deleteAllPages();
 }

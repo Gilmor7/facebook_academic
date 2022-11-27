@@ -19,7 +19,6 @@ public:
     BookFace();
     BookFace(const BookFace& other) = delete;
     BookFace(BookFace&& other) = delete;
-    ~BookFace();
 
     /// TODO: change the needed function to return bool to handle user/page deletion from the outside
     /// (for example: a new user is malloced from outside, but the name already exists in users. so return false to the outside
@@ -43,6 +42,8 @@ public:
     // helper methods
 
     bool getRunningState() const {return this->is_running;}
+    void deleteUsers();
+    void deleteFanPages();
 
 };
 

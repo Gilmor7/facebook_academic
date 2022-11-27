@@ -83,6 +83,9 @@ int main()
         system.showAllStatusesFromUsersFriends(*f1);
         cout << endl;
         system.showAllStatusesFromUsersFriends(*notInSystemUser); // should give error
+
+        system.deleteFanPages();
+        system.deleteUsers();
     }
 
     delete notInSystemUser;
