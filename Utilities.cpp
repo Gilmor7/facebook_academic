@@ -230,3 +230,27 @@ void gilTest()
     cout << "index of test page in arr" << f1.findFanPageIndex(testPage) << endl;
 
 }
+
+FriendPage* getFriendByNameFromSystem(const char* name, BookFace& system)
+{
+    FriendArray* usersPtr = system.getFriendArrayPtr();
+    FriendPage* foundUser = nullptr;
+    for(int i=0; i < usersPtr->getSize(); i++)
+    {
+        if(name == usersPtr->getFriendAtIndex(i)->getName())
+            foundUser = usersPtr->getFriendAtIndex(i);
+    }
+    return foundUser;
+}
+
+FanPage* getFanPageByNameFromSystem(const char* name, BookFace& system)
+{
+    FanPageArray* pagesPtr = system.getFanPagesArrayPtr();
+    FanPage* foundPage = nullptr;
+    for(int i=0; i < pagesPtr->getSize(); i++)
+    {
+        if(name == pagesPtr->getFanPageAtIndex(i)->getName())
+            foundPage = pagesPtr->getFanPageAtIndex(i);
+    }
+    return foundPage;
+}

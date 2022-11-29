@@ -45,6 +45,10 @@ public:
     void deleteUsers();
     void deleteFanPages();
 
+    // getters
+    FriendArray* getFriendArrayPtr() {return &this->users;}
+    FanPageArray* getFanPagesArrayPtr() {return &this->fanPages;}
+
 };
 
 #endif //FACEBOOK_ACADEMIC_BOOKFACE_H

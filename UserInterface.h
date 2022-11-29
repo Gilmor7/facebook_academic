@@ -3,6 +3,7 @@
 #define FACEBOOK_ACADEMIC_USERINTERFACE_H
 
 #include "Bookface.h"
+#include "Utilities.h"
 
 // consts
 const int MAX_NAME_LEN = 51;
@@ -27,7 +28,10 @@ const char* DISPLAY_MENU_MESSAGE=
 const char* INVALID_CHOICE_MSG= "Invalid choice, try again!\n";
 const char* ENTER_NAME = "Enter a name [max 50 characters]: ";
 const char* ENTER_BIRTH_DATE = "\nEnter birthdate [day month year]: ";
-const char* CHOOSE_PAGE_OR_FRIEND = "Choose one [User/Page]: ";
+const char* CHOOSE_PAGE_OR_FRIEND =
+        "Choose one [pick 1 or 2]:\n"
+        "1. user\n"
+        "2. fanPage\n";
 const char* ADD_STATUS_TEXT_MSG= "Enter text for status [max 200 characters]: ";
 const char* ENTER_USER_THEN_FANPAGE = "first enter the fanPage name, then the user's name\n";
 
@@ -37,43 +41,38 @@ class UserInterface
 {
 public:
 
-    enum class eOption {ADD_USER, ADD_PAGE, ADD_STATUS, SHOW_ENTITY_STATUSES, SHOW_LAST_STATUSES, CONNECT_USERS
+    enum eOption {ADD_USER, ADD_PAGE, ADD_STATUS, SHOW_ENTITY_STATUSES, SHOW_LAST_STATUSES, CONNECT_USERS
         ,REMOVE_USERS_CONNECTION, ADD_USER_TO_PAGE, REMOVE_USER_FROM_PAGE, SHOW_ALL_ENTITIES
         ,SHOW_ALL_FOLLOWERS_OF_ENTITY, EXIT};
 
 
 private:
-    BookFace system;
     eOption currOption;
 
     // system functions - (should not be accessed from outside the class)
-    void addUser();
-    void addPage();
-    void showAllRegistered() const;
-    void addStatusToFriendPage();
-    void addStatusToFanPage();
-    void showAllStatusesFromFriend() const;
-    void showAllStatusesFromFanPage() const;
-    void showAllStatusesFromUsersFriends() const;
-    void connectUsers();
-    void removeUsersConnection();
-    void followFanPage();
-    void unfollowFanPage();
-    void showAllFriendsOfAUser() const;
-    void showAllFollowersOfFanPage() const;
-    void stopTheProgram();
+    void addUser(BookFace& system);
+    void addPage(BookFace& system);
+    void showAllRegistered(BookFace& system) const;
+    void addStatus(BookFace& system);
+    void showAllStatusesFromEntity(BookFace& system) const;
+    void showAllStatusesFromUsersFriends(BookFace& system) const;
+    void connectUsers(BookFace& system);
+    void removeUsersConnection(BookFace& system);
+    void followFanPage(BookFace& system);
+    void unfollowFanPage(BookFace& system);
+    void showAllFollowersOfEntity(BookFace& system);
+    void stopTheProgram(BookFace& system);
 
 public:
     // c'tors and d'tor
-    UserInterface() = default;
     UserInterface(const UserInterface& other) = delete;
     UserInterface(UserInterface&& other) = delete;
-    ~UserInterface();
+
 
     // interaction functions
     void displayMenu() const;
     void setOption(eOption newOption);
-    void activateOption();
+    void activateOption(BookFace& system);
 
 };
 
