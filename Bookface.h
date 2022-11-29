@@ -11,21 +11,20 @@ const int NUM_OF_FRIENDS_STATUSESS = 10;
 class BookFace
 {
 private:
-     FriendArray users;
-     FanPageArray fanPages;
-     bool is_running;
+    FriendArray users;
+    FanPageArray fanPages;
+    bool is_running;
 
 public:
     BookFace();
     BookFace(const BookFace& other) = delete;
     BookFace(BookFace&& other) = delete;
-    ~BookFace();
 
-    // main program methods
-    /// TODO: change parameters to references
-    /// TODO: implement addUser,AddPage, showALL....
-    void addUser(FriendPage& newUser);
-    void addPage(FanPage& newFanPage);
+    /// TODO: change the needed function to return bool to handle user/page deletion from the outside
+    /// (for example: a new user is malloced from outside, but the name already exists in users. so return false to the outside
+    /// and delete the new user. (the user inside the users will be freed in the D'tor)
+    bool addUser(FriendPage& newUser);
+    bool addPage(FanPage& newFanPage);
     void showAllRegistered() const;
     void addStatusToFriendPage(FriendPage& user, Status& status);
     void addStatusToFanPage(FanPage& fanPage, Status& status);
@@ -43,6 +42,8 @@ public:
     // helper methods
 
     bool getRunningState() const {return this->is_running;}
+    void deleteUsers();
+    void deleteFanPages();
 
 };
 

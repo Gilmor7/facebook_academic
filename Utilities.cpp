@@ -2,7 +2,7 @@
 #include "Utilities.h"
 
 const int MAX_NAME_LEN = 51;
-const int MAX_STATUS_TEXT_LEN = 101;
+const int MAX_STATUS_TEXT_LEN = 201;
 const int MAX_USER_CHOICE = 5;
 
 const char* DISPLAY_MENU_MESSAGE=
@@ -28,7 +28,7 @@ const char* ENTER_BIRTH_DATE = "\nEnter birthdate [day month year]: ";
 
 const char* CHOOSE_PAGE_OR_FRIEND = "Choose one [User/Page]: ";
 
-const char* ADD_STATUS_TEXT_MSG= "Enter text for status [max 100 characters]: ";
+const char* ADD_STATUS_TEXT_MSG= "Enter text for status [max 200 characters]: ";
 
 const char* ENTER_USER_THEN_FANPAGE = "first enter the fanPage name, then the user's name\n";
 
