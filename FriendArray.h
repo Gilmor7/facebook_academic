@@ -17,6 +17,7 @@ public:
 
     // getters
     const int getSize() const {return this->logSize;}
+    FriendPage* getFriendAtIndex(const int index) {return this->friends[index];}
     const FriendPage* getFriendAtIndex(const int index) const {return this->friends[index];}
 
     // Methods

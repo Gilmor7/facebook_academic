@@ -11,9 +11,9 @@ const int NUM_OF_FRIENDS_STATUSESS = 10;
 class BookFace
 {
 private:
-     FriendArray users;
-     FanPageArray fanPages;
-     bool is_running;
+    FriendArray users;
+    FanPageArray fanPages;
+    bool is_running;
 
 public:
     BookFace();
@@ -44,6 +44,10 @@ public:
     bool getRunningState() const {return this->is_running;}
     void deleteUsers();
     void deleteFanPages();
+
+    // getters
+    FriendArray* getFriendArrayPtr() {return &this->users;}
+    FanPageArray* getFanPagesArrayPtr() {return &this->fanPages;}
 
 };
 

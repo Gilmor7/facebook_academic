@@ -17,7 +17,7 @@ public:
 
     // getters
     const int getSize() const {return this->logSize;}
-    const FanPage* getFanPageAtIndex(const int index) const {return this->fanPages[index];}
+    FanPage* getFanPageAtIndex(const int index) {return this->fanPages[index];}
 
     // Methods
     void push(FanPage* newFanPage);

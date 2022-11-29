@@ -23,6 +23,7 @@ Status::Status(Status &&other)
 
 Status::~Status()
 {
+    cout << "deleting status" << this->text << endl;
     delete[] text;
 }
 
