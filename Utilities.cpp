@@ -1,175 +1,6 @@
 
 #include "Utilities.h"
 
-const int MAX_NAME_LEN = 51;
-const int MAX_STATUS_TEXT_LEN = 201;
-const int MAX_USER_CHOICE = 5;
-
-const char* DISPLAY_MENU_MESSAGE=
-        "1. Add new user to the system\n"
-        "2. Add new fanPage to the system.\n"
-        "3. Add new status to user/fanPage.\n"
-        "4. Show all statuses of user/fanPage.\n"
-        "5. Show 10 most recent statuses from specific user's friends.\n"
-        "6. Connect 2 users.\n"
-        "7. Remove friendship between 2 users\n"
-        "8. Add a user to a fanPage.\n"
-        "9. Remove a user from a fanPage.\n"
-        "10. Show All the registered entities in the system.\n"
-        "11. Show all the friends/followers of a user/fanPage.\n"
-        "12. Exit the Program.\n";
-
-
-const char* INVALID_CHOICE_MSG= "Invalid choice, try again!\n";
-
-
-const char* ENTER_NAME = "Enter a name [max 50 characters]: ";
-const char* ENTER_BIRTH_DATE = "\nEnter birthdate [day month year]: ";
-
-const char* CHOOSE_PAGE_OR_FRIEND = "Choose one [User/Page]: ";
-
-const char* ADD_STATUS_TEXT_MSG= "Enter text for status [max 200 characters]: ";
-
-const char* ENTER_USER_THEN_FANPAGE = "first enter the fanPage name, then the user's name\n";
-
-void displayMenu()
-{
-    cout << DISPLAY_MENU_MESSAGE;
-}
-
-eOption getUserInput()
-{
-    int option;
-    cout << "Choice an option from above: ";
-    cin >> option;
-    return (eOption) option;
-}
-
-void activateEOption(eOption option, BookFace& system)
-{
-    /// init helper variables
-    char name[MAX_NAME_LEN];
-    char name2[MAX_NAME_LEN];
-    char text[MAX_STATUS_TEXT_LEN];
-    char choice[MAX_USER_CHOICE];
-    FriendPage* newUser = nullptr;
-    Status* status = nullptr;
-
-    switch (option)
-    {
-        case ADD_USER:
-            int day,month,year;
-            cout << ENTER_NAME;
-            cin >> name;
-            cout << ENTER_BIRTH_DATE;
-            cin >> day >> month >> year;
-            newUser = new FriendPage(name, Date(day, month, year));
-            system.addUser(*newUser);
-            break;
-
-        case ADD_PAGE:
-            cout << ENTER_NAME;
-            cin >> name;
-            system.addPage(name);
-            break;
-
-        case ADD_STATUS:
-            cout << ADD_STATUS_TEXT_MSG;
-            cin >> text;
-            status = new Status(text);
-
-            cout << CHOOSE_PAGE_OR_FRIEND;
-            cin >> choice;
-
-            cout << ENTER_NAME;
-            cin >> name;
-
-            if(strcmp(choice, "User") == 0)
-                system.addStatusToFriendPage(name, *status);
-            else
-                system.addStatusToFanPage(name, *status);
-
-            break;
-
-        case SHOW_ENTITY_STATUSES:
-            cout << CHOOSE_PAGE_OR_FRIEND;
-            cin >> choice;
-
-            cout << ENTER_NAME;
-            cin >> name;
-            if(strcmp(choice, "User") == 0)
-                system.showAllStatusesFromFriend(name);
-            else
-                system.showAllStatusesFromFanPage(name);
-
-            break;
-
-        case SHOW_LAST_STATUSES:
-            cout << ENTER_NAME;
-            cin >> name;
-            system.showAllStatusesFromFriend(name);
-            break;
-
-        case CONNECT_USERS:
-            cout << ENTER_NAME;
-            cin >> name;
-            cout << endl;
-            cout << ENTER_NAME;
-            cin >> name2;
-            system.connectUsers(name, name2);
-            break;
-
-        case REMOVE_USERS_CONNECTION:
-            cout << ENTER_NAME;
-            cin >> name;
-            cout << endl;
-            cout << ENTER_NAME;
-            cin >> name2;
-            system.removeUsersConnection(name, name2);
-            break;
-
-        case ADD_USER_TO_PAGE:
-            cout << ENTER_USER_THEN_FANPAGE;
-            cout << ENTER_NAME;
-            cin >> name;
-            cout << endl;
-            cout << ENTER_NAME;
-            cin >> name2;
-            system.followFanPage(name, name2);
-            break;
-
-        case REMOVE_USER_FROM_PAGE:
-            cout << ENTER_USER_THEN_FANPAGE;
-            cout << ENTER_NAME;
-            cin >> name;
-            cout << endl;
-            cout << ENTER_NAME;
-            cin >> name2;
-            system.unfollowFanPage(name, name2);
-            break;
-        case SHOW_ALL_ENTITIES:
-            system.showAllRegistered();
-            break;
-        case SHOW_ALL_FOLLOWERS_OF_ENTITY:
-            cout << CHOOSE_PAGE_OR_FRIEND;
-            cin >> choice;
-            cout << endl;
-            cout << ENTER_NAME;
-            cin >> name;
-            if(strcpy(choice, "User") == 0)
-                system.showAllFriendsOfAUser(name);
-            else
-                system.showAllFollowersOfFanPage(name);
-            break;
-        case EXIT:
-            system.stopTheProgram();
-            break;
-        default:
-            cout << INVALID_CHOICE_MSG;
-            break;
-    }
-}
-
 void gilTest()
 {
     //Test Fan Page
@@ -229,6 +60,93 @@ void gilTest()
     f1.unfollowFanPage(testPage);
     cout << "index of test page in arr" << f1.findFanPageIndex(testPage) << endl;
 
+}
+
+void eliTest()
+{
+    FriendPage* f1 = new FriendPage("Eli", Date(12,9,1998));
+    FriendPage* f2 = new FriendPage("Bob", Date(6,6,1666));
+    FriendPage* notInSystemUser = new FriendPage("Test", Date(1,1,1));
+
+    FanPage* p1 = new FanPage("John cena fans");
+    FanPage* p2 = new FanPage("golden state warriors");
+    FanPage* notInSystemPage = new FanPage("TESTTTTTT");
+
+    Status* s1 = new Status("this is my first status!");
+    Status* s2 = new Status("a good day for the fans");
+    Status* s3 = new Status("no gonna work");
+    Status* s4 = new Status("also not gonna work");
+
+    Status* s5 = new Status("test1");
+    Status* s6 = new Status("test2");
+    Status* s7 = new Status("test3");
+
+    {
+        BookFace system;
+
+        system.addUser(*f1);
+        system.addUser(*f2);
+        system.addPage(*p1);
+        system.addPage(*p2);
+
+        cout << "\n\n";
+
+        system.addUser(*f1);   // should give error msg and not add -> works
+
+        cout << "\n\n";
+
+        system.addPage(*p2);  // should give error msg -> works
+        cout << "\n\n";
+
+
+        system.connectUsers(*f1, *f2);
+        system.connectUsers(*f1, *f2);  // should give msg users are connected -> works
+        cout << "\n\n";
+
+
+        system.connectUsers(*f1, *notInSystemUser); // should give error msg
+        cout << "\n\n";
+
+
+        system.removeUsersConnection(*f1, *f2);
+        system.removeUsersConnection(*f1, *f2); // should give msg users not connected -> works
+        cout << "\n\n";
+
+        system.removeUsersConnection(*f1, *notInSystemUser); // should give error msg -> works
+        cout << "\n\n";
+
+
+        system.showAllRegistered();
+
+        system.addStatusToFanPage(*p1, *s2);
+        system.addStatusToFanPage(*notInSystemPage, *s3); // error msg -> works
+        cout << "\n\n";
+
+
+        system.addStatusToFriendPage(*f2, *s1);
+        system.addStatusToFriendPage(*notInSystemUser, *s4); // error msg(with implicit casting) -> works
+        cout << "\n\n";
+
+        system.showAllStatusesFromFriend(*f2);
+        system.showAllStatusesFromFanPage(*p1);
+
+        system.showAllStatusesFromFriend(*notInSystemUser); // error -> works
+        system.showAllStatusesFromFanPage(*notInSystemPage);    // error -> works
+        cout << "\n\n";
+
+        system.addStatusToFriendPage(*f1, *s5);
+        system.addStatusToFriendPage(*f1, *s6);
+        system.addStatusToFriendPage(*f1, *s7);
+        system.connectUsers(*f1, *f2);
+        system.showAllStatusesFromUsersFriends(*f2);
+        cout << endl;
+        system.showAllStatusesFromUsersFriends(*f1);
+        cout << endl;
+        system.showAllStatusesFromUsersFriends(*notInSystemUser); // should give error
+    }
+
+    delete notInSystemUser;
+    delete notInSystemPage;
 }
 
 FriendPage* getFriendByNameFromSystem(const char* name, BookFace& system)

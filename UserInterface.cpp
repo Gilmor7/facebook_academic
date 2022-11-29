@@ -7,8 +7,8 @@ void UserInterface::addUser(BookFace &system)
 {
     char name[MAX_NAME_LEN];
     int day,month,year;
-    cin >> name;
-    cin >> day >> month >> year;
+    this->getName(name);
+    this->getBirthDate(&day, &month, &year);
     FriendPage* newUser = new FriendPage(name, Date(day,month,year));
     if(!system.addUser(*newUser))
         delete newUser;
@@ -17,7 +17,7 @@ void UserInterface::addUser(BookFace &system)
 void UserInterface::addPage(BookFace &system)
 {
     char name[MAX_NAME_LEN];
-    cin >> name;
+    this->getName(name);
     FanPage* newPage = new FanPage(name);
     if(!system.addPage(*newPage))
         delete newPage;
@@ -33,9 +33,11 @@ void UserInterface::addStatus(BookFace &system)
     int choice;
     char name[MAX_NAME_LEN];
     char text[MAX_STATUS_TEXT_LEN];
-    cin >> choice;
-    cin >> name;
-    cin >> text;
+    this->getChoice(&choice);
+    if(!this->validateChoice(choice))
+        return;
+    this->getName(name);
+    this->getStatusText(text);
     if(choice == 1)
     {
         FriendPage* user = getFriendByNameFromSystem(name, system);
@@ -48,16 +50,16 @@ void UserInterface::addStatus(BookFace &system)
         if(fanPage)
             system.addStatusToFanPage(*fanPage, *(new Status(text)));
     }
-    else
-        cout << INVALID_CHOICE_MSG;
 }
 
 void UserInterface::showAllStatusesFromEntity(BookFace &system) const
 {
     int choice;
     char name[MAX_NAME_LEN];
-    cin >> choice;
-    cin >> name;
+    this->getChoice(&choice);
+    if(!this->validateChoice(choice))
+        return;
+    this->getName(name);
     if(choice == 1)
     {
         FriendPage* user = getFriendByNameFromSystem(name, system);
@@ -70,14 +72,12 @@ void UserInterface::showAllStatusesFromEntity(BookFace &system) const
         if(fanPage)
             system.showAllStatusesFromFanPage(*fanPage);
     }
-    else
-        cout << INVALID_CHOICE_MSG;
 }
 
 void UserInterface::showAllStatusesFromUsersFriends(BookFace &system) const
 {
     char name[MAX_NAME_LEN];
-    cin >> name;
+    this->getName(name);
     FriendPage* user = getFriendByNameFromSystem(name, system);
     if(user)
         system.showAllStatusesFromUsersFriends(*user);
@@ -88,8 +88,8 @@ void UserInterface::connectUsers(BookFace &system)
 {
     char name1[MAX_NAME_LEN];
     char name2[MAX_NAME_LEN];
-    cin >> name1;
-    cin >> name2;
+    this->getName(name1);
+    this->getName(name2);
     FriendPage* friend1 = getFriendByNameFromSystem(name1, system);
     FriendPage* friend2 = getFriendByNameFromSystem(name2, system);
     if(friend1 && friend2)
@@ -100,8 +100,8 @@ void UserInterface::removeUsersConnection(BookFace &system)
 {
     char name1[MAX_NAME_LEN];
     char name2[MAX_NAME_LEN];
-    cin >> name1;
-    cin >> name2;
+    this->getName(name1);
+    this->getName(name2);
     FriendPage* friend1 = getFriendByNameFromSystem(name1, system);
     FriendPage* friend2 = getFriendByNameFromSystem(name2, system);
     if(friend1 && friend2)
@@ -112,8 +112,9 @@ void UserInterface::followFanPage(BookFace &system)
 {
     char userName[MAX_NAME_LEN];
     char pageName[MAX_NAME_LEN];
-    cin >> userName;
-    cin >> pageName;
+    cout << ENTER_USER_THEN_FANPAGE;
+    this->getName(userName);
+    this->getName(pageName);
     FriendPage* user = getFriendByNameFromSystem(userName, system);
     FanPage* page = getFanPageByNameFromSystem(pageName, system);
     if(user && page)
@@ -124,8 +125,9 @@ void UserInterface::unfollowFanPage(BookFace &system)
 {
     char userName[MAX_NAME_LEN];
     char pageName[MAX_NAME_LEN];
-    cin >> userName;
-    cin >> pageName;
+    cout << ENTER_USER_THEN_FANPAGE;
+    this->getName(userName);
+    this->getName(pageName);
     FriendPage* user = getFriendByNameFromSystem(userName, system);
     FanPage* page = getFanPageByNameFromSystem(pageName, system);
     if(user && page)
@@ -136,8 +138,10 @@ void UserInterface::showAllFollowersOfEntity(BookFace &system)
 {
     int choice;
     char name[MAX_NAME_LEN];
-    cin >> choice;
-    cin >> name;
+    this->getChoice(&choice);
+    if(!this->validateChoice(choice))
+        return;
+    this->getName(name);
     if(choice == 1)
     {
         FriendPage* user = getFriendByNameFromSystem(name, system);
@@ -150,8 +154,6 @@ void UserInterface::showAllFollowersOfEntity(BookFace &system)
         if(fanPage)
             system.showAllFollowersOfFanPage(*fanPage);
     }
-    else
-        cout << INVALID_CHOICE_MSG;
 }
 
 void UserInterface::stopTheProgram(BookFace &system)
@@ -218,4 +220,37 @@ void UserInterface::activateOption(BookFace &system)
             cout << INVALID_CHOICE_MSG;
             break;
     }
+}
+
+void UserInterface::getName(char *name) const
+{
+    cout << ENTER_NAME;
+    cin.getline(name, MAX_NAME_LEN);
+}
+
+void UserInterface::getBirthDate(int* day, int* month, int* year) const
+{
+    cout << ENTER_BIRTH_DATE;
+    cin >> *day >> *month >> *year;
+}
+
+void UserInterface::getChoice(int* choice) const {
+    cout << CHOOSE_PAGE_OR_FRIEND;
+    cin >> *choice;
+}
+
+void UserInterface::getStatusText(char *text) const
+{
+    cout << ADD_STATUS_TEXT_MSG;
+    cin.getline(text, MAX_STATUS_TEXT_LEN);
+}
+
+bool UserInterface::validateChoice(int choice) const
+{
+    if(choice != 1 && choice != 2)
+    {
+        cout << INVALID_CHOICE_MSG;
+        return false;
+    }
+    return true;
 }

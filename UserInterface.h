@@ -8,8 +8,6 @@
 // consts
 const int MAX_NAME_LEN = 51;
 const int MAX_STATUS_TEXT_LEN = 101;
-const int MAX_USER_CHOICE = 5;
-
 
 // msg consts
 const char* DISPLAY_MENU_MESSAGE=
@@ -33,7 +31,7 @@ const char* CHOOSE_PAGE_OR_FRIEND =
         "1. user\n"
         "2. fanPage\n";
 const char* ADD_STATUS_TEXT_MSG= "Enter text for status [max 200 characters]: ";
-const char* ENTER_USER_THEN_FANPAGE = "first enter the fanPage name, then the user's name\n";
+const char* ENTER_USER_THEN_FANPAGE = "First enter the user name, then the fan page name!\n";
 
 
 
@@ -62,6 +60,13 @@ private:
     void unfollowFanPage(BookFace& system);
     void showAllFollowersOfEntity(BookFace& system);
     void stopTheProgram(BookFace& system);
+
+    // small Utility functions
+    void getName(char* name) const;
+    void getBirthDate(int* day, int* month, int* year) const;
+    void getChoice(int* choice) const;
+    void getStatusText(char* text) const;
+    bool validateChoice(int choice) const;
 
 public:
     // c'tors and d'tor
