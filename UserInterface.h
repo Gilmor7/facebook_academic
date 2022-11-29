@@ -2,7 +2,6 @@
 #ifndef FACEBOOK_ACADEMIC_USERINTERFACE_H
 #define FACEBOOK_ACADEMIC_USERINTERFACE_H
 
-#include "Bookface.h"
 #include "Utilities.h"
 
 // consts
@@ -10,7 +9,8 @@ const int MAX_NAME_LEN = 51;
 const int MAX_STATUS_TEXT_LEN = 101;
 
 // msg consts
-const char* DISPLAY_MENU_MESSAGE=
+const char* const DISPLAY_MENU_MESSAGE=
+        "Choose an Option: [from 1 to 12]\n"
         "1. Add new user to the system\n"
         "2. Add new fanPage to the system.\n"
         "3. Add new status to user/fanPage.\n"
@@ -23,15 +23,15 @@ const char* DISPLAY_MENU_MESSAGE=
         "10. Show All the registered entities in the system.\n"
         "11. Show all the friends/followers of a user/fanPage.\n"
         "12. Exit the Program.\n";
-const char* INVALID_CHOICE_MSG= "Invalid choice, try again!\n";
-const char* ENTER_NAME = "Enter a name [max 50 characters]: ";
-const char* ENTER_BIRTH_DATE = "\nEnter birthdate [day month year]: ";
-const char* CHOOSE_PAGE_OR_FRIEND =
+const char* const INVALID_CHOICE_MSG= "Invalid choice, try again!\n";
+const char* const ENTER_NAME = "Enter a name [max 50 characters]: ";
+const char* const ENTER_BIRTH_DATE = "\nEnter birthdate [day month year]: ";
+const char* const CHOOSE_PAGE_OR_FRIEND =
         "Choose one [pick 1 or 2]:\n"
         "1. user\n"
         "2. fanPage\n";
-const char* ADD_STATUS_TEXT_MSG= "Enter text for status [max 200 characters]: ";
-const char* ENTER_USER_THEN_FANPAGE = "First enter the user name, then the fan page name!\n";
+const char* const ADD_STATUS_TEXT_MSG= "Enter text for status [max 200 characters]: ";
+const char* const ENTER_USER_THEN_FANPAGE = "First enter the user name, then the fan page name!\n";
 
 
 
@@ -39,7 +39,7 @@ class UserInterface
 {
 public:
 
-    enum eOption {ADD_USER, ADD_PAGE, ADD_STATUS, SHOW_ENTITY_STATUSES, SHOW_LAST_STATUSES, CONNECT_USERS
+    enum eOption {ADD_USER = 1, ADD_PAGE, ADD_STATUS, SHOW_ENTITY_STATUSES, SHOW_LAST_STATUSES, CONNECT_USERS
         ,REMOVE_USERS_CONNECTION, ADD_USER_TO_PAGE, REMOVE_USER_FROM_PAGE, SHOW_ALL_ENTITIES
         ,SHOW_ALL_FOLLOWERS_OF_ENTITY, EXIT};
 
@@ -70,6 +70,7 @@ private:
 
 public:
     // c'tors and d'tor
+    UserInterface() = default;
     UserInterface(const UserInterface& other) = delete;
     UserInterface(UserInterface&& other) = delete;
 

@@ -98,7 +98,7 @@ void FriendPage::showFriendsStatuses(int amount) const
     int friendsArrSize = this->friendsArr.getSize();
 
     for (int i = 0; i < friendsArrSize; ++i) {
-        friendsArr.getFriendAtIndex(i)->showStatuses(amount);
+        this->friendsArr.getFriendAtIndex(i)->showStatuses(amount);
     }
 }
 

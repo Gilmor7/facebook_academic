@@ -29,9 +29,6 @@ public:
     const bool isFanPageInArr(FanPage& fanPage) const;
     void deleteAllPages();
 
-    FanPage* getFanPageByName(const char* name);
-
-
 private:
     void realloc();
 };

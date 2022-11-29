@@ -62,14 +62,6 @@ void FriendArray::deleteAllUsers() {
     this->logSize = 0;
 }
 
-FriendPage* FriendArray::getFriendByName(const char* name)
-{
-    for(int i = 0; i < this->logSize; i++)
-        if(this->friends[i]->getName() == name)
-            return this->friends[i];
-    return nullptr;
-}
-
 /// Private Methods
 void FriendArray::realloc()
 {

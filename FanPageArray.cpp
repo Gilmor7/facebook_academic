@@ -60,14 +60,6 @@ void FanPageArray::deleteAllPages()
     this->logSize = 0;
 }
 
-FanPage* FanPageArray::getFanPageByName(const char *name)
-{
-    for(int i = 0; i < this->logSize; i++)
-        if(this->fanPages[i]->getName() == name)
-            return this->fanPages[i];
-    return nullptr;
-}
-
 /// Private Methods
 void FanPageArray::realloc()
 {

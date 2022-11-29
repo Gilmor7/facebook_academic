@@ -2,6 +2,7 @@
 #include "UserInterface.h"
 
 
+/// functions
 // system functions
 void UserInterface::addUser(BookFace &system)
 {
