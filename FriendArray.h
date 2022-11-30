@@ -1,6 +1,8 @@
 #ifndef FACEBOOK_ACADEMIC_MEMBERARRAY_H
 #define FACEBOOK_ACADEMIC_MEMBERARRAY_H
 
+#include <string.h>
+
 class FriendPage;
 
 class FriendArray
