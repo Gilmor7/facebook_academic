@@ -45,7 +45,7 @@ void FanPageArray::show() const
 const bool FanPageArray::isFanPageInArr(FanPage& fanPage) const
 {
     for(int i = 0; i < this->logSize; i++)
-        if(this->fanPages[i]->getName() == fanPage.getName())
+        if(strcmp(fanPage.getName(), this->fanPages[i]->getName()) == 0)
             return true;
     return false;
 }

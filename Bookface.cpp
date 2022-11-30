@@ -142,7 +142,7 @@ void BookFace::followFanPage(FriendPage &user, FanPage &fanPage)
     const bool fanPageExists = this->fanPages.isFanPageInArr(fanPage);
     if(userExists && fanPageExists)
     {
-        user.followFanPage(fanPage);
+        user.followFanPage(fanPage);        // need to fix printing
         fanPage.addFollower(user);
     }
     else if (!userExists)
@@ -157,7 +157,7 @@ void BookFace::unfollowFanPage(FriendPage &user, FanPage &fanPage)
     const bool fanPageExists = this->fanPages.isFanPageInArr(fanPage);
     if(userExists && fanPageExists)
     {
-        user.unfollowFanPage(fanPage);
+        user.unfollowFanPage(fanPage);  // need to fix printing
         fanPage.removeFollower(user);
     }
     else if (!userExists)

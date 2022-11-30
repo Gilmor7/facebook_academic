@@ -157,7 +157,7 @@ FriendPage* getFriendByNameFromSystem(const char* name, BookFace& system)
     FriendPage* foundUser = nullptr;
     for(int i=0; i < usersPtr->getSize(); i++)
     {
-        if(name == usersPtr->getFriendAtIndex(i)->getName())
+        if(strcmp(usersPtr->getFriendAtIndex(i)->getName(), name) == 0)
             foundUser = usersPtr->getFriendAtIndex(i);
     }
     return foundUser;
@@ -169,7 +169,7 @@ FanPage* getFanPageByNameFromSystem(const char* name, BookFace& system)
     FanPage* foundPage = nullptr;
     for(int i=0; i < pagesPtr->getSize(); i++)
     {
-        if(name == pagesPtr->getFanPageAtIndex(i)->getName())
+        if(strcmp(name, pagesPtr->getFanPageAtIndex(i)->getName()) == 0)
             foundPage = pagesPtr->getFanPageAtIndex(i);
     }
     return foundPage;

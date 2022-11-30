@@ -238,6 +238,7 @@ void UserInterface::getBirthDate(int* day, int* month, int* year) const
 void UserInterface::getChoice(int* choice) const {
     cout << CHOOSE_PAGE_OR_FRIEND;
     cin >> *choice;
+    cin.get();
 }
 
 void UserInterface::getStatusText(char *text) const

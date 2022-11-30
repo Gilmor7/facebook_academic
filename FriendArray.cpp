@@ -48,7 +48,7 @@ void FriendArray::show() const
 const bool FriendArray::isFriendInArr(FriendPage &user) const
 {
     for(int i = 0; i < this->logSize; i++)
-        if(this->friends[i]->getName() == user.getName())
+        if(strcmp(user.getName(), this->friends[i]->getName()) == 0)
             return true;
     return false;
 }
