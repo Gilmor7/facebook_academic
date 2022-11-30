@@ -16,7 +16,7 @@ int main()
         interface.displayMenu();
         cin >> option;
         if(option < 1 || option > 12)
-            cout << INVALID_CHOICE_MSG;
+            cout << UserInterface::INVALID_CHOICE_MSG;
         else
         {
             interface.setOption((UserInterface::eOption) option);

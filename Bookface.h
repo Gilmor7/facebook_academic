@@ -40,7 +40,6 @@ public:
     void stopTheProgram() {this->is_running = false;}
 
     // helper methods
-
     bool getRunningState() const {return this->is_running;}
     void deleteUsers();
     void deleteFanPages();
