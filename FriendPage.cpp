@@ -102,19 +102,29 @@ void FriendPage::showFriendsStatuses(int amount) const
     }
 }
 
-void FriendPage::followFanPage(FanPage& fanPage)
+bool FriendPage::followFanPage(FanPage& fanPage)
 {
     if(this->findFanPageIndex(fanPage) == NOT_FOUND)
+    {
         this->fanPagesArr.push(&fanPage);
-    else cout << "You are already following this page" << endl;
+        return true;
+    }
+    else
+        cout << "You are already following this page" << endl;
+    return false;
 }
 
-void FriendPage::unfollowFanPage(FanPage& fanPage)
+bool FriendPage::unfollowFanPage(FanPage& fanPage)
 {
     int indexToRemove = this->findFanPageIndex(fanPage);
-    if(indexToRemove != NOT_FOUND)
+    if(indexToRemove != NOT_FOUND){
+
         this->fanPagesArr.remove(indexToRemove);
-    else cout << "You are not following this page" << endl;
+        return true;
+    }
+    else
+        cout << "You are not following this page" << endl;
+    return false;
 }
 
 /// statuses methods

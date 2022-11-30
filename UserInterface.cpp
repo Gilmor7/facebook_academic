@@ -44,12 +44,16 @@ void UserInterface::addStatus(BookFace &system)
         FriendPage* user = getFriendByNameFromSystem(name, system);
         if(user)
             system.addStatusToFriendPage(*user, *(new Status(text)));
+        else
+            cout << USER_NOT_FOUND;
     }
     else if(choice == 2)
     {
         FanPage* fanPage = getFanPageByNameFromSystem(name, system);
         if(fanPage)
             system.addStatusToFanPage(*fanPage, *(new Status(text)));
+        else
+            cout << FANPAGE_NOT_FOUND;
     }
 }
 
@@ -66,12 +70,16 @@ void UserInterface::showAllStatusesFromEntity(BookFace &system) const
         FriendPage* user = getFriendByNameFromSystem(name, system);
         if(user)
             system.showAllStatusesFromFriend(*user);
+        else
+            cout << USER_NOT_FOUND;
     }
     else if(choice == 2)
     {
         FanPage* fanPage = getFanPageByNameFromSystem(name, system);
         if(fanPage)
             system.showAllStatusesFromFanPage(*fanPage);
+        else
+            cout << FANPAGE_NOT_FOUND;
     }
 }
 
@@ -82,6 +90,8 @@ void UserInterface::showAllStatusesFromUsersFriends(BookFace &system) const
     FriendPage* user = getFriendByNameFromSystem(name, system);
     if(user)
         system.showAllStatusesFromUsersFriends(*user);
+    else
+        cout << USER_NOT_FOUND;
 }
 
 
@@ -95,6 +105,8 @@ void UserInterface::connectUsers(BookFace &system)
     FriendPage* friend2 = getFriendByNameFromSystem(name2, system);
     if(friend1 && friend2)
         system.connectUsers(*friend1, *friend2);
+    else
+        cout << ONE_OF_USERS_NOT_FOUND;
 }
 
 void UserInterface::removeUsersConnection(BookFace &system)
@@ -107,6 +119,8 @@ void UserInterface::removeUsersConnection(BookFace &system)
     FriendPage* friend2 = getFriendByNameFromSystem(name2, system);
     if(friend1 && friend2)
         system.removeUsersConnection(*friend1, *friend2);
+    else
+        cout << ONE_OF_USERS_NOT_FOUND;
 }
 
 void UserInterface::followFanPage(BookFace &system)
@@ -120,6 +134,8 @@ void UserInterface::followFanPage(BookFace &system)
     FanPage* page = getFanPageByNameFromSystem(pageName, system);
     if(user && page)
         system.followFanPage(*user, *page);
+    else
+        cout << USER_OR_FANPAGE_NOT_FOUND;
 }
 
 void UserInterface::unfollowFanPage(BookFace &system)
@@ -133,6 +149,8 @@ void UserInterface::unfollowFanPage(BookFace &system)
     FanPage* page = getFanPageByNameFromSystem(pageName, system);
     if(user && page)
         system.unfollowFanPage(*user, *page);
+    else
+        cout << USER_OR_FANPAGE_NOT_FOUND;
 }
 
 void UserInterface::showAllFollowersOfEntity(BookFace &system)
@@ -148,12 +166,16 @@ void UserInterface::showAllFollowersOfEntity(BookFace &system)
         FriendPage* user = getFriendByNameFromSystem(name, system);
         if(user)
             system.showAllFriendsOfAUser(*user);
+        else
+            cout << USER_NOT_FOUND;
     }
     else if(choice == 2)
     {
         FanPage* fanPage = getFanPageByNameFromSystem(name, system);
         if(fanPage)
             system.showAllFollowersOfFanPage(*fanPage);
+        else
+            cout << FANPAGE_NOT_FOUND;
     }
 }
 
@@ -169,7 +191,7 @@ void UserInterface::stopTheProgram(BookFace &system)
 
 void UserInterface::displayMenu() const
 {
-    cout << DISPLAY_MENU_MESSAGE;
+    cout << endl << DISPLAY_MENU_MESSAGE << endl;
 }
 
 void UserInterface::setOption(UserInterface::eOption newOption)

@@ -29,8 +29,8 @@ public:
     // Getters
     const char* getName() const {return this->pageName;}
 
-    void addFollower(FriendPage& follower);
-    void removeFollower(FriendPage& follower);
+    bool addFollower(FriendPage& follower);
+    bool removeFollower(FriendPage& follower);
     void showFollowers() const;
 
     void showStatuses(int amount = ALL) const;

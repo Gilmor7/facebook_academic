@@ -40,7 +40,10 @@ public:
             "2. fanPage\n";
     constexpr static const char* const ADD_STATUS_TEXT_MSG= "Enter text for status [max 200 characters]: ";
     constexpr static const char* const ENTER_USER_THEN_FANPAGE = "First enter the user name, then the fan page name!\n";
-
+    constexpr static const char* const USER_OR_FANPAGE_NOT_FOUND = "User or Fan Page was not found!\n";
+    constexpr static const char* const USER_NOT_FOUND = "User doesn't exist\n";
+    constexpr static const char* const FANPAGE_NOT_FOUND = "Fan page doesn't exists\n";
+    constexpr static const char* const ONE_OF_USERS_NOT_FOUND = "One of the users doesn't exist\n";
 
 private:
 

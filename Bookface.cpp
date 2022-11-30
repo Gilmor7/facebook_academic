@@ -142,8 +142,8 @@ void BookFace::followFanPage(FriendPage &user, FanPage &fanPage)
     const bool fanPageExists = this->fanPages.isFanPageInArr(fanPage);
     if(userExists && fanPageExists)
     {
-        user.followFanPage(fanPage);        // need to fix printing
-        fanPage.addFollower(user);
+        if(user.followFanPage(fanPage))
+            fanPage.addFollower(user);
     }
     else if (!userExists)
         cout << "User doesn't exist" << endl;
@@ -157,8 +157,8 @@ void BookFace::unfollowFanPage(FriendPage &user, FanPage &fanPage)
     const bool fanPageExists = this->fanPages.isFanPageInArr(fanPage);
     if(userExists && fanPageExists)
     {
-        user.unfollowFanPage(fanPage);  // need to fix printing
-        fanPage.removeFollower(user);
+        if(user.unfollowFanPage(fanPage))
+            fanPage.removeFollower(user);
     }
     else if (!userExists)
         cout << "User doesn't exist" << endl;

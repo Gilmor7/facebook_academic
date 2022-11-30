@@ -34,19 +34,29 @@ void FanPage::showName() const
 
 /// followers methods
 
-void FanPage::addFollower(FriendPage &follower)
+bool FanPage::addFollower(FriendPage &follower)
 {
     if(this->findFollowerIndexInArr(follower) == NOT_FOUND)
+    {
         this->followersArr.push(&follower);
-     else cout << "You are already following this page" << endl;
+        return true;
+    }
+    else
+        cout << "You are already following this page" << endl;
+    return false;
 }
 
-void FanPage::removeFollower(FriendPage &follower)
+bool FanPage::removeFollower(FriendPage &follower)
 {
     int indexToRemove = this->findFollowerIndexInArr(follower);
     if(indexToRemove != NOT_FOUND)
+    {
         this->followersArr.remove(indexToRemove);
-    else cout << "You are not following this page" << endl;
+        return true;
+    }
+    else
+        cout << "You are not following this page" << endl;
+    return false;
 }
 
 int FanPage::findFollowerIndexInArr(FriendPage& follower)
