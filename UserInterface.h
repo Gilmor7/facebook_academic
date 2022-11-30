@@ -13,8 +13,8 @@ public:
         ,SHOW_ALL_FOLLOWERS_OF_ENTITY, EXIT};
 
     // consts
-    const int MAX_NAME_LEN = 51;
-    const int MAX_STATUS_TEXT_LEN = 101;
+    constexpr static int MAX_NAME_LEN = 51;
+    constexpr static int MAX_STATUS_TEXT_LEN = 101;
 
     // msg consts
     constexpr static const char* const DISPLAY_MENU_MESSAGE=

@@ -197,3 +197,6 @@ void BookFace::deleteFanPages()
 {
     this->fanPages.deleteAllPages();
 }
+
+
+
