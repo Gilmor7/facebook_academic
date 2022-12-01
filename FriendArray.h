@@ -7,6 +7,8 @@ class FriendPage;
 
 class FriendArray
 {
+public:
+    static constexpr int NOT_FOUND = -1;
 private:
     FriendPage** friends;
     int phySize;

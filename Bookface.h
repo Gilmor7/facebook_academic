@@ -10,6 +10,7 @@ class BookFace
 {
 public:
     static constexpr int NUM_OF_FRIENDS_STATUSESS = 10;
+    static constexpr int NOT_FOUND = -1;
     static constexpr const char* const USER_ALREADY_EXISTS = "User already exists in the system\n";
     static constexpr const char* const PAGE_ALREADY_EXISTS = "Page already exists\n";
     static constexpr const char* const USER_NOT_EXISTS = "User doesn't exist\n";

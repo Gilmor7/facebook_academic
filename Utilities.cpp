@@ -27,26 +27,27 @@ FanPage* getFanPageByNameFromSystem(const char* name, BookFace& system)
 
 void initilizeStartingDataIntoSystem(BookFace& system)
 {
-    FriendPage* f1 = new FriendPage("Eli Freid", Date(12,9,1998));
-    FriendPage* f2 = new FriendPage("Bob bobinson", Date(6,6,1666));
-    FriendPage* f3 = new FriendPage("Gil", Date(1,2,3));
+    FriendPage* f1 = new FriendPage("Eli", Date(12,9,1998));
+    FriendPage* f2 = new FriendPage("Labron james", Date(30,12,1984));
+    FriendPage* f3 = new FriendPage("Gil", Date(9,1,1997));
 
-    FanPage* p1 = new FanPage("John cena fans");
-    FanPage* p2 = new FanPage("golden state warriors");
-    FanPage* p3 = new FanPage("java script hate club");
+    FanPage* p1 = new FanPage("Labron james Fans");
+    FanPage* p2 = new FanPage("c++ programmers");
+    FanPage* p3 = new FanPage("The cup 'O' coffee drinkers");
 
-    Status* f1s1 = new Status("good morning! ELI");
-    Status* f1s2 = new Status("good night! ELI");
-    Status* f2s1 = new Status("good morning! bob");
-    Status* f2s2 = new Status("good morning! bobinson");
-    Status* f3s1 = new Status("good morning! GIL");
-    Status* f3s2 = new Status("good morning! GILGIL");
-    Status* p1s1 = new Status("good morning! JOHN CEN");
-    Status* p1s2 = new Status("good morning! CENA FANS");
-    Status* p2s1 = new Status("good morning! WARRIORS");
-    Status* p2s2 = new Status("good morning! SAN FRANSISCO");
-    Status* p3s1 = new Status("good morning! JAVA SCRIPT");
-    Status* p3s2 = new Status("good morning! REACT");
+    Status* f1s1 = new Status("I don't feel so good mr Stark - peter parker");
+    Status* f1s2 = new Status("love and passion for the profession");
+    Status* f2s1 = new Status("another good game today!");
+    Status* f2s2 = new Status("the LA lakers are the best team in the NBA!");
+    Status* f3s1 = new Status("Hello world...?");
+    Status* f3s2 = new Status("Time is money!");
+    Status* f3s3 = new Status("I think, therefore I am :)");
+    Status* p1s1 = new Status("Wow!!!!! such a great game from Labron today");
+    Status* p1s2 = new Status("We got the new Labron merchandise!!!!");
+    Status* p2s1 = new Status("new c++ update coming out next week!");
+    Status* p2s2 = new Status("class is a struct with functions... change my mind");
+    Status* p3s1 = new Status("The best kind of coffee, is an irish coffee ;)");
+    Status* p3s2 = new Status("if you like decaff coffee... please unfollow this page");
 
 
 
@@ -65,6 +66,7 @@ void initilizeStartingDataIntoSystem(BookFace& system)
     system.addStatusToFriendPage(*f2, *f2s2);
     system.addStatusToFriendPage(*f3, *f3s1);
     system.addStatusToFriendPage(*f3, *f3s2);
+    system.addStatusToFriendPage(*f3, *f3s3);
 
     system.addStatusToFanPage(*p1, *p1s1);
     system.addStatusToFanPage(*p1, *p1s2);

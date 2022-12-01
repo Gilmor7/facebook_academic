@@ -5,6 +5,8 @@ class FanPage;
 
 class FanPageArray
 {
+public:
+    static constexpr int NOT_FOUND = -1;
 private:
     FanPage** fanPages;
     int phySize;
