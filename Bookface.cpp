@@ -97,10 +97,10 @@ void BookFace::connectUsers(FriendPage &user1, FriendPage &user2)
     const bool user1Exists = this->users.isFriendInArr(user1);
     const bool user2Exists = this->users.isFriendInArr(user2);
 
-    int indexOfFriend2 = user1.findFriendIndex(user2);
+    int indexOfFriend2 = user1.findFriendIndex(user2, user1.getFriendsArray());
     if(user1Exists && user2Exists)
     {
-        if(indexOfFriend2 == -1)    // means they are not connected
+        if(indexOfFriend2 == NOT_FOUND)    // means they are not connected
         {
             user1.addFriend(user2);     /// no need to do couch/team example because we are the admin
             user2.addFriend(user1);
@@ -119,10 +119,10 @@ void BookFace::removeUsersConnection(FriendPage &user1, FriendPage &user2)
     const bool user1Exists = this->users.isFriendInArr(user1);
     const bool user2Exists = this->users.isFriendInArr(user2);
 
-    int indexOfFriend2 = user1.findFriendIndex(user2);
+    int indexOfFriend2 = user1.findFriendIndex(user2, user1.getFriendsArray());
     if(user1Exists && user2Exists)
     {
-        if (indexOfFriend2 != -1)     // means they are friends
+        if (indexOfFriend2 != NOT_FOUND)     // means they are friends
         {
             user1.removeFriend(user2);
             user2.removeFriend(user1);

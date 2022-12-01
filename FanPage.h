@@ -10,8 +10,7 @@
 
 using namespace std;
 
-class Status;
-class FriendPage;
+class FanPageArray;
 
 class FanPage
 {
@@ -33,10 +32,10 @@ public:
     bool removeFollower(FriendPage& follower);
     void showFollowers() const;
 
+    static int findFanPageIndex(FanPage& fanPage, const FanPageArray* friends);
     void showStatuses(int amount = ALL) const;
     void addStatus(Status& status);
 
-    int findFollowerIndexInArr(FriendPage& follower);
     void showName() const;
 };
 

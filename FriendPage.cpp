@@ -39,41 +39,21 @@ FriendPage::~FriendPage()
     cout << endl;
 }
 
-int FriendPage::findFriendIndex(FriendPage& friendPage)
+int FriendPage::findFriendIndex(FriendPage& friendPage, const FriendArray* friends)
 {
     int index = NOT_FOUND;
-    int friendsArrSize = this->friendsArr.getSize();
+    int friendsArrSize = friends->getSize();
     const char* friendsName = friendPage.getName();
 
     for (int i = 0; i < friendsArrSize && index == NOT_FOUND; ++i) {
         if(strcmp(
                 friendsName,
-                this->friendsArr.getFriendAtIndex(i)->getName()
-                ) == 0)
-        {
-          index = i;
-        }
-    }
-
-    return index;
-}
-
-int FriendPage::findFanPageIndex(FanPage& fanPage)
-{
-    int index = NOT_FOUND;
-    int fanPagesArrSize = this->fanPagesArr.getSize();
-    const char* friendsName = fanPage.getName();
-
-    for (int i = 0; i < fanPagesArrSize && index == NOT_FOUND; ++i) {
-        if(strcmp(
-                friendsName,
-                this->fanPagesArr.getFanPageAtIndex(i)->getName()
+                friends->getFriendAtIndex(i)->getName()
         ) == 0)
         {
             index = i;
         }
     }
-
     return index;
 }
 
@@ -84,7 +64,7 @@ void FriendPage::addFriend(FriendPage& newFriend)
 
 void FriendPage::removeFriend(FriendPage& friendToRemove)
 {
-    int indexToRemove = findFriendIndex(friendToRemove);
+    int indexToRemove = findFriendIndex(friendToRemove, &this->friendsArr);
     this->friendsArr.remove(indexToRemove);
 }
 
@@ -104,7 +84,7 @@ void FriendPage::showFriendsStatuses(int amount) const
 
 bool FriendPage::followFanPage(FanPage& fanPage)
 {
-    if(this->findFanPageIndex(fanPage) == NOT_FOUND)
+    if(FanPage::findFanPageIndex(fanPage, &this->fanPagesArr) == NOT_FOUND)
     {
         this->fanPagesArr.push(&fanPage);
         return true;
@@ -116,7 +96,7 @@ bool FriendPage::followFanPage(FanPage& fanPage)
 
 bool FriendPage::unfollowFanPage(FanPage& fanPage)
 {
-    int indexToRemove = this->findFanPageIndex(fanPage);
+    int indexToRemove = FanPage::findFanPageIndex(fanPage, &this->fanPagesArr);
     if(indexToRemove != NOT_FOUND){
 
         this->fanPagesArr.remove(indexToRemove);

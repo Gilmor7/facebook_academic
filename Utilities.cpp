@@ -53,12 +53,12 @@ void gilTest()
 
     //test friendPage fanPages methods
     cout << endl << "testing fanPage array under friend instance" << endl;
-    cout << endl<< "index of test page in arr" << f1.findFanPageIndex(testPage) << endl;
+    cout << endl<< "index of test page in arr" << FanPage::findFanPageIndex(testPage, f1.getFollowingPages()) << endl;
     f1.followFanPage(testPage);
-    cout << "index of test page in arr" << f1.findFanPageIndex(testPage) << endl;
+    cout << "index of test page in arr" << FanPage::findFanPageIndex(testPage, f1.getFollowingPages()) << endl;
 
     f1.unfollowFanPage(testPage);
-    cout << "index of test page in arr" << f1.findFanPageIndex(testPage) << endl;
+    cout << "index of test page in arr" << FanPage::findFanPageIndex(testPage, f1.getFollowingPages()) << endl;
 
 }
 

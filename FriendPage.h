@@ -26,16 +26,17 @@ public:
 
     // getters
     const char* getName() const {return this->name;}
+    const FriendArray* getFriendsArray() const { return &this->friendsArr; }
+    const FanPageArray* getFollowingPages() const { return &this->fanPagesArr; }
 
     void show() const;
 
-    int findFriendIndex(FriendPage& friendPage);
+    static int findFriendIndex(FriendPage& friendPage, const FriendArray* friends);
     void addFriend(FriendPage& newFriend);
     void removeFriend(FriendPage& friendToRemove);
     void showFriends() const;
     void showFriendsStatuses(int amount) const;
-
-    int findFanPageIndex(FanPage& fanPage);
+    
     bool followFanPage(FanPage& fanPage);
     bool unfollowFanPage(FanPage& fanPage);
 
