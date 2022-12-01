@@ -90,7 +90,7 @@ bool FriendPage::followFanPage(FanPage& fanPage)
         return true;
     }
     else
-        cout << "You are already following this page" << endl;
+        cout << PAGE_IS_FOLLOWED;
     return false;
 }
 
@@ -103,7 +103,7 @@ bool FriendPage::unfollowFanPage(FanPage& fanPage)
         return true;
     }
     else
-        cout << "You are not following this page" << endl;
+        cout << PAGE_IS_NOT_FOLLOWED;
     return false;
 }
 

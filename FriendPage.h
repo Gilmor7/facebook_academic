@@ -6,10 +6,13 @@
 #include "StatusArray.h"
 #include "FanPageArray.h"
 
-const int NOT_FOUND = -1;
 
 class FriendPage
 {
+public:
+    static constexpr int NOT_FOUND = -1;
+    static constexpr const char* const PAGE_IS_FOLLOWED = "You are already following this page\n";
+    static constexpr const char* const PAGE_IS_NOT_FOLLOWED = "You are not following this page\n";
 private:
     char* name;
     Date birthDate;
