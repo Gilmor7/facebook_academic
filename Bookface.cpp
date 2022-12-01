@@ -13,7 +13,7 @@ bool BookFace::addUser(FriendPage &newUser)
     const bool isExists = this->users.isFriendInArr(newUser);
     if (isExists)
     {
-        cout << "User already exists in the system" << endl;
+        cout << USER_ALREADY_EXISTS;
         return false;
     }
     else
@@ -29,7 +29,7 @@ bool BookFace::addPage(FanPage &newFanPage)
     const bool isExists = this->fanPages.isFanPageInArr(newFanPage);
     if(isExists)
     {
-        cout << "Page already exists" << endl;
+        cout << PAGE_ALREADY_EXISTS;
         return false;
     }
     else
@@ -53,7 +53,7 @@ void BookFace::addStatusToFriendPage(FriendPage &user, Status& status)
     if(isExists)
         user.addStatus(status);
     else
-        cout << "User doesn't exist" << endl;
+        cout << USER_NOT_EXISTS;
 }
 
 void BookFace::addStatusToFanPage(FanPage &fanPage, Status& status)
@@ -62,7 +62,7 @@ void BookFace::addStatusToFanPage(FanPage &fanPage, Status& status)
     if(isExists)
         fanPage.addStatus(status);
     else
-        cout << "Page doesn't exist" << endl;
+        cout << PAGE_NOT_EXISTS;
 }
 
 void BookFace::showAllStatusesFromFriend(FriendPage &user) const
@@ -71,7 +71,7 @@ void BookFace::showAllStatusesFromFriend(FriendPage &user) const
     if(isExists)
         user.showStatuses();
     else
-        cout << "User doesn't exist" << endl;
+        cout << USER_NOT_EXISTS;
 }
 
 void BookFace::showAllStatusesFromFanPage(FanPage &fanPage) const
@@ -80,7 +80,7 @@ void BookFace::showAllStatusesFromFanPage(FanPage &fanPage) const
     if(isExists)
         fanPage.showStatuses();
     else
-        cout << "Page doesn't exist" << endl;
+        cout << PAGE_NOT_EXISTS;
 }
 
 void BookFace::showAllStatusesFromUsersFriends(FriendPage &user) const
@@ -89,7 +89,7 @@ void BookFace::showAllStatusesFromUsersFriends(FriendPage &user) const
     if(isExists)
         user.showFriendsStatuses(NUM_OF_FRIENDS_STATUSESS);
     else
-        cout << "User doesn't exist" << endl;
+        cout << USER_NOT_EXISTS;
 }
 
 void BookFace::connectUsers(FriendPage &user1, FriendPage &user2)
@@ -97,21 +97,21 @@ void BookFace::connectUsers(FriendPage &user1, FriendPage &user2)
     const bool user1Exists = this->users.isFriendInArr(user1);
     const bool user2Exists = this->users.isFriendInArr(user2);
 
-    int indexOfFriend2 = user1.findFriendIndex(user2, user1.getFriendsArray());
+    int indexOfFriend2 = FriendPage::findFriendIndex(user2, user1.getFriendsArray());
     if(user1Exists && user2Exists)
     {
         if(indexOfFriend2 == NOT_FOUND)    // means they are not connected
         {
-            user1.addFriend(user2);     /// no need to do couch/team example because we are the admin
+            user1.addFriend(user2);
             user2.addFriend(user1);
         }
         else
         {
-            cout << "Users are already connected" << endl;
+            cout << USERS_ALREADY_CONNECTED;
         }
     }
     else
-        cout << "One of the users doesn't exist" << endl;
+        cout << ONE_OF_USERS_NOT_FOUND;
 }
 
 void BookFace::removeUsersConnection(FriendPage &user1, FriendPage &user2)
@@ -119,7 +119,7 @@ void BookFace::removeUsersConnection(FriendPage &user1, FriendPage &user2)
     const bool user1Exists = this->users.isFriendInArr(user1);
     const bool user2Exists = this->users.isFriendInArr(user2);
 
-    int indexOfFriend2 = user1.findFriendIndex(user2, user1.getFriendsArray());
+    int indexOfFriend2 = FriendPage::findFriendIndex(user2, user1.getFriendsArray());
     if(user1Exists && user2Exists)
     {
         if (indexOfFriend2 != NOT_FOUND)     // means they are friends
@@ -129,11 +129,11 @@ void BookFace::removeUsersConnection(FriendPage &user1, FriendPage &user2)
         }
         else
         {
-            cout << "Users are not connected" << endl;
+            cout << USERS_NOT_CONNECTED;
         }
     }
     else
-        cout << "One of the users doesn't exist" << endl;
+        cout << ONE_OF_USERS_NOT_FOUND;
 }
 
 void BookFace::followFanPage(FriendPage &user, FanPage &fanPage)
@@ -146,9 +146,9 @@ void BookFace::followFanPage(FriendPage &user, FanPage &fanPage)
             fanPage.addFollower(user);
     }
     else if (!userExists)
-        cout << "User doesn't exist" << endl;
+        cout << USER_NOT_EXISTS;
     else
-        cout << "Page doesn't exist" << endl;
+        cout << PAGE_NOT_EXISTS;
 }
 
 void BookFace::unfollowFanPage(FriendPage &user, FanPage &fanPage)
@@ -161,9 +161,9 @@ void BookFace::unfollowFanPage(FriendPage &user, FanPage &fanPage)
             fanPage.removeFollower(user);
     }
     else if (!userExists)
-        cout << "User doesn't exist" << endl;
+        cout << USER_NOT_EXISTS;
     else
-        cout << "Page doesn't exist" << endl;
+        cout << PAGE_NOT_EXISTS;
 }
 
 void BookFace::showAllFriendsOfAUser(FriendPage &user) const
@@ -174,7 +174,7 @@ void BookFace::showAllFriendsOfAUser(FriendPage &user) const
         user.showFriends();
     }
     else
-        cout << "User doesn't exist" << endl;
+        cout << USER_NOT_EXISTS;
 }
 
 void BookFace::showAllFollowersOfFanPage(FanPage &fanPage) const
@@ -185,7 +185,7 @@ void BookFace::showAllFollowersOfFanPage(FanPage &fanPage) const
         fanPage.showFollowers();
     }
     else
-        cout << "Page doesn't exist" << endl;
+        cout << PAGE_NOT_EXISTS;
 }
 
 void BookFace::deleteUsers()
@@ -197,6 +197,5 @@ void BookFace::deleteFanPages()
 {
     this->fanPages.deleteAllPages();
 }
-
 
 
