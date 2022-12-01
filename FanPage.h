@@ -14,6 +14,9 @@ class FanPageArray;
 
 class FanPage
 {
+public:
+    static constexpr const char* const PAGE_IS_FOLLOWED = "You are already following this page\n";
+    static constexpr const char* const PAGE_IS_NOT_FOLLOWED = "You are not following this page\n";
 private:
     char* pageName;
     StatusArray statusesArr;
