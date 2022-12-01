@@ -56,7 +56,6 @@ const bool FriendArray::isFriendInArr(FriendPage &user) const
 void FriendArray::deleteAllUsers() {
     for (int i = 0; i < this->logSize; i++)
     {
-        cout << "Deleting: " << this->friends[i]->getName() << endl;
         delete this->friends[i];
     }
     this->logSize = 0;
