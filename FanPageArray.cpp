@@ -54,7 +54,6 @@ void FanPageArray::deleteAllPages()
 {
     for(int i = 0; i < this->logSize; i++)
     {
-        cout << "Deleting page: " << this->fanPages[i]->getName() << endl;
         delete this->fanPages[i];
     }
     this->logSize = 0;
