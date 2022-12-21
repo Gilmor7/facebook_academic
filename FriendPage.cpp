@@ -116,7 +116,7 @@ void FriendPage::addStatus(Status &status)
     this->statusesArr.push(status);
 }
 
-bool FriendPage::operator==(const FriendPage &other)
+bool FriendPage::operator==(const FriendPage &other) const
 {
     return this->name == other.name;
 }

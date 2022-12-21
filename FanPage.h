@@ -6,18 +6,16 @@
 #include "FriendPage.h"
 #include <string.h>
 #include <vector>
+#include <list>
 using namespace std;
-
 
 class FanPage
 {
-
 private:
     std::string pageName;
     vector<Status> statuses;
     vector<const FriendPage*> followers;    // FanPage cannot change followers
 
-    FanPage(const FanPage& other) = default;
 public:
     FanPage(const std::string& name) noexcept(false);
 
@@ -32,8 +30,10 @@ public:
 
     const FanPage& operator+=(const FriendPage& user) noexcept(false);
     const FanPage& operator-=(const FriendPage& user) noexcept(false);
+    bool operator==(const FanPage& other) const;
     bool operator>(const FanPage& other) const;
     //bool operator>(const FriendPage& other) const;  waiting for update in FriendPage to support vectors
+
 };
 
 

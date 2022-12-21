@@ -6,6 +6,7 @@
 #include "StatusArray.h"
 #include "FanPageArray.h"
 #include <string>
+#include <list>
 
 class FriendPage
 {
@@ -17,36 +18,36 @@ private:
     std::string name;
     Date birthDate;
 
-    FriendArray friendsArr;
-    FanPageArray fanPagesArr;
-    StatusArray statusesArr;
+//    FriendArray friendsArr;
+//    FanPageArray fanPagesArr;
+//    StatusArray statusesArr;
 
 public:
     FriendPage(const std::string& name, Date birthDate);
-    FriendPage(const FriendPage& other);    // implement, maybe move into private and friend vector
-    FriendPage(FriendPage&& other);
-    ~FriendPage();
 
     // getters
     const char* getName() const {return this->name.c_str();}
-    const FriendArray* getFriendsArray() const { return &this->friendsArr; }
-    const FanPageArray* getFollowingPages() const { return &this->fanPagesArr; }
-
+//    const FriendArray* getFriendsArray() const { return &this->friendsArr; }
+//    const FanPageArray* getFollowingPages() const { return &this->fanPagesArr; }
+//
     void show() const;
-
-    static int findFriendIndex(FriendPage& friendPage, const FriendArray* friends);
-    void addFriend(FriendPage& newFriend);
-    void removeFriend(FriendPage& friendToRemove);
-    void showFriends() const;
+//
+//    static int findFriendIndex(FriendPage& friendPage, const FriendArray* friends);
+//    void addFriend(FriendPage& newFriend);
+//    void removeFriend(FriendPage& friendToRemove);
+//    void showFriends() const;
     void showFriendsStatuses(int amount) const;
-    
-    bool followFanPage(FanPage& fanPage);
-    bool unfollowFanPage(FanPage& fanPage);
-
+//
+//    bool followFanPage(FanPage& fanPage);
+//    bool unfollowFanPage(FanPage& fanPage);
+//
     void showStatuses(int amount = ALL) const;
     void addStatus(Status& status);
 
-    bool operator==(const FriendPage& other);
+    bool operator==(const FriendPage& other) const;
+
+
+
 };
 
 
