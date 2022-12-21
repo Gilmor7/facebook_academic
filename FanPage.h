@@ -15,7 +15,7 @@ class FanPage
 private:
     std::string pageName;
     vector<Status> statuses;
-    vector<const FriendPage*> followers;    // not going to be changed from a FanPage object
+    vector<const FriendPage*> followers;    // FanPage cannot change followers
 
     FanPage(const FanPage& other) = default;
 public:
@@ -25,8 +25,6 @@ public:
     const char* getName() const {return this->pageName.c_str();}
 
     void showFollowers() const;
-
-    static int findFanPageIndex(FanPage& fanPage, const FanPageArray* friends);
     void showStatuses(int amount = ALL) const;
     void addStatus(Status& status);
 

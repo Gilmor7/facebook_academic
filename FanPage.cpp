@@ -60,7 +60,8 @@ const FanPage& FanPage::operator-=(const FriendPage &user) noexcept(false)
     {
         if(*itr == &user)
         {
-            this->followers.erase(itr);
+            iter_swap(itr, itrEnd);
+            this->followers.pop_back();
             return *this;
         }
     }
