@@ -4,29 +4,13 @@
 
 using namespace std;
 
-FriendPage::FriendPage(const std::string& name, Date birthDate): birthDate(birthDate)
+FriendPage::FriendPage(const string& name, Date birthDate) noexcept(false):
+    birthDate(birthDate)
 {
+    if(name.empty())
+        throw "Name cannot be empty!\n";
+
     this->name = name;
-}
-
-FriendPage::FriendPage(FriendPage &&other): birthDate(other.birthDate)
-{
-    this->name = other.name;
-    other.name = nullptr;
-
-    this->statusesArr = other.statusesArr;
-    other.statusesArr.emptyArrPtr();
-
-    this->friendsArr = other.friendsArr;
-    other.friendsArr.emptyArrPtr();
-
-    this->fanPagesArr = other.fanPagesArr;
-    other.fanPagesArr.emptyArrPtr();
-}
-
-FriendPage::~FriendPage()
-{
-    this->statusesArr.deleteStatuses();
 }
 
  void FriendPage::show() const
@@ -36,84 +20,77 @@ FriendPage::~FriendPage()
     cout << endl;
 }
 
-int FriendPage::findFriendIndex(FriendPage& friendPage, const FriendArray* friends)
-{
-    int index = NOT_FOUND;
-    int friendsArrSize = friends->getSize();
-    const char* friendsName = friendPage.getName();
-
-    for (int i = 0; i < friendsArrSize && index == NOT_FOUND; ++i) {
-        if(strcmp(
-                friendsName,
-                friends->getFriendAtIndex(i)->getName()
-        ) == 0)
-        {
-            index = i;
-        }
-    }
-    return index;
-}
-
 void FriendPage::addFriend(FriendPage& newFriend)
 {
-    this->friendsArr.push(&newFriend);
+    this->friendsArr.push_back(&newFriend);
 }
 
 void FriendPage::removeFriend(FriendPage& friendToRemove)
 {
-    int indexToRemove = findFriendIndex(friendToRemove, &this->friendsArr);
-    this->friendsArr.remove(indexToRemove);
+    auto itr = find(this->friendsArr.begin(), this->friendsArr.end(), &friendToRemove);
+
+    if(itr != this->friendsArr.end()) {
+        swap(*itr, this->friendsArr.back());
+        this->friendsArr.pop_back();
+    }
+    else
+        throw "User does not follow this friend!\n";
 }
 
 void FriendPage::showFriends() const
 {
-    this->friendsArr.show();
+    auto itr = this->friendsArr.begin();
+    auto itrEnd = this->friendsArr.end();
+
+    for (; itr != itrEnd ; ++itr) {
+        (*itr)->show();
+    }
 }
 
 void FriendPage::showFriendsStatuses(int amount) const
 {
-    int friendsArrSize = this->friendsArr.getSize();
+    auto itr = this->friendsArr.begin();
+    auto itrEnd = this->friendsArr.end();
 
-    for (int i = 0; i < friendsArrSize; ++i) {
-        this->friendsArr.getFriendAtIndex(i)->showStatuses(amount);
+    for (; itr != itrEnd; ++itr) {
+        (*itr)->showStatuses(amount);
     }
 }
 
-bool FriendPage::followFanPage(FanPage& fanPage)
+void FriendPage::followFanPage(FanPage& fanPage) noexcept(false)
 {
-    if(FanPage::findFanPageIndex(fanPage, &this->fanPagesArr) == NOT_FOUND)
-    {
-        this->fanPagesArr.push(&fanPage);
-        return true;
-    }
-    else
-        cout << PAGE_IS_FOLLOWED;
-    return false;
+    auto itr = find(this->fanPagesArr.begin(),this->fanPagesArr.end() , fanPage);
+    if(itr != this->fanPagesArr.end())
+        throw PAGE_IS_FOLLOWED;
+
+    this->fanPagesArr.push_back(&fanPage);
 }
 
-bool FriendPage::unfollowFanPage(FanPage& fanPage)
+void FriendPage::unfollowFanPage(FanPage& fanPage) noexcept(false)
 {
-    int indexToRemove = FanPage::findFanPageIndex(fanPage, &this->fanPagesArr);
-    if(indexToRemove != NOT_FOUND){
+    auto itr = find(this->fanPagesArr.begin(),this->fanPagesArr.end() , fanPage);
+    if(itr == this->fanPagesArr.end())
+        throw PAGE_IS_NOT_FOLLOWED;
 
-        this->fanPagesArr.remove(indexToRemove);
-        return true;
-    }
-    else
-        cout << PAGE_IS_NOT_FOLLOWED;
-    return false;
+    swap(*itr, this->fanPagesArr.back());
+    this->fanPagesArr.pop_back();
 }
 
 /// statuses methods
-
 void FriendPage::showStatuses(int amount) const
 {
-    this->statusesArr.show(amount);
+    auto itr = this->statuses.begin();
+    auto itrEnd = this->statuses.end();
+
+    for(; itr != itrEnd; ++itr)
+    {
+        itr->showStatus();
+    }
 }
 
 void FriendPage::addStatus(Status &status)
 {
-    this->statusesArr.push(status);
+    this->statuses.push_back(status);
 }
 
 bool FriendPage::operator==(const FriendPage &other) const

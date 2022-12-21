@@ -6,7 +6,6 @@
 #include "FriendPage.h"
 #include <string.h>
 #include <vector>
-#include <list>
 using namespace std;
 
 class FanPage
