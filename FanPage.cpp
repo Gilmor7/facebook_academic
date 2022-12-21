@@ -1,30 +1,10 @@
 #include "FanPage.h"
 
-/// C'tors and D'tors
-
-FanPage::FanPage(const char *name)
+FanPage::FanPage(const std::string &name) noexcept(false)
 {
-    int len = strlen(name) + 1;
-    this->pageName = new char[len];
-    strcpy(this->pageName, name);
-}
-
-FanPage::FanPage(FanPage &&other)
-{
-    this->pageName = other.pageName;
-    other.pageName = nullptr;
-
-    this->statusesArr = other.statusesArr;
-    other.statusesArr.emptyArrPtr();
-
-    this->followersArr = other.followersArr;
-    other.followersArr.emptyArrPtr();
-}
-
-FanPage::~FanPage()
-{
-    this->statusesArr.deleteStatuses();
-    delete[] this->pageName;
+    if(name.empty())
+        throw "Name cannot be empty!\n";
+    this->pageName = name;
 }
 
 void FanPage::showName() const
@@ -32,64 +12,70 @@ void FanPage::showName() const
     cout << this->pageName << endl;
 }
 
-int FanPage::findFanPageIndex(FanPage& fanPage, const FanPageArray* fanPages)
-{
-    int index = NOT_FOUND;
-    int fanPagesArrSize = fanPages->getSize();
-    const char* friendsName = fanPage.getName();
-
-    for (int i = 0; i < fanPagesArrSize && index == NOT_FOUND; ++i) {
-        if(strcmp(
-                friendsName,
-                fanPages->getFanPageAtIndex(i)->getName()
-        ) == 0)
-        {
-            index = i;
-        }
-    }
-    return index;
-}
-
-/// followers methods
-
-bool FanPage::addFollower(FriendPage &follower)
-{
-    if(FriendPage::findFriendIndex(follower, &this->followersArr) == NOT_FOUND)
-    {
-        this->followersArr.push(&follower);
-        return true;
-    }
-    else
-        cout << PAGE_IS_FOLLOWED;
-    return false;
-}
-
-bool FanPage::removeFollower(FriendPage &follower)
-{
-    int indexToRemove = FriendPage::findFriendIndex(follower, &this->followersArr);
-    if(indexToRemove != NOT_FOUND)
-    {
-        this->followersArr.remove(indexToRemove);
-        return true;
-    }
-    else
-        cout << PAGE_IS_NOT_FOLLOWED;
-    return false;
-}
-
 void FanPage::showFollowers() const
 {
-    this->followersArr.show();
+    auto itr = this->followers.begin();
+    auto itrEnd = this->followers.end();
+    for(; itr != itrEnd; ++itr)
+    {
+        (*itr)->show();
+    }
 }
 
 /// statuses methods
 
 void FanPage::showStatuses(int amount) const
 {
-    this->statusesArr.show(amount);
+    auto itr = this->statuses.begin();
+    auto itrEnd = this->statuses.end();
+    for(; itr != itrEnd; ++itr)
+    {
+        itr->showStatus();
+    }
 }
 
 void FanPage::addStatus(Status &status)
 {
-    this->statusesArr.push(status);
+    this->statuses.push_back(status);
 }
+
+const FanPage& FanPage::operator+=(const FriendPage &user) noexcept(false)
+{
+    auto itr = find(this->followers.begin(), this->followers.end(), &user);
+    if(itr == this->followers.end()) {
+        this->followers.push_back(&user);
+        return *this;
+    }
+    else
+        throw "User already follows this page!\n";
+}
+
+const FanPage& FanPage::operator-=(const FriendPage &user) noexcept(false)
+{
+    auto itr = find(this->followers.begin(), this->followers.end(), &user);
+    if(itr != this->followers.end()) {
+        swap(*itr, this->followers.back());
+        this->followers.pop_back();
+        return *this;
+    }
+    else
+        throw "User does not follow this page!\n";
+}
+
+bool FanPage::operator>(const FanPage &other) const
+{
+    auto size1 = this->followers.size();
+    auto size2 = other.followers.size();
+    return size1 > size2;
+}
+
+bool FanPage::operator==(const FanPage &other) const {
+    return this->pageName == other.pageName;
+}
+
+//bool FanPage::operator>(const FriendPage &other) const
+//{
+//    auto size1 = this->followers.size();
+//    auto size2 = other vectors size;
+//    return size1 > size2;
+//}

@@ -10,16 +10,15 @@ using namespace std;
 class Status
 {
 private:
-    char* text;
+    std::string text;
     time_t statusTime;
 
-    void setText(const char* text);
 public:
-    Status(const char* text);
-    Status(const Status& other);
-    Status(Status&& other);
-    ~Status();
+    Status(const std::string& text) noexcept(false);
     void showStatus() const;
+
+    bool operator==(const Status& other) const;
+    bool operator!=(const Status& other) const;
 };
 
 #endif //FACEBOOK_ACADEMIC_STATUS_H

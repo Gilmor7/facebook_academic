@@ -201,47 +201,50 @@ void UserInterface::setOption(UserInterface::eOption newOption)
 
 void UserInterface::activateOption(BookFace &system)
 {
-    switch(this->currOption)
-    {
-        case ADD_USER:
-            this->addUser(system);
-            break;
-        case ADD_PAGE:
-            this->addPage(system);
-            break;
-        case ADD_STATUS:
-            this->addStatus(system);
-            break;
-        case SHOW_ENTITY_STATUSES:
-            this->showAllStatusesFromEntity(system);
-            break;
-        case CONNECT_USERS:
-            this->connectUsers(system);
-            break;
-        case REMOVE_USERS_CONNECTION:
-            this->removeUsersConnection(system);
-            break;
-        case SHOW_LAST_STATUSES:
-            this->showAllStatusesFromUsersFriends(system);
-            break;
-        case ADD_USER_TO_PAGE:
-            this->followFanPage(system);
-            break;
-        case REMOVE_USER_FROM_PAGE:
-            this->unfollowFanPage(system);
-            break;
-        case SHOW_ALL_ENTITIES:
-            this->showAllRegistered(system);
-            break;
-        case SHOW_ALL_FOLLOWERS_OF_ENTITY:
-            this->showAllFollowersOfEntity(system);
-            break;
-        case EXIT:
-            this->stopTheProgram(system);
-            break;
-        default:
-            cout << INVALID_CHOICE_MSG;
-            break;
+    try {
+        switch (this->currOption) {
+            case ADD_USER:
+                this->addUser(system);
+                break;
+            case ADD_PAGE:
+                this->addPage(system);
+                break;
+            case ADD_STATUS:
+                this->addStatus(system);
+                break;
+            case SHOW_ENTITY_STATUSES:
+                this->showAllStatusesFromEntity(system);
+                break;
+            case CONNECT_USERS:
+                this->connectUsers(system);
+                break;
+            case REMOVE_USERS_CONNECTION:
+                this->removeUsersConnection(system);
+                break;
+            case SHOW_LAST_STATUSES:
+                this->showAllStatusesFromUsersFriends(system);
+                break;
+            case ADD_USER_TO_PAGE:
+                this->followFanPage(system);
+                break;
+            case REMOVE_USER_FROM_PAGE:
+                this->unfollowFanPage(system);
+                break;
+            case SHOW_ALL_ENTITIES:
+                this->showAllRegistered(system);
+                break;
+            case SHOW_ALL_FOLLOWERS_OF_ENTITY:
+                this->showAllFollowersOfEntity(system);
+                break;
+            case EXIT:
+                this->stopTheProgram(system);
+                break;
+            default:
+                throw INVALID_CHOICE_MSG;
+        }
+    }
+    catch(char* MSG){
+        cout << MSG << endl;
     }
 }
 

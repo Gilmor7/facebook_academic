@@ -4,11 +4,9 @@
 
 using namespace std;
 
-FriendPage::FriendPage(const char* name, Date birthDate): birthDate(birthDate)
+FriendPage::FriendPage(const std::string& name, Date birthDate): birthDate(birthDate)
 {
-    int len = strlen(name) + 1;
-    this->name = new char[len];
-    strcpy(this->name, name);
+    this->name = name;
 }
 
 FriendPage::FriendPage(FriendPage &&other): birthDate(other.birthDate)
@@ -29,7 +27,6 @@ FriendPage::FriendPage(FriendPage &&other): birthDate(other.birthDate)
 FriendPage::~FriendPage()
 {
     this->statusesArr.deleteStatuses();
-    delete[] this->name;
 }
 
  void FriendPage::show() const
@@ -117,4 +114,9 @@ void FriendPage::showStatuses(int amount) const
 void FriendPage::addStatus(Status &status)
 {
     this->statusesArr.push(status);
+}
+
+bool FriendPage::operator==(const FriendPage &other) const
+{
+    return this->name == other.name;
 }

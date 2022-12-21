@@ -1,38 +1,26 @@
 
 #include "Status.h"
 
-Status::Status(const char *text)
+Status::Status(const std::string& text) noexcept(false)
 {
-    setText(text);
+    if(text.empty())
+        throw "Text cannot be empty!\n";
+    this->text = text;
     this->statusTime = time(nullptr);
 }
 
-Status::Status(const Status &other)
-{
-    setText(other.text);
-    this->statusTime = other.statusTime;
-}
-
-Status::Status(Status &&other)
-{
-    this->text = other.text;
-    other.text = nullptr;
-
-    this->statusTime = other.statusTime;
-}
-
-Status::~Status()
-{
-    delete[] text;
-}
-
-void Status::setText(const char *text)
-{
-    this->text = new char[strlen(text) + 1];
-    strcpy(this->text, text);
-}
 
 void Status::showStatus() const
 {
     cout << this->text << endl << ctime(&(this->statusTime)) << endl;
+}
+
+bool Status::operator==(const Status &other) const
+{
+    return this->text == other.text;
+}
+
+bool Status::operator!=(const Status &other) const
+{
+    return !(*this == other);
 }
