@@ -33,13 +33,13 @@ public:
     void show() const;
 //
 //    static int findFriendIndex(FriendPage& friendPage, const FriendArray* friends);
-//    void addFriend(FriendPage& newFriend);
-//    void removeFriend(FriendPage& friendToRemove);
-//    void showFriends() const;
+    void addFriend(FriendPage& newFriend);
+    void removeFriend(FriendPage& friendToRemove);
+    void showFriends() const;
     void showFriendsStatuses(int amount) const;
 //
-//    bool followFanPage(FanPage& fanPage);
-//    bool unfollowFanPage(FanPage& fanPage);
+    bool followFanPage(FanPage& fanPage);
+    bool unfollowFanPage(FanPage& fanPage);
 //
     void showStatuses(int amount = ALL) const;
     void addStatus(Status& status);

@@ -41,31 +41,25 @@ void FanPage::addStatus(Status &status)
 
 const FanPage& FanPage::operator+=(const FriendPage &user) noexcept(false)
 {
-    auto itr = this->followers.begin();
-    auto itrEnd = this->followers.end();
-    for(; itr != itrEnd; ++itr)
-    {
-        if(*itr == &user)
-            throw "You are already following this page\n";
+    auto itr = find(this->followers.begin(), this->followers.end(), &user);
+    if(itr == this->followers.end()) {
+        this->followers.push_back(&user);
+        return *this;
     }
-    this->followers.push_back(&user);
-    return *this;
+    else
+        throw "User already follows this page!\n";
 }
 
 const FanPage& FanPage::operator-=(const FriendPage &user) noexcept(false)
 {
-    auto itr = this->followers.begin();
-    auto itrEnd = this->followers.end();
-    for(; itr != itrEnd; ++itr)
-    {
-        if(*itr == &user)
-        {
-            iter_swap(itr, itrEnd);
-            this->followers.pop_back();
-            return *this;
-        }
+    auto itr = find(this->followers.begin(), this->followers.end(), &user);
+    if(itr != this->followers.end()) {
+        swap(*itr, this->followers.back());
+        this->followers.pop_back();
+        return *this;
     }
-    throw "You are not following this page\n";
+    else
+        throw "User does not follow this page!\n";
 }
 
 bool FanPage::operator>(const FanPage &other) const

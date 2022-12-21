@@ -8,194 +8,151 @@ BookFace::BookFace()
 }
 
 /// Menu functions
-bool BookFace::addUser(FriendPage &newUser)
+void BookFace::addUser(FriendPage &newUser) noexcept(false)
 {
-    const bool isExists = this->users.isFriendInArr(newUser);
-    if (isExists)
-    {
-        cout << USER_ALREADY_EXISTS;
-        return false;
-    }
+    auto findItr = find(this->users.begin(), this->users.end(), newUser);
+    if(findItr == this->users.end())
+        this->users.push_back(newUser);
     else
-    {
-        this->users.push(&newUser);
-        return true;
-    }
+        throw USER_ALREADY_EXISTS_EXCEPTION;
 
 }
 
-bool BookFace::addPage(FanPage &newFanPage)
+void BookFace::addPage(FanPage &newFanPage) noexcept(false)
 {
-    const bool isExists = this->fanPages.isFanPageInArr(newFanPage);
-    if(isExists)
-    {
-        cout << PAGE_ALREADY_EXISTS;
-        return false;
-    }
+    auto findItr = find(this->fanPages.begin(), this->fanPages.end(), newFanPage);
+    if(findItr == this->fanPages.end())
+        this->fanPages.push_back(newFanPage);
     else
-    {
-        this->fanPages.push(&newFanPage);
-        return true;
-    }
+        throw PAGE_ALREADY_EXISTS_EXCEPTION;
 }
 
 void BookFace::showAllRegistered() const
 {
     cout << "Users: " << endl;
-    this->users.show();
+    auto userItr = this->users.begin();
+    for(; userItr != this->users.end(); ++userItr)
+        userItr->show();
     cout << "Pages: " << endl;
-    this->fanPages.show();
+    auto pageItr = this->fanPages.begin();
+    for(; pageItr != this->fanPages.end(); ++pageItr)
+        pageItr->showName();
 }
 
-void BookFace::addStatusToFriendPage(FriendPage &user, Status& status)
+void BookFace::addStatusToFriendPage(FriendPage &user, Status& status) noexcept(false)
 {
-    const bool isExists = this->users.isFriendInArr(user);
-    if(isExists)
-        user.addStatus(status);
+   auto itr = find(this->users.begin(), this->users.end(), user);
+   if(itr != this->users.end())
+         itr->addStatus(status);
+   else
+       throw PAGE_NOT_EXISTS_EXCEPTION;
+}
+
+void BookFace::addStatusToFanPage(FanPage &fanPage, Status& status) noexcept(false)
+{
+    auto itr = find(this->fanPages.begin(), this->fanPages.end(), fanPage);
+    if(itr != this->fanPages.end())
+        itr->addStatus(status);
     else
-        cout << USER_NOT_EXISTS;
+        throw PAGE_NOT_EXISTS_EXCEPTION;
 }
 
-void BookFace::addStatusToFanPage(FanPage &fanPage, Status& status)
+void BookFace::showAllStatusesFromFriend(FriendPage &user) const noexcept(false)
 {
-    const bool isExists = this->fanPages.isFanPageInArr(fanPage);
-    if(isExists)
-        fanPage.addStatus(status);
+    auto itr = find(this->users.begin(), this->users.end(), user);
+    if(itr != this->users.end())
+        itr->showStatuses();
     else
-        cout << PAGE_NOT_EXISTS;
+        throw PAGE_NOT_EXISTS_EXCEPTION;
 }
 
-void BookFace::showAllStatusesFromFriend(FriendPage &user) const
+void BookFace::showAllStatusesFromFanPage(FanPage &fanPage) const noexcept(false)
 {
-    const bool isExists = this->users.isFriendInArr(user);
-    if(isExists)
-        user.showStatuses();
+    auto itr = find(this->fanPages.begin(), this->fanPages.end(), fanPage);
+    if(itr != this->fanPages.end())
+        itr->showStatuses();
     else
-        cout << USER_NOT_EXISTS;
+        throw PAGE_NOT_EXISTS_EXCEPTION;
 }
 
-void BookFace::showAllStatusesFromFanPage(FanPage &fanPage) const
+void BookFace::showAllStatusesFromUsersFriends(FriendPage &user) const noexcept(false)
 {
-    const bool isExists = this->fanPages.isFanPageInArr(fanPage);
-    if(isExists)
-        fanPage.showStatuses();
+    auto itr = find(this->users.begin(), this->users.end(), user);
+    if(itr != this->users.end())
+        itr->showFriendsStatuses(NUM_OF_FRIENDS_STATUSESS);
     else
-        cout << PAGE_NOT_EXISTS;
+        throw PAGE_NOT_EXISTS_EXCEPTION;
 }
 
-void BookFace::showAllStatusesFromUsersFriends(FriendPage &user) const
+void BookFace::connectUsers(FriendPage &user1, FriendPage &user2) noexcept(false)
 {
-    const bool isExists = this->users.isFriendInArr(user);
-    if(isExists)
-        user.showFriendsStatuses(NUM_OF_FRIENDS_STATUSESS);
-    else
-        cout << USER_NOT_EXISTS;
-}
-
-void BookFace::connectUsers(FriendPage &user1, FriendPage &user2)
-{
-    const bool user1Exists = this->users.isFriendInArr(user1);
-    const bool user2Exists = this->users.isFriendInArr(user2);
-
-    int indexOfFriend2 = FriendPage::findFriendIndex(user2, user1.getFriendsArray());
-    if(user1Exists && user2Exists)
+    if (user1 == user2)
+        throw USER_TO_SELF_EXCEPTION;
+    auto itr1 = find(this->users.begin(), this->users.end(), user1);
+    auto itr2 = find(this->users.begin(), this->users.end(), user2);
+    if(itr1 != this->users.end() && itr2 != this->users.end())
     {
-        if(indexOfFriend2 == NOT_FOUND)    // means they are not connected
-        {
-            user1.addFriend(user2);
-            user2.addFriend(user1);
-        }
-        else
-        {
-            cout << USERS_ALREADY_CONNECTED;
-        }
+        itr1->addFriend(*itr2);     // should throw exception if user1 is friend of user2
+        itr2->addFriend(*itr1);
     }
     else
-        cout << ONE_OF_USERS_NOT_FOUND;
+        throw PAGE_NOT_EXISTS_EXCEPTION;
 }
 
 void BookFace::removeUsersConnection(FriendPage &user1, FriendPage &user2)
 {
-    const bool user1Exists = this->users.isFriendInArr(user1);
-    const bool user2Exists = this->users.isFriendInArr(user2);
-
-    int indexOfFriend2 = FriendPage::findFriendIndex(user2, user1.getFriendsArray());
-    if(user1Exists && user2Exists)
+    auto itr1 = find(this->users.begin(), this->users.end(), user1);
+    auto itr2 = find(this->users.begin(), this->users.end(), user2);
+    if(itr1 != this->users.end() && itr2 != this->users.end())
     {
-        if (indexOfFriend2 != NOT_FOUND)     // means they are friends
-        {
-            user1.removeFriend(user2);
-            user2.removeFriend(user1);
-        }
-        else
-        {
-            cout << USERS_NOT_CONNECTED;
-        }
+        itr1->removeFriend(*itr2);  // should throw if user 1 not connected to user 2
+        itr2->removeFriend(*itr1);
     }
     else
-        cout << ONE_OF_USERS_NOT_FOUND;
+        throw PAGE_NOT_EXISTS_EXCEPTION;
 }
 
 void BookFace::followFanPage(FriendPage &user, FanPage &fanPage)
 {
-    const bool userExists = this->users.isFriendInArr(user);
-    const bool fanPageExists = this->fanPages.isFanPageInArr(fanPage);
-    if(userExists && fanPageExists)
+    auto itr1 = find(this->users.begin(), this->users.end(), user);
+    auto itr2 = find(this->fanPages.begin(), this->fanPages.end(), fanPage);
+    if(itr1 != this->users.end() && itr2 != this->fanPages.end())
     {
-        if(user.followFanPage(fanPage))
-            fanPage.addFollower(user);
+        itr1->followFanPage(*itr2);     // should change this later to += and make sure += throws (if needed)
+        *itr2 += (*itr1);
     }
-    else if (!userExists)
-        cout << USER_NOT_EXISTS;
     else
-        cout << PAGE_NOT_EXISTS;
+        throw PAGE_NOT_EXISTS_EXCEPTION;
 }
 
 void BookFace::unfollowFanPage(FriendPage &user, FanPage &fanPage)
 {
-    const bool userExists = this->users.isFriendInArr(user);
-    const bool fanPageExists = this->fanPages.isFanPageInArr(fanPage);
-    if(userExists && fanPageExists)
+    auto itr1 = find(this->users.begin(), this->users.end(), user);
+    auto itr2 = find(this->fanPages.begin(), this->fanPages.end(), fanPage);
+    if(itr1 != this->users.end() && itr2 != this->fanPages.end())
     {
-        if(user.unfollowFanPage(fanPage))
-            fanPage.removeFollower(user);
+        itr1->unfollowFanPage(*itr2);   // should change this later to -= and make sure -= throws (if needed)
+        *itr2 -= (*itr1);
     }
-    else if (!userExists)
-        cout << USER_NOT_EXISTS;
     else
-        cout << PAGE_NOT_EXISTS;
+        throw PAGE_NOT_EXISTS_EXCEPTION;
 }
 
 void BookFace::showAllFriendsOfAUser(FriendPage &user) const
 {
-    const bool isExists = this->users.isFriendInArr(user);
-    if(isExists)
-    {
-        user.showFriends();
-    }
+    auto itr = find(this->users.begin(), this->users.end(), user);
+    if(itr != this->users.end())
+        itr->showFriends();
     else
-        cout << USER_NOT_EXISTS;
+        throw PAGE_NOT_EXISTS_EXCEPTION;
 }
 
 void BookFace::showAllFollowersOfFanPage(FanPage &fanPage) const
 {
-    const bool isExists = this->fanPages.isFanPageInArr(fanPage);
-    if(isExists)
-    {
-        fanPage.showFollowers();
-    }
+    auto itr = find(this->fanPages.begin(), this->fanPages.end(), fanPage);
+    if(itr != this->fanPages.end())
+        itr->showFollowers();
     else
-        cout << PAGE_NOT_EXISTS;
+        throw PAGE_NOT_EXISTS_EXCEPTION;
 }
-
-void BookFace::deleteUsers()
-{
-    this->users.deleteAllUsers();
-}
-
-void BookFace::deleteFanPages()
-{
-    this->fanPages.deleteAllPages();
-}
-
 
