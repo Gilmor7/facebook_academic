@@ -28,11 +28,10 @@ public:
     FriendPage(const string& name, Date birthDate) noexcept(false);
 
     // getters
-    const char* getName() const {return this->name.c_str();}
+    const string getName() const {return this->name.c_str();}
+    const int getNumOfFriends() const { return this->friendsArr.size(); }
 
     void show() const;
-//
-//    static int findFriendIndex(FriendPage& friendPage, const FriendArray* friends);
     void addFriend(FriendPage& newFriend);
     void removeFriend(FriendPage& friendToRemove);
     void showFriends() const;
@@ -44,7 +43,12 @@ public:
     void showStatuses(int amount = ALL) const;
     void addStatus(Status& status);
 
+    //operators
     bool operator==(const FriendPage& other) const;
+    bool operator>(const FriendPage& other) const;
+    bool operator>(const FanPage& other) const;
+    const FriendPage& operator+=(const FriendPage& other);
+    const FriendPage& operator-=(const FriendPage& other);
 };
 
 

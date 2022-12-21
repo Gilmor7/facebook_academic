@@ -20,6 +20,7 @@ public:
 
     // Getters
     const char* getName() const {return this->pageName.c_str();}
+    const int getNumOfFollowers() const { return this->followers.size(); }
 
     void showFollowers() const;
     void showStatuses(int amount = ALL) const;

@@ -93,7 +93,28 @@ void FriendPage::addStatus(Status &status)
     this->statuses.push_back(status);
 }
 
+// Operators
 bool FriendPage::operator==(const FriendPage &other) const
 {
     return this->name == other.name;
+}
+
+bool FriendPage::operator>(const FriendPage& other) const
+{
+    return this->friendsArr.size() > other.friendsArr.size();
+}
+
+bool FriendPage::operator>(const FanPage& other) const
+{
+    return this->friendsArr.size() > other.getNumOfFollowers();
+}
+
+const FriendPage& FriendPage::operator+=(const FriendPage& other)
+{
+
+}
+
+const FriendPage& FriendPage::operator-=(const FriendPage& other)
+{
+
 }

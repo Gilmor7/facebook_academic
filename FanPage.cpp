@@ -76,6 +76,6 @@ bool FanPage::operator==(const FanPage &other) const {
 //bool FanPage::operator>(const FriendPage &other) const
 //{
 //    auto size1 = this->followers.size();
-//    auto size2 = other vectors size;
+//    auto size2 = other vectors size;  // You can use getNumOfFriends method that I added to FriendPage for this purpose
 //    return size1 > size2;
 //}
