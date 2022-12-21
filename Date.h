@@ -13,6 +13,8 @@ public:
     int getYear() const {return year;}
     void showDate() const;
 
+    static bool isDateValid(int day, int month, int year);
+    static bool isLeapYear(int year);
 };
 
 #endif //FACEBOOK_ACADEMIC_DATE_H
