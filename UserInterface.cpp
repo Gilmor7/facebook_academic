@@ -6,22 +6,19 @@
 // system functions
 void UserInterface::addUser(BookFace &system)
 {
-    char name[MAX_NAME_LEN];
+    string name = this->getNameAsString();
     int day,month,year;
-    this->getName(name);
     this->getBirthDate(&day, &month, &year);
-    FriendPage* newUser = new FriendPage(name, Date(day,month,year));
-    if(!system.addUser(*newUser))
-        delete newUser;
+
+    FriendPage newUser(name, Date(day,month,year));
+    system.addUser(newUser);
 }
 
 void UserInterface::addPage(BookFace &system)
 {
-    char name[MAX_NAME_LEN];
-    this->getName(name);
-    FanPage* newPage = new FanPage(name);
-    if(!system.addPage(*newPage))
-        delete newPage;
+    string name = this->getNameAsString();
+    FanPage newPage(name);
+    system.addPage(newPage);
 }
 
 void UserInterface::showAllRegistered(BookFace &system) const
@@ -32,13 +29,16 @@ void UserInterface::showAllRegistered(BookFace &system) const
 void UserInterface::addStatus(BookFace &system)
 {
     int choice;
-    char name[MAX_NAME_LEN];
-    char text[MAX_STATUS_TEXT_LEN];
+    string name;
+    string text;
     this->getChoice(&choice);
     if(!this->validateChoice(choice))
-        return;
-    this->getName(name);
-    this->getStatusText(text);
+        throw INVALID_CHOICE_MSG;
+
+    name = this->getNameAsString();
+    text = this->getStatusTextAsString();
+
+    //TODO: Complete fixes here
     if(choice == 1)
     {
         FriendPage* user = getFriendByNameFromSystem(name, system);
@@ -60,11 +60,14 @@ void UserInterface::addStatus(BookFace &system)
 void UserInterface::showAllStatusesFromEntity(BookFace &system) const
 {
     int choice;
-    char name[MAX_NAME_LEN];
+    string name;
+
     this->getChoice(&choice);
     if(!this->validateChoice(choice))
-        return;
-    this->getName(name);
+        throw INVALID_CHOICE_MSG;
+
+    name = this->getNameAsString();
+    //Todo: complete fix here
     if(choice == 1)
     {
         FriendPage* user = getFriendByNameFromSystem(name, system);
@@ -85,8 +88,8 @@ void UserInterface::showAllStatusesFromEntity(BookFace &system) const
 
 void UserInterface::showAllStatusesFromUsersFriends(BookFace &system) const
 {
-    char name[MAX_NAME_LEN];
-    this->getName(name);
+    string name = this->getNameAsString();
+    //TODO: Complete here
     FriendPage* user = getFriendByNameFromSystem(name, system);
     if(user)
         system.showAllStatusesFromUsersFriends(*user);
@@ -97,10 +100,10 @@ void UserInterface::showAllStatusesFromUsersFriends(BookFace &system) const
 
 void UserInterface::connectUsers(BookFace &system)
 {
-    char name1[MAX_NAME_LEN];
-    char name2[MAX_NAME_LEN];
-    this->getName(name1);
-    this->getName(name2);
+    string name1 = this->getNameAsString();
+    string name2 = this->getNameAsString();
+
+    //TODO: Continue here
     FriendPage* friend1 = getFriendByNameFromSystem(name1, system);
     FriendPage* friend2 = getFriendByNameFromSystem(name2, system);
     if(friend1 && friend2)
@@ -111,10 +114,9 @@ void UserInterface::connectUsers(BookFace &system)
 
 void UserInterface::removeUsersConnection(BookFace &system)
 {
-    char name1[MAX_NAME_LEN];
-    char name2[MAX_NAME_LEN];
-    this->getName(name1);
-    this->getName(name2);
+    string name1 = this->getNameAsString();
+    string name2 = this->getNameAsString();
+
     FriendPage* friend1 = getFriendByNameFromSystem(name1, system);
     FriendPage* friend2 = getFriendByNameFromSystem(name2, system);
     if(friend1 && friend2)
@@ -125,11 +127,12 @@ void UserInterface::removeUsersConnection(BookFace &system)
 
 void UserInterface::followFanPage(BookFace &system)
 {
-    char userName[MAX_NAME_LEN];
-    char pageName[MAX_NAME_LEN];
+    string userName;
+    string pageName;
     cout << ENTER_USER_THEN_FANPAGE;
-    this->getName(userName);
-    this->getName(pageName);
+    userName = this->getNameAsString();
+    pageName = this->getNameAsString();
+
     FriendPage* user = getFriendByNameFromSystem(userName, system);
     FanPage* page = getFanPageByNameFromSystem(pageName, system);
     if(user && page)
@@ -140,11 +143,12 @@ void UserInterface::followFanPage(BookFace &system)
 
 void UserInterface::unfollowFanPage(BookFace &system)
 {
-    char userName[MAX_NAME_LEN];
-    char pageName[MAX_NAME_LEN];
+    string userName;
+    string pageName;
     cout << ENTER_USER_THEN_FANPAGE;
-    this->getName(userName);
-    this->getName(pageName);
+    userName = this->getNameAsString();
+    pageName = this->getNameAsString();
+
     FriendPage* user = getFriendByNameFromSystem(userName, system);
     FanPage* page = getFanPageByNameFromSystem(pageName, system);
     if(user && page)
@@ -156,11 +160,14 @@ void UserInterface::unfollowFanPage(BookFace &system)
 void UserInterface::showAllFollowersOfEntity(BookFace &system)
 {
     int choice;
-    char name[MAX_NAME_LEN];
+    string name;
+
     this->getChoice(&choice);
     if(!this->validateChoice(choice))
-        return;
-    this->getName(name);
+        throw INVALID_CHOICE_MSG;
+
+    name = this->getNameAsString();
+
     if(choice == 1)
     {
         FriendPage* user = getFriendByNameFromSystem(name, system);
@@ -254,13 +261,24 @@ void UserInterface::getName(char *name) const
     cin.getline(name, MAX_NAME_LEN);
 }
 
+string UserInterface::getNameAsString() const
+{
+    string res;
+
+    cout << ENTER_NAME;
+    getline(cin, res);
+
+    return res;
+}
+
 void UserInterface::getBirthDate(int* day, int* month, int* year) const
 {
     cout << ENTER_BIRTH_DATE;
     cin >> *day >> *month >> *year;
 }
 
-void UserInterface::getChoice(int* choice) const {
+void UserInterface::getChoice(int* choice) const
+{
     cout << CHOOSE_PAGE_OR_FRIEND;
     cin >> *choice;
     cin.get();
@@ -272,12 +290,20 @@ void UserInterface::getStatusText(char *text) const
     cin.getline(text, MAX_STATUS_TEXT_LEN);
 }
 
+string UserInterface::getStatusTextAsString() const
+{
+    string text;
+
+    cout << ADD_STATUS_TEXT_MSG;
+    getline(cin, text);
+
+    return text;
+}
+
 bool UserInterface::validateChoice(int choice) const
 {
     if(choice != 1 && choice != 2)
-    {
-        cout << INVALID_CHOICE_MSG;
         return false;
-    }
+
     return true;
 }
