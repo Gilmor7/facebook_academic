@@ -20,21 +20,26 @@ FriendPage::FriendPage(const string& name, Date birthDate) noexcept(false):
     cout << endl;
 }
 
-void FriendPage::addFriend(FriendPage& newFriend)
+void FriendPage::addFriend(FriendPage& newFriend) noexcept(false)
 {
-    this->friendsArr.push_back(&newFriend);
+    try {
+        (*this) += newFriend;
+    }
+    catch(char* msg)
+    {
+        throw msg;
+    }
 }
 
-void FriendPage::removeFriend(FriendPage& friendToRemove)
+void FriendPage::removeFriend(FriendPage& friendToRemove) noexcept(false)
 {
-    auto itr = find(this->friendsArr.begin(), this->friendsArr.end(), &friendToRemove);
-
-    if(itr != this->friendsArr.end()) {
-        swap(*itr, this->friendsArr.back());
-        this->friendsArr.pop_back();
+    try {
+        (*this) -= friendToRemove;
     }
-    else
-        throw "User does not follow this friend!\n";
+    catch(char* msg)
+    {
+        throw msg;
+    }
 }
 
 void FriendPage::showFriends() const
@@ -99,6 +104,10 @@ bool FriendPage::operator==(const FriendPage &other) const
     return this->name == other.name;
 }
 
+bool FriendPage::operator!=(const FriendPage &other) const {
+    return this->name != other.name;
+}
+
 bool FriendPage::operator>(const FriendPage& other) const
 {
     return this->friendsArr.size() > other.friendsArr.size();
@@ -109,12 +118,25 @@ bool FriendPage::operator>(const FanPage& other) const
     return this->friendsArr.size() > other.getNumOfFollowers();
 }
 
-const FriendPage& FriendPage::operator+=(const FriendPage& other)
+const FriendPage& FriendPage::operator+=(const FriendPage& other) noexcept(false)
 {
+    auto itr = find(this->friendsArr.begin(), this->friendsArr.end(), &other);
+    if(itr != this->friendsArr.end())
+        throw FRIEND_IS_FOLLOWED;
 
+    this->friendsArr.push_back(&other);
+    return (*this);
 }
 
-const FriendPage& FriendPage::operator-=(const FriendPage& other)
+const FriendPage& FriendPage::operator-=(const FriendPage& other) noexcept(false)
 {
 
+    auto itr = find(this->friendsArr.begin(), this->friendsArr.end(), &other);
+    if(itr == this->friendsArr.end())
+        throw FRIEND_IS_NOT_FOLLOWED;
+
+    // Remove friend in O(1)
+    swap(*itr, this->friendsArr.back());
+    this->friendsArr.pop_back();
+    return (*this);
 }

@@ -16,6 +16,8 @@ class FriendPage
 public:
     static constexpr const char* const PAGE_IS_FOLLOWED = "You are already following this page\n";
     static constexpr const char* const PAGE_IS_NOT_FOLLOWED = "You are not following this page\n";
+    static constexpr const char* const FRIEND_IS_FOLLOWED = "User already follow this friend!\n";
+    static constexpr const char* const FRIEND_IS_NOT_FOLLOWED = "User does not follow this friend!\n";
 private:
     string name;
     Date birthDate;
@@ -32,8 +34,8 @@ public:
     const int getNumOfFriends() const { return this->friendsArr.size(); }
 
     void show() const;
-    void addFriend(FriendPage& newFriend);
-    void removeFriend(FriendPage& friendToRemove);
+    void addFriend(FriendPage& newFriend) noexcept(false);
+    void removeFriend(FriendPage& friendToRemove) noexcept(false);
     void showFriends() const;
     void showFriendsStatuses(int amount) const;
 //
@@ -45,10 +47,11 @@ public:
 
     //operators
     bool operator==(const FriendPage& other) const;
+    bool operator!=(const FriendPage& other) const;
     bool operator>(const FriendPage& other) const;
     bool operator>(const FanPage& other) const;
-    const FriendPage& operator+=(const FriendPage& other);
-    const FriendPage& operator-=(const FriendPage& other);
+    const FriendPage& operator+=(const FriendPage& other) noexcept(false);
+    const FriendPage& operator-=(const FriendPage& other) noexcept(false);
 };
 
 

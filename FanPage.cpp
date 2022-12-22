@@ -64,18 +64,20 @@ const FanPage& FanPage::operator-=(const FriendPage &user) noexcept(false)
 
 bool FanPage::operator>(const FanPage &other) const
 {
-    auto size1 = this->followers.size();
-    auto size2 = other.followers.size();
-    return size1 > size2;
+    return this->followers.size() > other.followers.size();
 }
 
-bool FanPage::operator==(const FanPage &other) const {
+bool FanPage::operator==(const FanPage &other) const
+{
     return this->pageName == other.pageName;
 }
 
-//bool FanPage::operator>(const FriendPage &other) const
-//{
-//    auto size1 = this->followers.size();
-//    auto size2 = other vectors size;  // You can use getNumOfFriends method that I added to FriendPage for this purpose
-//    return size1 > size2;
-//}
+bool FanPage::operator!=(const FanPage &other) const
+{
+    return this->pageName != other.pageName;
+}
+
+bool FanPage::operator>(const FriendPage &other) const
+{
+    return this->followers.size() > other.getNumOfFriends();
+}

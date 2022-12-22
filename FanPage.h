@@ -31,9 +31,9 @@ public:
     const FanPage& operator+=(const FriendPage& user) noexcept(false);
     const FanPage& operator-=(const FriendPage& user) noexcept(false);
     bool operator==(const FanPage& other) const;
+    bool operator!=(const FanPage& other) const;
     bool operator>(const FanPage& other) const;
-    //bool operator>(const FriendPage& other) const;  waiting for update in FriendPage to support vectors
-
+    bool operator>(const FriendPage& other) const;
 };
 
 
