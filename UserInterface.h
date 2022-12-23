@@ -31,8 +31,9 @@ public:
             "9. Remove a user from a fanPage.\n"
             "10. Show All the registered entities in the system.\n"
             "11. Show all the friends/followers of a user/fanPage.\n"
-            "12. Exit the Program.\n";
-    constexpr static const char* const INVALID_CHOICE_MSG= "Invalid choice, try again!\n";
+            "12. Exit the Program.\n"
+            "Enter your Option: ";
+    constexpr static const char* const INVALID_CHOICE_MSG= "Error! Invalid choice!";
     constexpr static const char* const ENTER_NAME = "Enter a name [max 50 characters]: ";
     constexpr static const char* const ENTER_BIRTH_DATE = "\nEnter birthdate [day month year]: ";
     constexpr static const char* const CHOOSE_PAGE_OR_FRIEND =
@@ -41,10 +42,7 @@ public:
             "2. fanPage\n";
     constexpr static const char* const ADD_STATUS_TEXT_MSG= "Enter text for status [max 200 characters]: ";
     constexpr static const char* const ENTER_USER_THEN_FANPAGE = "First enter the user name, then the fan page name!\n";
-    constexpr static const char* const USER_OR_FANPAGE_NOT_FOUND = "User or Fan Page was not found!\n";
-    constexpr static const char* const USER_NOT_FOUND = "User doesn't exist\n";
-    constexpr static const char* const FANPAGE_NOT_FOUND = "Fan page doesn't exists\n";
-    constexpr static const char* const ONE_OF_USERS_NOT_FOUND = "One of the users doesn't exist\n";
+    constexpr static const char* const UNKNOWN_ERROR_MSG = "Unknown error occurred!\n";
 
 private:
 
@@ -54,14 +52,14 @@ private:
     void addUser(BookFace& system);
     void addPage(BookFace& system);
     void showAllRegistered(BookFace& system) const;
-    void addStatus(BookFace& system);
-    void showAllStatusesFromEntity(BookFace& system) const;
+    void addStatus(BookFace& system) noexcept(false);
+    void showAllStatusesFromEntity(BookFace& system) const noexcept(false);
     void showAllStatusesFromUsersFriends(BookFace& system) const;
     void connectUsers(BookFace& system);
     void removeUsersConnection(BookFace& system);
     void followFanPage(BookFace& system);
     void unfollowFanPage(BookFace& system);
-    void showAllFollowersOfEntity(BookFace& system);
+    void showAllFollowersOfEntity(BookFace& system) noexcept(false);
     void stopTheProgram(BookFace& system);
 
     // small Utility functions
@@ -86,8 +84,6 @@ public:
     void activateOption(BookFace& system);
 
 };
-
-Date UserInterface::dummyDate(1,1,2000);
 
 #endif //FACEBOOK_ACADEMIC_USERINTERFACE_H
 

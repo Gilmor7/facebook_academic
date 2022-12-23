@@ -1,30 +1,5 @@
 
 #include "Utilities.h"
-
-FriendPage* getFriendByNameFromSystem(const char* name, BookFace& system)
-{
-    FriendArray* usersPtr = system.getFriendArrayPtr();
-    FriendPage* foundUser = nullptr;
-    for(int i=0; i < usersPtr->getSize(); i++)
-    {
-        if(strcmp(usersPtr->getFriendAtIndex(i)->getName(), name) == 0)
-            foundUser = usersPtr->getFriendAtIndex(i);
-    }
-    return foundUser;
-}
-
-FanPage* getFanPageByNameFromSystem(const char* name, BookFace& system)
-{
-    FanPageArray* pagesPtr = system.getFanPagesArrayPtr();
-    FanPage* foundPage = nullptr;
-    for(int i=0; i < pagesPtr->getSize(); i++)
-    {
-        if(strcmp(name, pagesPtr->getFanPageAtIndex(i)->getName()) == 0)
-            foundPage = pagesPtr->getFanPageAtIndex(i);
-    }
-    return foundPage;
-}
-
 void initilizeStartingDataIntoSystem(BookFace& system)
 {
     FriendPage* f1 = new FriendPage("Eli", Date(12,9,1998));

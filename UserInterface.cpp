@@ -26,7 +26,7 @@ void UserInterface::showAllRegistered(BookFace &system) const
     system.showAllRegistered();
 }
 
-void UserInterface::addStatus(BookFace &system)
+void UserInterface::addStatus(BookFace &system) noexcept(false)
 {
     int choice;
     string name;
@@ -51,7 +51,7 @@ void UserInterface::addStatus(BookFace &system)
     }
 }
 
-void UserInterface::showAllStatusesFromEntity(BookFace &system) const
+void UserInterface::showAllStatusesFromEntity(BookFace &system) const noexcept(false)
 {
     int choice;
     string name;
@@ -124,7 +124,7 @@ void UserInterface::unfollowFanPage(BookFace &system)
     system.unfollowFanPage(user, page);
 }
 
-void UserInterface::showAllFollowersOfEntity(BookFace &system)
+void UserInterface::showAllFollowersOfEntity(BookFace &system) noexcept(false)
 {
     int choice;
     string name;
@@ -209,8 +209,11 @@ void UserInterface::activateOption(BookFace &system)
                 throw INVALID_CHOICE_MSG;
         }
     }
-    catch(char* MSG){
+    catch(const char* MSG){
         cout << MSG << endl;
+    }
+    catch(...){
+        cout << UNKNOWN_ERROR_MSG << endl;
     }
 }
 

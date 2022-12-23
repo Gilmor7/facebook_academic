@@ -1,7 +1,7 @@
 
-
 #include "UserInterface.h"
 #include "Utilities.h"
+Date UserInterface::dummyDate(1,1,2000);
 
 int main()
 {
