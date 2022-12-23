@@ -50,10 +50,9 @@ public:
     void stopTheProgram() {this->is_running = false;}
 
     // getters
-    FriendArray* getFriendArrayPtr() {return &this->users;}
-    FanPageArray* getFanPagesArrayPtr() {return &this->fanPages;}
     bool getRunningState() const {return this->is_running;}
-
+    FriendPage* getUserByName(const string& name);
+    FanPage* getFanPageByName(const string& name);
 
 };
 

@@ -38,20 +38,19 @@ public:
     void removeFriend(FriendPage& friendToRemove) noexcept(false);
     void showFriends() const;
     void showFriendsStatuses(int amount) const;
-//
-    void followFanPage(FanPage& fanPage) noexcept(false);
-    void unfollowFanPage(FanPage& fanPage) noexcept(false);
-//
     void showStatuses(int amount = ALL) const;
     void addStatus(Status& status);
 
     //operators
     bool operator==(const FriendPage& other) const;
+    bool operator==(const string& str) const;
     bool operator!=(const FriendPage& other) const;
     bool operator>(const FriendPage& other) const;
     bool operator>(const FanPage& other) const;
     const FriendPage& operator+=(const FriendPage& other) noexcept(false);
+    const FriendPage& operator+=(const FanPage& page) noexcept(false);
     const FriendPage& operator-=(const FriendPage& other) noexcept(false);
+    const FriendPage& operator-=(const FanPage& page) noexcept(false);
 };
 
 

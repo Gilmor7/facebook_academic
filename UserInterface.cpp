@@ -37,23 +37,17 @@ void UserInterface::addStatus(BookFace &system)
 
     name = this->getNameAsString();
     text = this->getStatusTextAsString();
+    Status status(text);
 
-    //TODO: Complete fixes here
     if(choice == 1)
     {
-        FriendPage* user = getFriendByNameFromSystem(name, system);
-        if(user)
-            system.addStatusToFriendPage(*user, *(new Status(text)));
-        else
-            cout << USER_NOT_FOUND;
+        FriendPage user(name, dummyDate);
+        system.addStatusToFriendPage(user, status);
     }
     else if(choice == 2)
     {
-        FanPage* fanPage = getFanPageByNameFromSystem(name, system);
-        if(fanPage)
-            system.addStatusToFanPage(*fanPage, *(new Status(text)));
-        else
-            cout << FANPAGE_NOT_FOUND;
+        FanPage page(name);
+        system.addStatusToFanPage(page, status);
     }
 }
 
@@ -67,34 +61,24 @@ void UserInterface::showAllStatusesFromEntity(BookFace &system) const
         throw INVALID_CHOICE_MSG;
 
     name = this->getNameAsString();
-    //Todo: complete fix here
+
     if(choice == 1)
     {
-        FriendPage* user = getFriendByNameFromSystem(name, system);
-        if(user)
-            system.showAllStatusesFromFriend(*user);
-        else
-            cout << USER_NOT_FOUND;
+        FriendPage user(name, dummyDate);
+        system.showAllStatusesFromFriend(user);
     }
     else if(choice == 2)
     {
-        FanPage* fanPage = getFanPageByNameFromSystem(name, system);
-        if(fanPage)
-            system.showAllStatusesFromFanPage(*fanPage);
-        else
-            cout << FANPAGE_NOT_FOUND;
+        FanPage page(name);
+        system.showAllStatusesFromFanPage(page);
     }
 }
 
 void UserInterface::showAllStatusesFromUsersFriends(BookFace &system) const
 {
     string name = this->getNameAsString();
-    //TODO: Complete here
-    FriendPage* user = getFriendByNameFromSystem(name, system);
-    if(user)
-        system.showAllStatusesFromUsersFriends(*user);
-    else
-        cout << USER_NOT_FOUND;
+    FriendPage user(name, dummyDate);
+    system.showAllStatusesFromUsersFriends(user);
 }
 
 
@@ -102,27 +86,18 @@ void UserInterface::connectUsers(BookFace &system)
 {
     string name1 = this->getNameAsString();
     string name2 = this->getNameAsString();
-
-    //TODO: Continue here
-    FriendPage* friend1 = getFriendByNameFromSystem(name1, system);
-    FriendPage* friend2 = getFriendByNameFromSystem(name2, system);
-    if(friend1 && friend2)
-        system.connectUsers(*friend1, *friend2);
-    else
-        cout << ONE_OF_USERS_NOT_FOUND;
+    FriendPage user1(name1, dummyDate);
+    FriendPage user2(name2, dummyDate);
+    system.connectUsers(user1, user2);
 }
 
 void UserInterface::removeUsersConnection(BookFace &system)
 {
     string name1 = this->getNameAsString();
     string name2 = this->getNameAsString();
-
-    FriendPage* friend1 = getFriendByNameFromSystem(name1, system);
-    FriendPage* friend2 = getFriendByNameFromSystem(name2, system);
-    if(friend1 && friend2)
-        system.removeUsersConnection(*friend1, *friend2);
-    else
-        cout << ONE_OF_USERS_NOT_FOUND;
+    FriendPage user1(name1, dummyDate);
+    FriendPage user2(name2, dummyDate);
+    system.removeUsersConnection(user1, user2);
 }
 
 void UserInterface::followFanPage(BookFace &system)
@@ -132,13 +107,9 @@ void UserInterface::followFanPage(BookFace &system)
     cout << ENTER_USER_THEN_FANPAGE;
     userName = this->getNameAsString();
     pageName = this->getNameAsString();
-
-    FriendPage* user = getFriendByNameFromSystem(userName, system);
-    FanPage* page = getFanPageByNameFromSystem(pageName, system);
-    if(user && page)
-        system.followFanPage(*user, *page);
-    else
-        cout << USER_OR_FANPAGE_NOT_FOUND;
+    FriendPage user(userName, dummyDate);
+    FanPage page(pageName);
+    system.followFanPage(user, page);
 }
 
 void UserInterface::unfollowFanPage(BookFace &system)
@@ -148,13 +119,9 @@ void UserInterface::unfollowFanPage(BookFace &system)
     cout << ENTER_USER_THEN_FANPAGE;
     userName = this->getNameAsString();
     pageName = this->getNameAsString();
-
-    FriendPage* user = getFriendByNameFromSystem(userName, system);
-    FanPage* page = getFanPageByNameFromSystem(pageName, system);
-    if(user && page)
-        system.unfollowFanPage(*user, *page);
-    else
-        cout << USER_OR_FANPAGE_NOT_FOUND;
+    FriendPage user(userName, dummyDate);
+    FanPage page(pageName);
+    system.unfollowFanPage(user, page);
 }
 
 void UserInterface::showAllFollowersOfEntity(BookFace &system)
@@ -170,26 +137,18 @@ void UserInterface::showAllFollowersOfEntity(BookFace &system)
 
     if(choice == 1)
     {
-        FriendPage* user = getFriendByNameFromSystem(name, system);
-        if(user)
-            system.showAllFriendsOfAUser(*user);
-        else
-            cout << USER_NOT_FOUND;
+        FriendPage user(name, dummyDate);
+        system.showAllFriendsOfAUser(user);
     }
     else if(choice == 2)
     {
-        FanPage* fanPage = getFanPageByNameFromSystem(name, system);
-        if(fanPage)
-            system.showAllFollowersOfFanPage(*fanPage);
-        else
-            cout << FANPAGE_NOT_FOUND;
+        FanPage page(name);
+        system.showAllFollowersOfFanPage(page);
     }
 }
 
 void UserInterface::stopTheProgram(BookFace &system)
 {
-    system.deleteFanPages();
-    system.deleteUsers();
     system.stopTheProgram();
 }
 
@@ -307,3 +266,4 @@ bool UserInterface::validateChoice(int choice) const
 
     return true;
 }
+

@@ -92,8 +92,8 @@ void BookFace::connectUsers(FriendPage &user1, FriendPage &user2) noexcept(false
     auto itr2 = find(this->users.begin(), this->users.end(), user2);
     if(itr1 != this->users.end() && itr2 != this->users.end())
     {
-        itr1->addFriend(*itr2);     // should throw exception if user1 is friend of user2
-        itr2->addFriend(*itr1);
+        *itr1 += *itr2;
+        *itr2 += *itr1;
     }
     else
         throw PAGE_NOT_EXISTS_EXCEPTION;
@@ -118,7 +118,7 @@ void BookFace::followFanPage(FriendPage &user, FanPage &fanPage)
     auto itr2 = find(this->fanPages.begin(), this->fanPages.end(), fanPage);
     if(itr1 != this->users.end() && itr2 != this->fanPages.end())
     {
-        itr1->followFanPage(*itr2);     // should change this later to += and make sure += throws (if needed)
+        *itr1 += (*itr2);
         *itr2 += (*itr1);
     }
     else
@@ -131,7 +131,7 @@ void BookFace::unfollowFanPage(FriendPage &user, FanPage &fanPage)
     auto itr2 = find(this->fanPages.begin(), this->fanPages.end(), fanPage);
     if(itr1 != this->users.end() && itr2 != this->fanPages.end())
     {
-        itr1->unfollowFanPage(*itr2);   // should change this later to -= and make sure -= throws (if needed)
+        *itr1 -= (*itr2);
         *itr2 -= (*itr1);
     }
     else
@@ -155,4 +155,24 @@ void BookFace::showAllFollowersOfFanPage(FanPage &fanPage) const
     else
         throw PAGE_NOT_EXISTS_EXCEPTION;
 }
+
+FriendPage *BookFace::getUserByName(const string& name)
+{
+    auto itr = find(this->users.begin(), this->users.end(), name);
+    if(itr != this->users.end())
+        return &(*itr);
+    else
+        return nullptr;
+}
+
+FanPage *BookFace::getFanPageByName(const string &name)
+{
+    auto itr = find(this->fanPages.begin(), this->fanPages.end(), name);
+    if(itr != this->fanPages.end())
+        return &(*itr);
+    else
+        return nullptr;
+}
+
+
 

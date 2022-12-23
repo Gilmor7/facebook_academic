@@ -81,3 +81,7 @@ bool FanPage::operator>(const FriendPage &other) const
 {
     return this->followers.size() > other.getNumOfFriends();
 }
+
+bool FanPage::operator==(const string &name) const {
+    return this->pageName == name;
+}

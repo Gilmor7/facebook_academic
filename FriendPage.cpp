@@ -62,25 +62,6 @@ void FriendPage::showFriendsStatuses(int amount) const
     }
 }
 
-void FriendPage::followFanPage(FanPage& fanPage) noexcept(false)
-{
-    auto itr = find(this->fanPagesArr.begin(),this->fanPagesArr.end() , fanPage);
-    if(itr != this->fanPagesArr.end())
-        throw PAGE_IS_FOLLOWED;
-
-    this->fanPagesArr.push_back(&fanPage);
-}
-
-void FriendPage::unfollowFanPage(FanPage& fanPage) noexcept(false)
-{
-    auto itr = find(this->fanPagesArr.begin(),this->fanPagesArr.end() , fanPage);
-    if(itr == this->fanPagesArr.end())
-        throw PAGE_IS_NOT_FOLLOWED;
-
-    swap(*itr, this->fanPagesArr.back());
-    this->fanPagesArr.pop_back();
-}
-
 /// statuses methods
 void FriendPage::showStatuses(int amount) const
 {
@@ -102,6 +83,10 @@ void FriendPage::addStatus(Status &status)
 bool FriendPage::operator==(const FriendPage &other) const
 {
     return this->name == other.name;
+}
+
+bool FriendPage::operator==(const string& str) const {
+    return this->name == str;
 }
 
 bool FriendPage::operator!=(const FriendPage &other) const {
@@ -140,3 +125,25 @@ const FriendPage& FriendPage::operator-=(const FriendPage& other) noexcept(false
     this->friendsArr.pop_back();
     return (*this);
 }
+
+const FriendPage &FriendPage::operator+=(const FanPage &page) noexcept(false) {
+    auto itr = find(this->fanPagesArr.begin(), this->fanPagesArr.end(), &page);
+    if(itr != this->fanPagesArr.end())
+        throw PAGE_IS_FOLLOWED;
+
+    this->fanPagesArr.push_back(&page);
+    return (*this);
+}
+
+const FriendPage &FriendPage::operator-=(const FanPage &page) noexcept(false) {
+    auto itr = find(this->fanPagesArr.begin(), this->fanPagesArr.end(), &page);
+    if(itr == this->fanPagesArr.end())
+        throw PAGE_IS_NOT_FOLLOWED;
+
+    // Remove page in O(1)
+    swap(*itr, this->fanPagesArr.back());
+    this->fanPagesArr.pop_back();
+    return (*this);
+}
+
+

@@ -15,6 +15,7 @@ public:
     // consts
     constexpr static int MAX_NAME_LEN = 51;
     constexpr static int MAX_STATUS_TEXT_LEN = 101;
+    static Date dummyDate;
 
     // msg consts
     constexpr static const char* const DISPLAY_MENU_MESSAGE=
@@ -85,6 +86,8 @@ public:
     void activateOption(BookFace& system);
 
 };
+
+Date UserInterface::dummyDate(1,1,2000);
 
 #endif //FACEBOOK_ACADEMIC_USERINTERFACE_H
 

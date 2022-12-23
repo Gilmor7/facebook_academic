@@ -16,13 +16,8 @@ int main()
         interface.displayMenu();
         cin >> option;
         cin.get();
-        if(option < 1 || option > 12)
-            cout << UserInterface::INVALID_CHOICE_MSG;
-        else
-        {
-            interface.setOption((UserInterface::eOption) option);
-            interface.activateOption(system);
-        }
+        interface.setOption((UserInterface::eOption) option);
+        interface.activateOption(system);
 
     }   while(system.getRunningState());
 

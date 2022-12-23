@@ -31,6 +31,7 @@ public:
     const FanPage& operator+=(const FriendPage& user) noexcept(false);
     const FanPage& operator-=(const FriendPage& user) noexcept(false);
     bool operator==(const FanPage& other) const;
+    bool operator==(const string& name) const;
     bool operator!=(const FanPage& other) const;
     bool operator>(const FanPage& other) const;
     bool operator>(const FriendPage& other) const;
