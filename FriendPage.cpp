@@ -65,6 +65,7 @@ void FriendPage::showFriendsStatuses(int amount) const
 /// statuses methods
 void FriendPage::showStatuses(int amount) const
 {
+    cout << this->name << " posts: " << endl;
     auto itr = this->statuses.begin();
     auto itrEnd = this->statuses.end();
 
@@ -105,7 +106,7 @@ bool FriendPage::operator>(const FanPage& other) const
 
 const FriendPage& FriendPage::operator+=(const FriendPage& other) noexcept(false)
 {
-    auto itr = find(this->friendsArr.begin(), this->friendsArr.end(), &other);
+    auto itr = std::find(this->friendsArr.begin(), this->friendsArr.end(), &other);
     if(itr != this->friendsArr.end())
         throw FRIEND_IS_FOLLOWED;
 
@@ -116,7 +117,7 @@ const FriendPage& FriendPage::operator+=(const FriendPage& other) noexcept(false
 const FriendPage& FriendPage::operator-=(const FriendPage& other) noexcept(false)
 {
 
-    auto itr = find(this->friendsArr.begin(), this->friendsArr.end(), &other);
+    auto itr = std::find(this->friendsArr.begin(), this->friendsArr.end(), &other);
     if(itr == this->friendsArr.end())
         throw FRIEND_IS_NOT_FOLLOWED;
 
@@ -127,7 +128,7 @@ const FriendPage& FriendPage::operator-=(const FriendPage& other) noexcept(false
 }
 
 const FriendPage &FriendPage::operator+=(const FanPage &page) noexcept(false) {
-    auto itr = find(this->fanPagesArr.begin(), this->fanPagesArr.end(), &page);
+    auto itr = std::find(this->fanPagesArr.begin(), this->fanPagesArr.end(), &page);
     if(itr != this->fanPagesArr.end())
         throw PAGE_IS_FOLLOWED;
 
@@ -136,7 +137,7 @@ const FriendPage &FriendPage::operator+=(const FanPage &page) noexcept(false) {
 }
 
 const FriendPage &FriendPage::operator-=(const FanPage &page) noexcept(false) {
-    auto itr = find(this->fanPagesArr.begin(), this->fanPagesArr.end(), &page);
+    auto itr = std::find(this->fanPagesArr.begin(), this->fanPagesArr.end(), &page);
     if(itr == this->fanPagesArr.end())
         throw PAGE_IS_NOT_FOLLOWED;
 

@@ -26,6 +26,7 @@ void FanPage::showFollowers() const
 
 void FanPage::showStatuses(int amount) const
 {
+    cout << this->pageName << " posts: " << endl;
     auto itr = this->statuses.begin();
     auto itrEnd = this->statuses.end();
     for(; itr != itrEnd; ++itr)
@@ -41,7 +42,7 @@ void FanPage::addStatus(Status &status)
 
 const FanPage& FanPage::operator+=(const FriendPage &user) noexcept(false)
 {
-    auto itr = find(this->followers.begin(), this->followers.end(), &user);
+    auto itr = std::find(this->followers.begin(), this->followers.end(), &user);
     if(itr == this->followers.end()) {
         this->followers.push_back(&user);
         return *this;
@@ -52,7 +53,7 @@ const FanPage& FanPage::operator+=(const FriendPage &user) noexcept(false)
 
 const FanPage& FanPage::operator-=(const FriendPage &user) noexcept(false)
 {
-    auto itr = find(this->followers.begin(), this->followers.end(), &user);
+    auto itr = std::find(this->followers.begin(), this->followers.end(), &user);
     if(itr != this->followers.end()) {
         swap(*itr, this->followers.back());
         this->followers.pop_back();

@@ -5,6 +5,7 @@
 #include "Status.h"
 #include <string>
 #include <vector>
+#include <algorithm>
 
 const int ALL = -1;
 

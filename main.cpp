@@ -20,5 +20,5 @@ int main()
         interface.activateOption(system);
 
     }   while(system.getRunningState());
-
+    return 0;
 }

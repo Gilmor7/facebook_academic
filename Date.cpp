@@ -49,8 +49,8 @@ bool Date::isDateValid(int day, int month, int year)
     time_t t = time(NULL);
     tm* tPtr = localtime(&t);
     int currYear = (tPtr->tm_year) + 1900;
-    int currDay = (tPtr->tm_mday) + 1;
-    int currMonth = (tPtr->tm_mon);
+    int currDay = (tPtr->tm_mday);
+    int currMonth = (tPtr->tm_mon) + 1;
 
     // Check if year within range
     if (!(year >= 1800 && year <= currYear))

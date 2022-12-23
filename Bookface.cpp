@@ -10,7 +10,7 @@ BookFace::BookFace()
 /// Menu functions
 void BookFace::addUser(FriendPage &newUser) noexcept(false)
 {
-    auto findItr = find(this->users.begin(), this->users.end(), newUser);
+    auto findItr = std::find(this->users.begin(), this->users.end(), newUser);
     if(findItr == this->users.end())
         this->users.push_back(newUser);
     else
@@ -20,7 +20,7 @@ void BookFace::addUser(FriendPage &newUser) noexcept(false)
 
 void BookFace::addPage(FanPage &newFanPage) noexcept(false)
 {
-    auto findItr = find(this->fanPages.begin(), this->fanPages.end(), newFanPage);
+    auto findItr = std::find(this->fanPages.begin(), this->fanPages.end(), newFanPage);
     if(findItr == this->fanPages.end())
         this->fanPages.push_back(newFanPage);
     else
@@ -41,7 +41,7 @@ void BookFace::showAllRegistered() const
 
 void BookFace::addStatusToFriendPage(FriendPage &user, Status& status) noexcept(false)
 {
-   auto itr = find(this->users.begin(), this->users.end(), user);
+   auto itr = std::find(this->users.begin(), this->users.end(), user);
    if(itr != this->users.end())
          itr->addStatus(status);
    else
@@ -50,7 +50,7 @@ void BookFace::addStatusToFriendPage(FriendPage &user, Status& status) noexcept(
 
 void BookFace::addStatusToFanPage(FanPage &fanPage, Status& status) noexcept(false)
 {
-    auto itr = find(this->fanPages.begin(), this->fanPages.end(), fanPage);
+    auto itr = std::find(this->fanPages.begin(), this->fanPages.end(), fanPage);
     if(itr != this->fanPages.end())
         itr->addStatus(status);
     else
@@ -59,7 +59,7 @@ void BookFace::addStatusToFanPage(FanPage &fanPage, Status& status) noexcept(fal
 
 void BookFace::showAllStatusesFromFriend(FriendPage &user) const noexcept(false)
 {
-    auto itr = find(this->users.begin(), this->users.end(), user);
+    auto itr = std::find(this->users.begin(), this->users.end(), user);
     if(itr != this->users.end())
         itr->showStatuses();
     else
@@ -68,7 +68,7 @@ void BookFace::showAllStatusesFromFriend(FriendPage &user) const noexcept(false)
 
 void BookFace::showAllStatusesFromFanPage(FanPage &fanPage) const noexcept(false)
 {
-    auto itr = find(this->fanPages.begin(), this->fanPages.end(), fanPage);
+    auto itr = std::find(this->fanPages.begin(), this->fanPages.end(), fanPage);
     if(itr != this->fanPages.end())
         itr->showStatuses();
     else
@@ -77,7 +77,7 @@ void BookFace::showAllStatusesFromFanPage(FanPage &fanPage) const noexcept(false
 
 void BookFace::showAllStatusesFromUsersFriends(FriendPage &user) const noexcept(false)
 {
-    auto itr = find(this->users.begin(), this->users.end(), user);
+    auto itr = std::find(this->users.begin(), this->users.end(), user);
     if(itr != this->users.end())
         itr->showFriendsStatuses(NUM_OF_FRIENDS_STATUSESS);
     else
@@ -88,8 +88,8 @@ void BookFace::connectUsers(FriendPage &user1, FriendPage &user2) noexcept(false
 {
     if (user1 == user2)
         throw USER_TO_SELF_EXCEPTION;
-    auto itr1 = find(this->users.begin(), this->users.end(), user1);
-    auto itr2 = find(this->users.begin(), this->users.end(), user2);
+    auto itr1 = std::find(this->users.begin(), this->users.end(), user1);
+    auto itr2 = std::find(this->users.begin(), this->users.end(), user2);
     if(itr1 != this->users.end() && itr2 != this->users.end())
     {
         *itr1 += *itr2;
@@ -101,8 +101,8 @@ void BookFace::connectUsers(FriendPage &user1, FriendPage &user2) noexcept(false
 
 void BookFace::removeUsersConnection(FriendPage &user1, FriendPage &user2)
 {
-    auto itr1 = find(this->users.begin(), this->users.end(), user1);
-    auto itr2 = find(this->users.begin(), this->users.end(), user2);
+    auto itr1 = std::find(this->users.begin(), this->users.end(), user1);
+    auto itr2 = std::find(this->users.begin(), this->users.end(), user2);
     if(itr1 != this->users.end() && itr2 != this->users.end())
     {
         itr1->removeFriend(*itr2);  // should throw if user 1 not connected to user 2
@@ -114,8 +114,8 @@ void BookFace::removeUsersConnection(FriendPage &user1, FriendPage &user2)
 
 void BookFace::followFanPage(FriendPage &user, FanPage &fanPage)
 {
-    auto itr1 = find(this->users.begin(), this->users.end(), user);
-    auto itr2 = find(this->fanPages.begin(), this->fanPages.end(), fanPage);
+    auto itr1 = std::find(this->users.begin(), this->users.end(), user);
+    auto itr2 = std::find(this->fanPages.begin(), this->fanPages.end(), fanPage);
     if(itr1 != this->users.end() && itr2 != this->fanPages.end())
     {
         *itr1 += (*itr2);
@@ -127,8 +127,8 @@ void BookFace::followFanPage(FriendPage &user, FanPage &fanPage)
 
 void BookFace::unfollowFanPage(FriendPage &user, FanPage &fanPage)
 {
-    auto itr1 = find(this->users.begin(), this->users.end(), user);
-    auto itr2 = find(this->fanPages.begin(), this->fanPages.end(), fanPage);
+    auto itr1 = std::find(this->users.begin(), this->users.end(), user);
+    auto itr2 = std::find(this->fanPages.begin(), this->fanPages.end(), fanPage);
     if(itr1 != this->users.end() && itr2 != this->fanPages.end())
     {
         *itr1 -= (*itr2);
@@ -140,7 +140,7 @@ void BookFace::unfollowFanPage(FriendPage &user, FanPage &fanPage)
 
 void BookFace::showAllFriendsOfAUser(FriendPage &user) const
 {
-    auto itr = find(this->users.begin(), this->users.end(), user);
+    auto itr = std::find(this->users.begin(), this->users.end(), user);
     if(itr != this->users.end())
         itr->showFriends();
     else
@@ -149,7 +149,7 @@ void BookFace::showAllFriendsOfAUser(FriendPage &user) const
 
 void BookFace::showAllFollowersOfFanPage(FanPage &fanPage) const
 {
-    auto itr = find(this->fanPages.begin(), this->fanPages.end(), fanPage);
+    auto itr = std::find(this->fanPages.begin(), this->fanPages.end(), fanPage);
     if(itr != this->fanPages.end())
         itr->showFollowers();
     else
@@ -158,7 +158,7 @@ void BookFace::showAllFollowersOfFanPage(FanPage &fanPage) const
 
 FriendPage *BookFace::getUserByName(const string& name)
 {
-    auto itr = find(this->users.begin(), this->users.end(), name);
+    auto itr = std::find(this->users.begin(), this->users.end(), name);
     if(itr != this->users.end())
         return &(*itr);
     else
@@ -167,7 +167,7 @@ FriendPage *BookFace::getUserByName(const string& name)
 
 FanPage *BookFace::getFanPageByName(const string &name)
 {
-    auto itr = find(this->fanPages.begin(), this->fanPages.end(), name);
+    auto itr = std::find(this->fanPages.begin(), this->fanPages.end(), name);
     if(itr != this->fanPages.end())
         return &(*itr);
     else
