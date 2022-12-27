@@ -55,16 +55,17 @@ class FanPageException: public Exception
 {
 public:
     enum class actions {
-        CREATE_NEW_FAN_PAGE, ADD_NEW_FAN_PAGE, ADD_NEW_STATUS, FIND_FAN_PAGE
+        CREATE_NEW_PAGE, ADD_FOLLOWER, REMOVE_FOLLOWER, ADD_NEW_STATUS, FIND_PAGE
     };
     const string actionStr[8] = {
-            "create new fan page", "add new fan page", "add new status", "find fan page"
+            "create new page", "add new follower", "remove a follower",
+            "add new status", "find page"
     };
 
 private:
     actions actionType;
 public:
-    FanPageException(const string& msg): Exception(msg) {};
+    FanPageException(const string& msg, actions actionType): Exception(msg),actionType(actionType) {};
     const string what() const { return "Fan Page error: Unable to " + actionStr[(int)actionType] + " - " + Exception::what(); }
 };
 
