@@ -1,10 +1,11 @@
 
 #include "Status.h"
+#include "Exceptions.h"
 
 Status::Status(const std::string& text) noexcept(false)
 {
     if(text.empty())
-        throw "Text cannot be empty!\n";
+        throw StatusException("Text cannot be empty!");
     this->text = text;
     this->statusTime = time(nullptr);
 }

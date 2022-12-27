@@ -1,12 +1,13 @@
 #include "Date.h"
 #include <iostream>
+#include "Exceptions.h"
 #include <ctime>
 using namespace std;
 
 Date::Date(int day, int month, int year)
 {
     if(!isDateValid(day, month, year))
-        throw "Invalid Date was given";
+        throw DateException();
 
     this->day = day;
     this->month = month;

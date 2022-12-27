@@ -209,9 +209,18 @@ void UserInterface::activateOption(BookFace &system)
                 throw INVALID_CHOICE_MSG;
         }
     }
-    catch(const char* MSG){
-        cout << MSG << endl;
+    catch(const DateException& e){
+        cout << e.what() << endl;
     }
+    catch(const StatusException& e){
+        cout << e.what() << endl;
+    }
+//    catch(const FriendPageException& e){
+//        cout << e.what() << endl;
+//    }
+//    catch(const FanPageException& e){
+//        cout << e.what() << endl;
+//    }
     catch(...){
         cout << UNKNOWN_ERROR_MSG << endl;
     }
