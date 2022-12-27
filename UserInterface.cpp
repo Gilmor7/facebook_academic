@@ -229,12 +229,6 @@ void UserInterface::activateOption(BookFace &system)
     }
 }
 
-void UserInterface::getName(char *name) const
-{
-    cout << ENTER_NAME;
-    cin.getline(name, MAX_NAME_LEN);
-}
-
 string UserInterface::getNameAsString() const
 {
     string res;
@@ -256,12 +250,6 @@ void UserInterface::getChoice(int* choice) const
     cout << CHOOSE_PAGE_OR_FRIEND;
     cin >> *choice;
     cin.get();
-}
-
-void UserInterface::getStatusText(char *text) const
-{
-    cout << ADD_STATUS_TEXT_MSG;
-    cin.getline(text, MAX_STATUS_TEXT_LEN);
 }
 
 string UserInterface::getStatusTextAsString() const

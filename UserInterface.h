@@ -63,11 +63,9 @@ private:
     void stopTheProgram(BookFace& system);
 
     // small Utility functions
-    void getName(char* name) const;
     string getNameAsString() const;
     void getBirthDate(int* day, int* month, int* year) const;
     void getChoice(int* choice) const;
-    void getStatusText(char* text) const;
     string getStatusTextAsString() const;
     bool validateChoice(int choice) const;
 
