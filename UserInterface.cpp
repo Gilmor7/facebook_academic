@@ -1,6 +1,6 @@
 
 #include "UserInterface.h"
-
+#include "Exceptions.h"
 
 /// functions
 // system functions
@@ -215,9 +215,9 @@ void UserInterface::activateOption(BookFace &system)
     catch(const StatusException& e){
         cout << e.what() << endl;
     }
-//    catch(const FriendPageException& e){
-//        cout << e.what() << endl;
-//    }
+    catch(const FriendPageException& e){
+        cout << e.what() << endl;
+    }
 //    catch(const FanPageException& e){
 //        cout << e.what() << endl;
 //    }

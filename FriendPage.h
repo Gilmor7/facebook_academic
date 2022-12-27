@@ -15,10 +15,10 @@ class FriendPage;
 class FriendPage
 {
 public:
-    static constexpr const char* const PAGE_IS_FOLLOWED = "You are already following this page\n";
-    static constexpr const char* const PAGE_IS_NOT_FOLLOWED = "You are not following this page\n";
-    static constexpr const char* const FRIEND_IS_FOLLOWED = "User already follow this friend!\n";
-    static constexpr const char* const FRIEND_IS_NOT_FOLLOWED = "User does not follow this friend!\n";
+    static constexpr const char* const PAGE_IS_FOLLOWED = "You are already following this page";
+    static constexpr const char* const PAGE_IS_NOT_FOLLOWED = "You are not following this page";
+    static constexpr const char* const FRIEND_IS_FOLLOWED = "User already follow this friend!";
+    static constexpr const char* const FRIEND_IS_NOT_FOLLOWED = "User does not follow this friend!";
 private:
     string name;
     Date birthDate;
