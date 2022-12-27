@@ -15,7 +15,7 @@ class FanPage
 private:
     std::string pageName;
     vector<Status> statuses;
-    vector<const FriendPage*> followers;    // FanPage cannot change followers
+    vector<const FriendPage*> followers;
 
 public:
     FanPage(const std::string& name) noexcept(false);

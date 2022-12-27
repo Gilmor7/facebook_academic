@@ -3,6 +3,7 @@
 #define FACEBOOK_ACADEMIC_BOOKFACE_H
 #include "FriendPage.h"
 #include "FanPage.h"
+#include "Exceptions.h"
 #include <list>
 #include <iostream>
 using namespace std;
@@ -47,8 +48,6 @@ public:
 
     // getters
     bool getRunningState() const {return this->is_running;}
-    FriendPage* getUserByName(const string& name);
-    FanPage* getFanPageByName(const string& name);
 
 };
 

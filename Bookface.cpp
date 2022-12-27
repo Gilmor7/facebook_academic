@@ -1,6 +1,5 @@
 
 #include "Bookface.h"
-#include "Exceptions.h"
 
 /// C'tor
 BookFace::BookFace()
@@ -160,24 +159,5 @@ void BookFace::showAllFollowersOfFanPage(FanPage &fanPage) const
     else
         throw FanPageException(PAGE_NOT_EXISTS_EXCEPTION, FanPageException::actions::FIND_PAGE);
 }
-
-FriendPage *BookFace::getUserByName(const string& name)
-{
-    auto itr = std::find(this->users.begin(), this->users.end(), name);
-    if(itr != this->users.end())
-        return &(*itr);
-    else
-        return nullptr;
-}
-
-FanPage *BookFace::getFanPageByName(const string &name)
-{
-    auto itr = std::find(this->fanPages.begin(), this->fanPages.end(), name);
-    if(itr != this->fanPages.end())
-        return &(*itr);
-    else
-        return nullptr;
-}
-
 
 
