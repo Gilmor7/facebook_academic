@@ -34,8 +34,13 @@ public:
 class FriendPageException: public Exception
 {
 public:
-    enum class actions { CREATE_NEW_USER, ADD_NEW_USER, ADD_FRIEND, REMOVE_FRIEND, FOLLOW_NEW_FAN_PAGE, UNFOLLOW_FAN_PAGE };
-    const string actionStr[6] = {"create new user", "add new user", "follow new friend", "unfollow a friend", "follow new fan page", "unfollow a fan page" };
+    enum class actions {
+        CREATE_NEW_USER, ADD_NEW_USER, ADD_FRIEND, REMOVE_FRIEND, FOLLOW_NEW_FAN_PAGE, UNFOLLOW_FAN_PAGE, ADD_NEW_STATUS, FIND_USER
+    };
+    const string actionStr[8] = {
+            "create new user", "add new user", "follow new friend", "unfollow a friend",
+            "follow new fan page", "unfollow a fan page", "add new status", "find user"
+    };
 
 private:
     actions actionType;
