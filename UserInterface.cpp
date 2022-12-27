@@ -218,9 +218,9 @@ void UserInterface::activateOption(BookFace &system)
     catch(const FriendPageException& e){
         cout << e.what() << endl;
     }
-//    catch(const FanPageException& e){
-//        cout << e.what() << endl;
-//    }
+    catch(const FanPageException& e){
+        cout << e.what() << endl;
+    }
     catch(...){
         cout << UNKNOWN_ERROR_MSG << endl;
     }

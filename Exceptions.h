@@ -47,18 +47,26 @@ private:
 
 public:
     FriendPageException(const string& msg, actions actionType): Exception(msg),actionType(actionType) {};
-    const string what() const {
-        return "User error: Unable to " + actionStr[(int)actionType] + " - " + Exception::what();
-    }
+    const string what() const { return "Friend Page error: Unable to " + actionStr[(int)actionType] + " - " + Exception::what(); }
 };
 
 
-//class FanPageException: public Exception
-//{
-//public:
-//    FanPageException(const string& msg): Exception(msg) {};
-//    const string what() const { return "Invalid Date was given"; }
-//};
+class FanPageException: public Exception
+{
+public:
+    enum class actions {
+        CREATE_NEW_FAN_PAGE, ADD_NEW_FAN_PAGE, ADD_NEW_STATUS, FIND_FAN_PAGE
+    };
+    const string actionStr[8] = {
+            "create new fan page", "add new fan page", "add new status", "find fan page"
+    };
+
+private:
+    actions actionType;
+public:
+    FanPageException(const string& msg): Exception(msg) {};
+    const string what() const { return "Fan Page error: Unable to " + actionStr[(int)actionType] + " - " + Exception::what(); }
+};
 
 
 #endif //FACEBOOK_ACADEMIC_EXCEPTIONS_H
