@@ -221,6 +221,9 @@ void UserInterface::activateOption(BookFace &system)
     catch(const FanPageException& e){
         cout << e.what() << endl;
     }
+    catch(const BookFaceException& e){
+        cout << e.what() << endl;
+    }
     catch(const char* msg){
         cout << msg << endl;
     }
