@@ -3,7 +3,7 @@
 FanPage::FanPage(const std::string &name) noexcept(false)
 {
     if(name.empty())
-        throw FanPageException("Name cannot be empty!", FanPageException::actions::CREATE_NEW_PAGE);
+        throw CreateNewPageFanPageException();
     this->pageName = name;
 }
 
@@ -48,7 +48,7 @@ const FanPage& FanPage::operator+=(const FriendPage &user) noexcept(false)
         return *this;
     }
     else
-        throw FanPageException("User is already a follower", FanPageException::actions::ADD_FOLLOWER);
+        throw AddNewFollowerFanPageException();
 }
 
 const FanPage& FanPage::operator-=(const FriendPage &user) noexcept(false)
@@ -60,7 +60,7 @@ const FanPage& FanPage::operator-=(const FriendPage &user) noexcept(false)
         return *this;
     }
     else
-        throw FanPageException("User is not a follower", FanPageException::actions::REMOVE_FOLLOWER);
+        throw UnfollowFanPageUserException();
 }
 
 bool FanPage::operator>(const FanPage &other) const
