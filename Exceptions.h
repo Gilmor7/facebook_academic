@@ -3,70 +3,108 @@
 
 #include <iostream>
 #include <string>
-
 using namespace std;
 
-class Exception {
-protected:
-    string msg;
-
-public:
-    Exception(const string &msg) : msg(msg) {}
-    const string& what() const { return msg; }
-};
-
-class DateException: public Exception
+class DateException: public std::exception
 {
 public:
-    static constexpr const char* const DEFAULT_MESSAGE = "Invalid date was given";
-public:
-    DateException(const string &msg = DEFAULT_MESSAGE) : Exception(msg) {}
-    const string what() const { return "Error while getting birth date: " + Exception::what(); }
+    virtual const char* what() const noexcept override{return "Date Error!";}
 };
 
-class StatusException: public Exception
+class StatusException: public std::exception
 {
 public:
-    StatusException(const string& msg): Exception(msg) {};
-    const string what() const { return "Error while getting new status: " + Exception::what(); }
+    virtual const char* what() const noexcept override{return "Status Error!";}
 };
 
-class FriendPageException: public Exception
+class FriendPageException: public std::exception
 {
 public:
-    enum class actions {
-        CREATE_NEW_USER, ADD_NEW_USER, ADD_FRIEND, REMOVE_FRIEND, FOLLOW_NEW_FAN_PAGE, UNFOLLOW_FAN_PAGE, ADD_NEW_STATUS, FIND_USER
-    };
-    const string actionStr[8] = {
-            "create new user", "add new user", "follow new friend", "unfollow a friend",
-            "follow new fan page", "unfollow a fan page", "add new status", "find user"
-    };
-
-private:
-    actions actionType;
-
-public:
-    FriendPageException(const string& msg, actions actionType): Exception(msg),actionType(actionType) {};
-    const string what() const { return "Friend Page error: Unable to " + actionStr[(int)actionType] + " - " + Exception::what(); }
+    virtual const char* what() const noexcept override {return "User Error!";}
 };
 
-
-class FanPageException: public Exception
+class CreateUserException: public FriendPageException
 {
 public:
-    enum class actions {
-        CREATE_NEW_PAGE, ADD_FOLLOWER, REMOVE_FOLLOWER, ADD_NEW_STATUS, FIND_PAGE
-    };
-    const string actionStr[8] = {
-            "create new page", "add new follower", "remove a follower",
-            "add new status", "find page"
-    };
+    virtual const char* what() const noexcept override {return "Error while creating new user!";}
+};
 
-private:
-    actions actionType;
+class AddNewUserUserException: public FriendPageException
+{
 public:
-    FanPageException(const string& msg, actions actionType): Exception(msg),actionType(actionType) {};
-    const string what() const { return "Fan Page error: Unable to " + actionStr[(int)actionType] + " - " + Exception::what(); }
+    virtual const char* what() const noexcept override {return "Error while adding new user!";}
+};
+
+class AddFriendToUserUserException: public FriendPageException
+{
+public:
+    virtual const char* what() const noexcept override {return "Error while adding new friend to user!";}
+};
+
+class RemoveFriendFromUserUserException: public FriendPageException
+{
+public:
+    virtual const char* what() const noexcept override {return "Error while removing friend from user!";}
+};
+
+class FollowNewFanPageUserException: public FriendPageException
+{
+public:
+    virtual const char* what() const noexcept override {return "Error while following new fan page!";}
+};
+
+class UnfollowFanPageUserException: public FriendPageException
+{
+public:
+    virtual const char* what() const noexcept override {return "Error while unfollowing fan page!";}
+};
+
+class AddNewStatusUserException: public FriendPageException
+{
+public:
+    virtual const char* what() const noexcept override {return "Error while adding new status to user!";}
+};
+
+class FindUserUserException: public FriendPageException
+{
+public:
+    virtual const char* what() const noexcept override {return "Error while finding user!";}
+};
+
+class FanPageException: public std::exception
+{
+public:
+    virtual const char* what() const noexcept override {return "Fan page Error!";}
+};
+
+class CreateNewPageFanPageException: public FanPageException
+{
+public:
+    virtual const char* what() const noexcept override {return "Error while creating new fan page!";}
+};
+
+class AddNewFollowerFanPageException: public FanPageException
+{
+public:
+    virtual const char* what() const noexcept override {return "Error while adding new follower!";}
+};
+
+class RemoveFollowerFanPageException: public FanPageException
+{
+public:
+    virtual const char* what() const noexcept override {return "Error while removing follower!";}
+};
+
+class AddNewStatusFanPageException: public FanPageException
+{
+public:
+    virtual const char* what() const noexcept override {return "Error while adding new status to fan page!";}
+};
+
+class FindPageFanPageException: public FanPageException
+{
+public:
+    virtual const char* what() const noexcept override {return "Error while finding fan page!";}
 };
 
 
