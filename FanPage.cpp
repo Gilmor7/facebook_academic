@@ -60,7 +60,7 @@ const FanPage& FanPage::operator-=(const FriendPage &user) noexcept(false)
         return *this;
     }
     else
-        throw UnfollowFanPageUserException();
+        throw RemoveFollowerFanPageException();
 }
 
 bool FanPage::operator>(const FanPage &other) const

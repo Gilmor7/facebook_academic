@@ -5,6 +5,7 @@
 #include <string>
 using namespace std;
 
+// Date and Status
 class DateException: public std::exception
 {
 public:
@@ -17,6 +18,7 @@ public:
     virtual const char* what() const noexcept override{return "Status Error!";}
 };
 
+// Friend Page
 class FriendPageException: public std::exception
 {
 public:
@@ -27,12 +29,6 @@ class CreateUserException: public FriendPageException
 {
 public:
     virtual const char* what() const noexcept override {return "Error while creating new user!";}
-};
-
-class AddNewUserUserException: public FriendPageException
-{
-public:
-    virtual const char* what() const noexcept override {return "Error while adding new user!";}
 };
 
 class AddFriendToUserUserException: public FriendPageException
@@ -59,18 +55,7 @@ public:
     virtual const char* what() const noexcept override {return "Error while unfollowing fan page!";}
 };
 
-class AddNewStatusUserException: public FriendPageException
-{
-public:
-    virtual const char* what() const noexcept override {return "Error while adding new status to user!";}
-};
-
-class FindUserUserException: public FriendPageException
-{
-public:
-    virtual const char* what() const noexcept override {return "Error while finding user!";}
-};
-
+// FanPage
 class FanPageException: public std::exception
 {
 public:
@@ -95,17 +80,47 @@ public:
     virtual const char* what() const noexcept override {return "Error while removing follower!";}
 };
 
-class AddNewStatusFanPageException: public FanPageException
+// BookFace
+class BookFaceException: public std::exception
 {
 public:
-    virtual const char* what() const noexcept override {return "Error while adding new status to fan page!";}
+    virtual const char* what() const noexcept override {return "BookFace system Error!";}
 };
 
-class FindPageFanPageException: public FanPageException
+class AddNewUserBookFaceException: public BookFaceException
 {
 public:
-    virtual const char* what() const noexcept override {return "Error while finding fan page!";}
+    virtual const char* what() const noexcept override {return "Error while adding new user!";}
 };
 
+class AddNewPageBookFaceException: public BookFaceException
+{
+public:
+    virtual const char* what() const noexcept override {return "Error while adding new fan page!";}
+};
+
+class AddNewStatusBookFaceException: public BookFaceException
+{
+public:
+    virtual const char* what() const noexcept override {return "Error while adding new status!";}
+};
+
+class UserNotFoundBookFaceException: public BookFaceException
+{
+public:
+    virtual const char* what() const noexcept override {return "User not found!";}
+};
+
+class PageNotFoundBookFaceException: public BookFaceException
+{
+public:
+    virtual const char* what() const noexcept override {return "Page not found!";}
+};
+
+class ApplyToSelfBookFaceException: public BookFaceException
+{
+public:
+    virtual const char* what() const noexcept override {return "You can't apply to yourself!";}
+};
 
 #endif //FACEBOOK_ACADEMIC_EXCEPTIONS_H

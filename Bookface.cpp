@@ -14,7 +14,7 @@ void BookFace::addUser(FriendPage &newUser) noexcept(false)
     if(findItr == this->users.end())
         this->users.push_back(newUser);
     else
-        throw FriendPageException(USER_ALREADY_EXISTS_EXCEPTION, FriendPageException::actions::ADD_NEW_USER);
+        throw AddNewUserBookFaceException();
 
 }
 
@@ -24,7 +24,7 @@ void BookFace::addPage(FanPage &newFanPage) noexcept(false)
     if(findItr == this->fanPages.end())
         this->fanPages.push_back(newFanPage);
     else
-        throw FanPageException(PAGE_ALREADY_EXISTS_EXCEPTION, FanPageException::actions::CREATE_NEW_PAGE);
+        throw AddNewPageBookFaceException();
 }
 
 void BookFace::showAllRegistered() const
@@ -45,7 +45,7 @@ void BookFace::addStatusToFriendPage(FriendPage &user, Status& status) noexcept(
    if(itr != this->users.end())
          itr->addStatus(status);
    else
-       throw FriendPageException(USER_NOT_EXISTS_EXCEPTION, FriendPageException::actions::ADD_NEW_STATUS);
+       throw AddNewStatusBookFaceException();
 }
 
 void BookFace::addStatusToFanPage(FanPage &fanPage, Status& status) noexcept(false)
@@ -54,7 +54,7 @@ void BookFace::addStatusToFanPage(FanPage &fanPage, Status& status) noexcept(fal
     if(itr != this->fanPages.end())
         itr->addStatus(status);
     else
-        throw FanPageException(PAGE_NOT_EXISTS_EXCEPTION, FanPageException::actions::ADD_NEW_STATUS);
+        throw AddNewStatusBookFaceException();
 }
 
 void BookFace::showAllStatusesFromFriend(FriendPage &user) const noexcept(false)
@@ -63,7 +63,7 @@ void BookFace::showAllStatusesFromFriend(FriendPage &user) const noexcept(false)
     if(itr != this->users.end())
         itr->showStatuses();
     else
-        throw FriendPageException(USER_NOT_EXISTS_EXCEPTION, FriendPageException::actions::FIND_USER);
+        throw UserNotFoundBookFaceException();
 }
 
 void BookFace::showAllStatusesFromFanPage(FanPage &fanPage) const noexcept(false)
@@ -72,7 +72,7 @@ void BookFace::showAllStatusesFromFanPage(FanPage &fanPage) const noexcept(false
     if(itr != this->fanPages.end())
         itr->showStatuses();
     else
-        throw FanPageException(PAGE_NOT_EXISTS_EXCEPTION, FanPageException::actions::FIND_PAGE);
+        throw PageNotFoundBookFaceException();
 }
 
 void BookFace::showAllStatusesFromUsersFriends(FriendPage &user) const noexcept(false)
@@ -81,13 +81,13 @@ void BookFace::showAllStatusesFromUsersFriends(FriendPage &user) const noexcept(
     if(itr != this->users.end())
         itr->showFriendsStatuses(NUM_OF_FRIENDS_STATUSESS);
     else
-        throw FriendPageException(USER_NOT_EXISTS_EXCEPTION, FriendPageException::actions::FIND_USER);
+        throw UserNotFoundBookFaceException();
 }
 
 void BookFace::connectUsers(FriendPage &user1, FriendPage &user2) noexcept(false)
 {
     if (user1 == user2)
-        throw FriendPageException(USER_TO_SELF_EXCEPTION, FriendPageException::actions::ADD_FRIEND);
+        throw ApplyToSelfBookFaceException();
     auto itr1 = std::find(this->users.begin(), this->users.end(), user1);
     auto itr2 = std::find(this->users.begin(), this->users.end(), user2);
     if(itr1 != this->users.end() && itr2 != this->users.end())
@@ -96,11 +96,13 @@ void BookFace::connectUsers(FriendPage &user1, FriendPage &user2) noexcept(false
         *itr2 += *itr1;
     }
     else
-        throw FriendPageException(USER_NOT_EXISTS_EXCEPTION, FriendPageException::actions::ADD_FRIEND);
+        throw UserNotFoundBookFaceException();
 }
 
 void BookFace::removeUsersConnection(FriendPage &user1, FriendPage &user2)
 {
+    if(user1 == user2)
+        throw ApplyToSelfBookFaceException();
     auto itr1 = std::find(this->users.begin(), this->users.end(), user1);
     auto itr2 = std::find(this->users.begin(), this->users.end(), user2);
     if(itr1 != this->users.end() && itr2 != this->users.end())
@@ -109,7 +111,7 @@ void BookFace::removeUsersConnection(FriendPage &user1, FriendPage &user2)
         itr2->removeFriend(*itr1);
     }
     else
-        throw FriendPageException(USER_NOT_EXISTS_EXCEPTION, FriendPageException::actions::REMOVE_FRIEND);
+        throw UserNotFoundBookFaceException();
 }
 
 void BookFace::followFanPage(FriendPage &user, FanPage &fanPage)
@@ -122,9 +124,9 @@ void BookFace::followFanPage(FriendPage &user, FanPage &fanPage)
         *itr2 += (*itr1);
     }
     else if(itr1 == this->users.end())
-        throw FriendPageException(USER_NOT_EXISTS_EXCEPTION, FriendPageException::actions::FOLLOW_NEW_FAN_PAGE);
+        throw UserNotFoundBookFaceException();
     else
-        throw FanPageException(PAGE_NOT_EXISTS_EXCEPTION, FanPageException::actions::ADD_FOLLOWER);
+        throw PageNotFoundBookFaceException();
 }
 
 void BookFace::unfollowFanPage(FriendPage &user, FanPage &fanPage)
@@ -137,9 +139,9 @@ void BookFace::unfollowFanPage(FriendPage &user, FanPage &fanPage)
         *itr2 -= (*itr1);
     }
     else if(itr1 == this->users.end())
-        throw FriendPageException(USER_NOT_EXISTS_EXCEPTION, FriendPageException::actions::UNFOLLOW_FAN_PAGE);
+        throw UserNotFoundBookFaceException();
     else
-        throw FanPageException(PAGE_NOT_EXISTS_EXCEPTION, FanPageException::actions::REMOVE_FOLLOWER);
+        throw PageNotFoundBookFaceException();
 }
 
 void BookFace::showAllFriendsOfAUser(FriendPage &user) const
@@ -148,7 +150,7 @@ void BookFace::showAllFriendsOfAUser(FriendPage &user) const
     if(itr != this->users.end())
         itr->showFriends();
     else
-        throw FriendPageException(USER_NOT_EXISTS_EXCEPTION, FriendPageException::actions::FIND_USER);
+        throw UserNotFoundBookFaceException();
 }
 
 void BookFace::showAllFollowersOfFanPage(FanPage &fanPage) const
@@ -157,7 +159,7 @@ void BookFace::showAllFollowersOfFanPage(FanPage &fanPage) const
     if(itr != this->fanPages.end())
         itr->showFollowers();
     else
-        throw FanPageException(PAGE_NOT_EXISTS_EXCEPTION, FanPageException::actions::FIND_PAGE);
+        throw PageNotFoundBookFaceException();
 }
 
 

@@ -5,7 +5,7 @@
 Status::Status(const std::string& text) noexcept(false)
 {
     if(text.empty())
-        throw StatusException("Text cannot be empty!");
+        throw StatusException();
     this->text = text;
     this->statusTime = time(nullptr);
 }
