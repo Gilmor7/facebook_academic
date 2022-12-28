@@ -9,7 +9,7 @@ FriendPage::FriendPage(const string& name, Date birthDate) noexcept(false):
     birthDate(birthDate)
 {
     if(name.empty())
-        throw FriendPageException("Name cannot be empty!", FriendPageException::actions::CREATE_NEW_USER);
+        throw CreateUserException();
 
     this->name = name;
 }
@@ -23,24 +23,12 @@ FriendPage::FriendPage(const string& name, Date birthDate) noexcept(false):
 
 void FriendPage::addFriend(FriendPage& newFriend) noexcept(false)
 {
-    try {
         (*this) += newFriend;
-    }
-    catch(FriendPageException& e)
-    {
-        throw e;
-    }
 }
 
 void FriendPage::removeFriend(FriendPage& friendToRemove) noexcept(false)
 {
-    try {
         (*this) -= friendToRemove;
-    }
-    catch(FriendPageException& e)
-    {
-        throw e;
-    }
 }
 
 void FriendPage::showFriends() const
@@ -109,7 +97,7 @@ const FriendPage& FriendPage::operator+=(const FriendPage& other) noexcept(false
 {
     auto itr = std::find(this->friendsArr.begin(), this->friendsArr.end(), &other);
     if(itr != this->friendsArr.end())
-        throw FriendPageException(FRIEND_IS_FOLLOWED, FriendPageException::actions::ADD_FRIEND);
+        throw AddFriendToUserUserException();
 
     this->friendsArr.push_back(&other);
     return (*this);
@@ -120,7 +108,7 @@ const FriendPage& FriendPage::operator-=(const FriendPage& other) noexcept(false
 
     auto itr = std::find(this->friendsArr.begin(), this->friendsArr.end(), &other);
     if(itr == this->friendsArr.end())
-        throw FriendPageException(FRIEND_IS_NOT_FOLLOWED, FriendPageException::actions::REMOVE_FRIEND);
+        throw RemoveFriendFromUserUserException();
 
     // Remove friend in O(1)
     swap(*itr, this->friendsArr.back());
@@ -131,7 +119,7 @@ const FriendPage& FriendPage::operator-=(const FriendPage& other) noexcept(false
 const FriendPage &FriendPage::operator+=(const FanPage &page) noexcept(false) {
     auto itr = std::find(this->fanPagesArr.begin(), this->fanPagesArr.end(), &page);
     if(itr != this->fanPagesArr.end())
-        throw FriendPageException(PAGE_IS_FOLLOWED, FriendPageException::actions::FOLLOW_NEW_FAN_PAGE);
+        throw FollowNewFanPageUserException();
 
     this->fanPagesArr.push_back(&page);
     return (*this);
@@ -140,7 +128,7 @@ const FriendPage &FriendPage::operator+=(const FanPage &page) noexcept(false) {
 const FriendPage &FriendPage::operator-=(const FanPage &page) noexcept(false) {
     auto itr = std::find(this->fanPagesArr.begin(), this->fanPagesArr.end(), &page);
     if(itr == this->fanPagesArr.end())
-        throw FriendPageException(PAGE_IS_NOT_FOLLOWED, FriendPageException::actions::UNFOLLOW_FAN_PAGE);
+        throw UnfollowFanPageUserException();
 
     // Remove page in O(1)
     swap(*itr, this->fanPagesArr.back());
