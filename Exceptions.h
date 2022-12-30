@@ -9,13 +9,13 @@ using namespace std;
 class DateException: public std::exception
 {
 public:
-    virtual const char* what() const noexcept override{return "Date Error!";}
+    virtual const char* what() const noexcept override{return "Date Error - Invalid date was given!";}
 };
 
 class StatusException: public std::exception
 {
 public:
-    virtual const char* what() const noexcept override{return "Status Error!";}
+    virtual const char* what() const noexcept override{return "Status Error - Invalid Status was given!";}
 };
 
 // Friend Page
@@ -28,31 +28,31 @@ public:
 class CreateUserException: public FriendPageException
 {
 public:
-    virtual const char* what() const noexcept override {return "Error while creating new user!";}
+    virtual const char* what() const noexcept override {return "Error while trying to create new user!";}
 };
 
 class AddFriendToUserUserException: public FriendPageException
 {
 public:
-    virtual const char* what() const noexcept override {return "Error while adding new friend to user!";}
+    virtual const char* what() const noexcept override {return "Error while trying to add new friend to a user!";}
 };
 
 class RemoveFriendFromUserUserException: public FriendPageException
 {
 public:
-    virtual const char* what() const noexcept override {return "Error while removing friend from user!";}
+    virtual const char* what() const noexcept override {return "Error while trying to remove friendship between users!";}
 };
 
 class FollowNewFanPageUserException: public FriendPageException
 {
 public:
-    virtual const char* what() const noexcept override {return "Error while following new fan page!";}
+    virtual const char* what() const noexcept override {return "Error while trying to follow a new fan page!";}
 };
 
 class UnfollowFanPageUserException: public FriendPageException
 {
 public:
-    virtual const char* what() const noexcept override {return "Error while unfollowing fan page!";}
+    virtual const char* what() const noexcept override {return "Error while trying to unfollow a fan page!";}
 };
 
 // FanPage
@@ -65,19 +65,19 @@ public:
 class CreateNewPageFanPageException: public FanPageException
 {
 public:
-    virtual const char* what() const noexcept override {return "Error while creating new fan page!";}
+    virtual const char* what() const noexcept override {return "Error while trying to create a new fan page!";}
 };
 
 class AddNewFollowerFanPageException: public FanPageException
 {
 public:
-    virtual const char* what() const noexcept override {return "Error while adding new follower!";}
+    virtual const char* what() const noexcept override {return "Error while trying to add a new follower!";}
 };
 
 class RemoveFollowerFanPageException: public FanPageException
 {
 public:
-    virtual const char* what() const noexcept override {return "Error while removing follower!";}
+    virtual const char* what() const noexcept override {return "Error while trying to remove a follower!";}
 };
 
 // BookFace
@@ -90,19 +90,19 @@ public:
 class AddNewUserBookFaceException: public BookFaceException
 {
 public:
-    virtual const char* what() const noexcept override {return "Error while adding new user!";}
+    virtual const char* what() const noexcept override {return "Error while try adding new user!";}
 };
 
 class AddNewPageBookFaceException: public BookFaceException
 {
 public:
-    virtual const char* what() const noexcept override {return "Error while adding new fan page!";}
+    virtual const char* what() const noexcept override {return "Error while try adding new fan page!";}
 };
 
 class AddNewStatusBookFaceException: public BookFaceException
 {
 public:
-    virtual const char* what() const noexcept override {return "Error while adding new status!";}
+    virtual const char* what() const noexcept override {return "Error while try adding new status!";}
 };
 
 class UserNotFoundBookFaceException: public BookFaceException
