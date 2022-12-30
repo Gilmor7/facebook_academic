@@ -1,4 +1,4 @@
-C++ Exercise 1:
+C++ Exercise 2:
 
 Submitted by:
 Name: Gil Morhaim - id: 316223528

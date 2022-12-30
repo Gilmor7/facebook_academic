@@ -12,9 +12,6 @@ public:
         ,REMOVE_USERS_CONNECTION, ADD_USER_TO_PAGE, REMOVE_USER_FROM_PAGE, SHOW_ALL_ENTITIES
         ,SHOW_ALL_FOLLOWERS_OF_ENTITY, EXIT};
 
-    // consts
-    constexpr static int MAX_NAME_LEN = 51;
-    constexpr static int MAX_STATUS_TEXT_LEN = 101;
     static Date dummyDate;
 
     // msg consts

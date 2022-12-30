@@ -1,7 +1,6 @@
 #include <iostream>
 #include "FriendPage.h"
 #include "FanPage.h"
-#include "Exceptions.h"
 
 using namespace std;
 

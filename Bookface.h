@@ -12,11 +12,6 @@ class BookFace
 {
 public:
     static constexpr int NUM_OF_FRIENDS_STATUSESS = 10;
-    static constexpr const char* const USER_ALREADY_EXISTS_EXCEPTION = "User already exists in the system";
-    static constexpr const char* const PAGE_ALREADY_EXISTS_EXCEPTION = "Page already exists";
-    static constexpr const char* const USER_NOT_EXISTS_EXCEPTION = "User doesn't exist";
-    static constexpr const char* const PAGE_NOT_EXISTS_EXCEPTION = "Fan page doesn't exist";
-    static constexpr const char* const USER_TO_SELF_EXCEPTION = "Can't apply on Self!";
 
 private:
     list<FriendPage> users;
