@@ -138,12 +138,12 @@ void UserInterface::showAllFollowersOfEntity(BookFace &system) noexcept(false)
     if(choice == 1)
     {
         FriendPage user(name, dummyDate);
-        system.showAllFriendsOfAUser(user);
+        system.showAllFollowersOfPage(user);
     }
     else if(choice == 2)
     {
         FanPage page(name);
-        system.showAllFollowersOfFanPage(page);
+        system.showAllFollowersOfPage(page);
     }
 }
 

@@ -37,8 +37,7 @@ public:
     void removeUsersConnection(FriendPage& user1, FriendPage& user2) noexcept(false);
     void followFanPage(FriendPage& user, FanPage& fanPage) noexcept(false);
     void unfollowFanPage(FriendPage& user, FanPage& fanPage) noexcept(false);
-    void showAllFriendsOfAUser(FriendPage& user) const noexcept(false);
-    void showAllFollowersOfFanPage(FanPage& fanPage) const noexcept(false);
+    void showAllFollowersOfPage(const Page& page) const noexcept(false);
     void stopTheProgram() {this->is_running = false;}
 
     // getters

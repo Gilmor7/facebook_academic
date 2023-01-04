@@ -144,22 +144,23 @@ void BookFace::unfollowFanPage(FriendPage &user, FanPage &fanPage)
         throw PageNotFoundBookFaceException();
 }
 
-void BookFace::showAllFriendsOfAUser(FriendPage &user) const
-{
-    auto itr = std::find(this->users.begin(), this->users.end(), user);
-    if(itr != this->users.end())
+void BookFace::showAllFollowersOfPage(const Page &page) const noexcept(false) {
+    const FriendPage* temp1 = dynamic_cast<const FriendPage*>(&page);
+    const FanPage* temp2 = dynamic_cast<const FanPage*>(&page);
+    if(temp1)
+    {
+        auto itr = std::find(this->users.begin(), this->users.end(), *temp1);
+        if(itr == this->users.end())
+            throw UserNotFoundBookFaceException();
         itr->showFollowers();
+    }
     else
-        throw UserNotFoundBookFaceException();
-}
-
-void BookFace::showAllFollowersOfFanPage(FanPage &fanPage) const
-{
-    auto itr = std::find(this->fanPages.begin(), this->fanPages.end(), fanPage);
-    if(itr != this->fanPages.end())
+    {
+        auto itr = std::find(this->fanPages.begin(), this->fanPages.end(), *temp2);
+        if(itr == this->fanPages.end())
+            throw PageNotFoundBookFaceException();
         itr->showFollowers();
-    else
-        throw PageNotFoundBookFaceException();
+    }
 }
 
 
