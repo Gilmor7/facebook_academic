@@ -28,10 +28,13 @@ public:
     void addUser(FriendPage& newUser) noexcept(false);
     void addPage(FanPage& newFanPage) noexcept(false);
     void showAllRegistered() const;
+    // combine these 2:
     void addStatusToFriendPage(FriendPage& user, Status& status) noexcept(false);
     void addStatusToFanPage(FanPage& fanPage, Status& status) noexcept(false);
+    // combine these 2:
     void showAllStatusesFromFriend(FriendPage& user) const noexcept(false);
     void showAllStatusesFromFanPage(FanPage& fanPage) const noexcept(false);
+
     void showAllStatusesFromUsersFriends(FriendPage& user) const noexcept(false);
     void connectUsers(FriendPage& user1, FriendPage& user2) noexcept(false);
     void removeUsersConnection(FriendPage& user1, FriendPage& user2) noexcept(false);
