@@ -34,6 +34,7 @@ void Page::showStatuses(int amount) const
     auto itrEnd = this->statuses.end();
     for(; itr != itrEnd; ++itr)
     {
+        cout << this->pageName << " posted: " << endl;
         (*itr)->showStatus();
     }
 }
@@ -57,4 +58,20 @@ bool Page::operator>(const Page &other) const
     if(p1Size > p2Size)
         return true;
     return false;
+}
+
+bool Page::operator==(const Page &other) const
+{
+    return this->pageName == other.pageName;
+}
+
+bool Page::operator!=(const Page &other) const
+{
+    bool res = *this == other;
+    return !res;
+}
+
+bool Page::operator==(const string &name) const
+{
+    return this->pageName == name;
 }

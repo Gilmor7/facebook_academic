@@ -27,12 +27,16 @@ public:
     // virtual methods
     virtual void showName() const;
 
-
     // regular methods
     void showStatuses(int amount = ALL) const;
     void showFollowers() const;
     void addStatus(const Status& newStatus);
+
+    // operators
     bool operator>(const Page& other) const;
+    bool operator==(const Page& other) const;
+    bool operator==(const string &name) const;
+    bool operator!=(const Page& other) const;
 };
 
 

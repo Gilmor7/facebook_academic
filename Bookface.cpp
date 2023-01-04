@@ -148,7 +148,7 @@ void BookFace::showAllFriendsOfAUser(FriendPage &user) const
 {
     auto itr = std::find(this->users.begin(), this->users.end(), user);
     if(itr != this->users.end())
-        itr->showFriends();
+        itr->showFollowers();
     else
         throw UserNotFoundBookFaceException();
 }
