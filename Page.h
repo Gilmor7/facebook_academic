@@ -25,7 +25,7 @@ public:
     virtual ~Page();
 
     // virtual methods
-    virtual void showName() const;
+    virtual void show() const;
 
     // regular methods
     void showStatuses(int amount = ALL) const;

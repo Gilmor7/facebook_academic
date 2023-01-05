@@ -16,7 +16,7 @@ private:
 public:
     FriendPage(const string& name, Date birthDate) noexcept(false);
 
-    void show() const;
+    virtual void show() const override;
     void addFriend(FriendPage& newFriend) noexcept(false);
     void removeFriend(FriendPage& friendToRemove) noexcept(false);
     void showFriendsStatuses(int amount) const;

@@ -42,12 +42,12 @@ void UserInterface::addStatus(BookFace &system) noexcept(false)
     if(choice == 1)
     {
         FriendPage user(name, dummyDate);
-        system.addStatusToFriendPage(user, status);
+        system.addStatusToPage(user, status);
     }
     else if(choice == 2)
     {
         FanPage page(name);
-        system.addStatusToFanPage(page, status);
+        system.addStatusToPage(page, status);
     }
 }
 
@@ -65,12 +65,12 @@ void UserInterface::showAllStatusesFromEntity(BookFace &system) const noexcept(f
     if(choice == 1)
     {
         FriendPage user(name, dummyDate);
-        system.showAllStatusesFromFriend(user);
+        system.showAllStatusesFromPage(user);
     }
     else if(choice == 2)
     {
         FanPage page(name);
-        system.showAllStatusesFromFanPage(page);
+        system.showAllStatusesFromPage(page);
     }
 }
 

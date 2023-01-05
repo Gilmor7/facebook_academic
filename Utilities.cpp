@@ -35,20 +35,20 @@ void initilizeStartingDataIntoSystem(BookFace& system)
     system.addPage(p2);
     system.addPage(p3);
 
-    system.addStatusToFriendPage(f1, f1s1);
-    system.addStatusToFriendPage(f1, f1s2);
-    system.addStatusToFriendPage(f2, f2s1);
-    system.addStatusToFriendPage(f2, f2s2);
-    system.addStatusToFriendPage(f3, f3s1);
-    system.addStatusToFriendPage(f3, f3s2);
-    system.addStatusToFriendPage(f3, f3s3);
+    system.addStatusToPage(f1, f1s1);
+    system.addStatusToPage(f1, f1s2);
+    system.addStatusToPage(f2, f2s1);
+    system.addStatusToPage(f2, f2s2);
+    system.addStatusToPage(f3, f3s1);
+    system.addStatusToPage(f3, f3s2);
+    system.addStatusToPage(f3, f3s3);
 
-    system.addStatusToFanPage(p1, p1s1);
-    system.addStatusToFanPage(p1, p1s2);
-    system.addStatusToFanPage(p2, p2s1);
-    system.addStatusToFanPage(p2, p2s2);
-    system.addStatusToFanPage(p3, p3s1);
-    system.addStatusToFanPage(p3, p3s2);
+    system.addStatusToPage(p1, p1s1);
+    system.addStatusToPage(p1, p1s2);
+    system.addStatusToPage(p2, p2s1);
+    system.addStatusToPage(p2, p2s2);
+    system.addStatusToPage(p3, p3s1);
+    system.addStatusToPage(p3, p3s2);
 
     system.connectUsers(f1,f2);
     system.connectUsers(f2,f3);

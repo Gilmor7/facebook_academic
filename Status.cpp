@@ -13,7 +13,7 @@ Status::Status(const std::string& text) noexcept(false)
 
 void Status::showStatus() const
 {
-    cout << this->text << endl << ctime(&(this->statusTime)) << endl;
+    cout << this->text << endl << "At " << ctime(&(this->statusTime)) << endl;
 }
 
 bool Status::operator==(const Status &other) const

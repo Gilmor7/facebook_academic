@@ -24,17 +24,22 @@ void Page::showFollowers() const
     auto itrEnd = this->followers.end();
     for(; itr != itrEnd; ++itr)
     {
-        (*itr)->showName();
+        (*itr)->show();
     }
 }
 
 void Page::showStatuses(int amount) const
 {
+    int size;
+    if(amount == ALL)
+        size = this->statuses.size();
+    else
+        size = amount;
     auto itr = this->statuses.begin();
     auto itrEnd = this->statuses.end();
-    for(; itr != itrEnd; ++itr)
+    cout << this->pageName << "'s Statuses: " << endl;
+    for(int i = 0; itr != itrEnd && i < size; ++itr, ++i)
     {
-        cout << this->pageName << " posted: " << endl;
         (*itr)->showStatus();
     }
 }
@@ -46,9 +51,9 @@ void Page::addStatus(const Status &newStatus)
 
 
 
-void Page::showName() const
+void Page::show() const
 {
-    cout << this->pageName << endl;
+    cout << "Name: " << this->pageName << endl;
 }
 
 bool Page::operator>(const Page &other) const

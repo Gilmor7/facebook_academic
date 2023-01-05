@@ -6,9 +6,10 @@ using namespace std;
 FriendPage::FriendPage(const string& name, Date birthDate) noexcept(false):
     birthDate(birthDate), Page(name){}
 
- void FriendPage::show() const
+void FriendPage::show() const
 {
-    cout << "Name: " << this->pageName << endl << "Birth date: ";
+    Page::show();
+    cout << "BirthDate: ";
     this->birthDate.showDate();
     cout << endl;
 }
