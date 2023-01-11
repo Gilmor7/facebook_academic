@@ -19,8 +19,8 @@ public:
     Status(const string& text) noexcept(false);
     virtual void showStatus() const;
 
-    bool operator==(const Status& other) const;
-    bool operator!=(const Status& other) const;
+    virtual bool operator==(const Status& other) const;
+    virtual bool operator!=(const Status& other) const;
 
 protected:
     char* getCommand(const string &srcPath) const;
