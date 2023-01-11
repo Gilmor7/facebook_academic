@@ -31,6 +31,7 @@ public:
     void showStatuses(int amount = ALL) const;
     void showFollowers() const;
     void addStatus(const Status& newStatus);
+    const string& getName() const;
 
     // operators
     bool operator>(const Page& other) const;

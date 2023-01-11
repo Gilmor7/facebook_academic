@@ -56,6 +56,11 @@ void Page::show() const
     cout << "Name: " << this->pageName << endl;
 }
 
+const string& Page::getName() const
+{
+    return this->pageName;
+}
+
 bool Page::operator>(const Page &other) const
 {
     int p1Size = this->followers.size();
