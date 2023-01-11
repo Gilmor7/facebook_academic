@@ -5,6 +5,7 @@
 #include "FanPage.h"
 #include "Exceptions.h"
 #include <list>
+#include <unordered_map>
 #include <iostream>
 using namespace std;
 
@@ -14,8 +15,8 @@ public:
     static constexpr int NUM_OF_FRIENDS_STATUSESS = 10;
 
 private:
-    list<FriendPage> users;
-    list<FanPage> fanPages;
+    unordered_map<string,FriendPage> users;
+    unordered_map<string, FanPage> fanPages;
     bool is_running;
 
 

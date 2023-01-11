@@ -10,21 +10,16 @@ BookFace::BookFace()
 /// Menu functions
 void BookFace::addUser(FriendPage &newUser) noexcept(false)
 {
-    auto findItr = std::find(this->users.begin(), this->users.end(), newUser);
-    if(findItr == this->users.end())
-        this->users.push_back(newUser);
-    else
+    if(this->users.find(newUser.getName()) != this->users.end())
         throw AddNewUserBookFaceException();
-
+    this->users.insert(make_pair(newUser.getName(), newUser));
 }
 
 void BookFace::addPage(FanPage &newFanPage) noexcept(false)
 {
-    auto findItr = std::find(this->fanPages.begin(), this->fanPages.end(), newFanPage);
-    if(findItr == this->fanPages.end())
-        this->fanPages.push_back(newFanPage);
-    else
+    if(this->fanPages.find(newFanPage.getName()) != this->fanPages.end())
         throw AddNewPageBookFaceException();
+    this->fanPages.insert(make_pair(newFanPage.getName(), newFanPage));
 }
 
 void BookFace::showAllRegistered() const
@@ -32,11 +27,11 @@ void BookFace::showAllRegistered() const
     cout << "Users: " << endl;
     auto userItr = this->users.begin();
     for(; userItr != this->users.end(); ++userItr)
-        userItr->show();
+        userItr->second.show();
     cout << "Pages: " << endl;
     auto pageItr = this->fanPages.begin();
     for(; pageItr != this->fanPages.end(); ++pageItr)
-        pageItr->show();
+        pageItr->second.show();
 }
 
 void BookFace::addStatusToPage(const Page &page, const Status& status) noexcept(false)
@@ -45,20 +40,26 @@ void BookFace::addStatusToPage(const Page &page, const Status& status) noexcept(
     const FanPage* temp2 = dynamic_cast<const FanPage*>(&page);
     if(temp1)
     {
-        auto itr = find(this->users.begin(), this->users.end(), *temp1);
+        auto itr = this->users.find(temp1->getName());
         if(itr == this->users.end())
             throw AddNewStatusBookFaceException();
-        itr->addStatus(status);
+        itr->second.addStatus(status);
+    }
+    else
+    {
+        auto itr = this->fanPages.find(temp2->getName());
+        if(itr == this->fanPages.end())
+            throw AddNewStatusBookFaceException();
+        itr->second.addStatus(status);
     }
 }
 
 void BookFace::showAllStatusesFromUsersFriends(FriendPage &user) const noexcept(false)
 {
-    auto itr = std::find(this->users.begin(), this->users.end(), user);
-    if(itr != this->users.end())
-        itr->showFriendsStatuses(NUM_OF_FRIENDS_STATUSESS);
-    else
+    auto itr = this->users.find(user.getName());
+    if(itr == this->users.end())
         throw UserNotFoundBookFaceException();
+    itr->second.showFriendsStatuses(NUM_OF_FRIENDS_STATUSESS);
 }
 
 void BookFace::showAllStatusesFromPage(const Page &page) const noexcept(false) {
@@ -66,17 +67,17 @@ void BookFace::showAllStatusesFromPage(const Page &page) const noexcept(false) {
     const FanPage* temp2 = dynamic_cast<const FanPage*>(&page);
     if(temp1)
     {
-        auto itr = find(this->users.begin(), this->users.end(), *temp1);
+        auto itr = this->users.find(temp1->getName());
         if(itr == this->users.end())
             throw UserNotFoundBookFaceException();
-        itr->showStatuses();
+        itr->second.showStatuses();
     }
     else
     {
-        auto itr = find(this->fanPages.begin(), this->fanPages.end(), *temp2);
+        auto itr = this->fanPages.find(temp2->getName());
         if(itr == this->fanPages.end())
             throw PageNotFoundBookFaceException();
-        itr->showStatuses();
+        itr->second.showStatuses();
     }
 }
 
@@ -84,12 +85,12 @@ void BookFace::connectUsers(FriendPage &user1, FriendPage &user2) noexcept(false
 {
     if (user1 == user2)
         throw ApplyToSelfBookFaceException();
-    auto itr1 = std::find(this->users.begin(), this->users.end(), user1);
-    auto itr2 = std::find(this->users.begin(), this->users.end(), user2);
+    auto itr1 = this->users.find(user1.getName());
+    auto itr2 = this->users.find(user2.getName());
     if(itr1 != this->users.end() && itr2 != this->users.end())
     {
-        *itr1 += *itr2;
-        *itr2 += *itr1;
+        itr1->second += itr2->second;
+        itr2->second += itr1->second;
     }
     else
         throw UserNotFoundBookFaceException();
@@ -97,14 +98,14 @@ void BookFace::connectUsers(FriendPage &user1, FriendPage &user2) noexcept(false
 
 void BookFace::removeUsersConnection(FriendPage &user1, FriendPage &user2)
 {
-    if(user1 == user2)
+    if (user1 == user2)
         throw ApplyToSelfBookFaceException();
-    auto itr1 = std::find(this->users.begin(), this->users.end(), user1);
-    auto itr2 = std::find(this->users.begin(), this->users.end(), user2);
+    auto itr1 = this->users.find(user1.getName());
+    auto itr2 = this->users.find(user2.getName());
     if(itr1 != this->users.end() && itr2 != this->users.end())
     {
-        itr1->removeFriend(*itr2);
-        itr2->removeFriend(*itr1);
+        itr1->second -= itr2->second;
+        itr2->second -= itr1->second;
     }
     else
         throw UserNotFoundBookFaceException();
@@ -112,30 +113,26 @@ void BookFace::removeUsersConnection(FriendPage &user1, FriendPage &user2)
 
 void BookFace::followFanPage(FriendPage &user, FanPage &fanPage)
 {
-    auto itr1 = std::find(this->users.begin(), this->users.end(), user);
-    auto itr2 = std::find(this->fanPages.begin(), this->fanPages.end(), fanPage);
+    auto itr1 = this->users.find(user.getName());
+    auto itr2 = this->fanPages.find(fanPage.getName());
     if(itr1 != this->users.end() && itr2 != this->fanPages.end())
     {
-        *itr1 += (*itr2);
-        *itr2 += (*itr1);
+        itr1->second += itr2->second;
+        itr2->second += itr1->second;
     }
-    else if(itr1 == this->users.end())
-        throw UserNotFoundBookFaceException();
     else
-        throw PageNotFoundBookFaceException();
+        throw UserNotFoundBookFaceException();
 }
 
 void BookFace::unfollowFanPage(FriendPage &user, FanPage &fanPage)
 {
-    auto itr1 = std::find(this->users.begin(), this->users.end(), user);
-    auto itr2 = std::find(this->fanPages.begin(), this->fanPages.end(), fanPage);
+    auto itr1 = this->users.find(user.getName());
+    auto itr2 = this->fanPages.find(fanPage.getName());
     if(itr1 != this->users.end() && itr2 != this->fanPages.end())
     {
-        *itr1 -= (*itr2);
-        *itr2 -= (*itr1);
+        itr1->second -= itr2->second;
+        itr2->second -= itr1->second;
     }
-    else if(itr1 == this->users.end())
-        throw UserNotFoundBookFaceException();
     else
         throw PageNotFoundBookFaceException();
 }
@@ -145,17 +142,17 @@ void BookFace::showAllFollowersOfPage(const Page &page) const noexcept(false) {
     const FanPage* temp2 = dynamic_cast<const FanPage*>(&page);
     if(temp1)
     {
-        auto itr = std::find(this->users.begin(), this->users.end(), *temp1);
-        if(itr == this->users.end())
+        auto itr = this->users.find(page.getName());
+        if (itr == this->users.end())
             throw UserNotFoundBookFaceException();
-        itr->showFollowers();
+        itr->second.showFollowers();
     }
     else
     {
-        auto itr = std::find(this->fanPages.begin(), this->fanPages.end(), *temp2);
-        if(itr == this->fanPages.end())
+        auto itr = this->fanPages.find(page.getName());
+        if (itr == this->fanPages.end())
             throw PageNotFoundBookFaceException();
-        itr->showFollowers();
+        itr->second.showFollowers();
     }
 }
 
