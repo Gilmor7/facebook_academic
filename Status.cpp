@@ -25,3 +25,12 @@ bool Status::operator!=(const Status &other) const
 {
     return !(*this == other);
 }
+
+char *Status::getCommand(const string &srcPath) const {
+    string s_cmd = START_CMD + " " + srcPath;
+
+    char* cmd = new char[srcPath.size() + 1 + START_CMD.size() + 1];
+    strcpy(cmd, s_cmd.c_str());
+
+    return cmd;
+}
