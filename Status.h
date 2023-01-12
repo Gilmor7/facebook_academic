@@ -22,8 +22,8 @@ public:
     virtual void showStatus() const;
     virtual void save(ofstream& out) const;
 
-    bool operator==(const Status& other) const;
-    bool operator!=(const Status& other) const;
+    virtual bool operator==(const Status& other) const;
+    virtual bool operator!=(const Status& other) const;
 
 protected:
     char* getCommand(const string &srcPath) const;

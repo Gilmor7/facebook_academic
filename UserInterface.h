@@ -12,6 +12,8 @@ public:
         ,REMOVE_USERS_CONNECTION, ADD_USER_TO_PAGE, REMOVE_USER_FROM_PAGE, SHOW_ALL_ENTITIES
         ,SHOW_ALL_FOLLOWERS_OF_ENTITY, EXIT};
 
+    enum eStatusType { TEXT_STATUS = 1, IMAGE_STATUS, VIDEO_STATUS};
+
     static Date dummyDate;
 
     // msg consts
@@ -37,6 +39,11 @@ public:
             "Choose one [pick 1 or 2]:\n"
             "1. user\n"
             "2. fanPage\n";
+    constexpr static const char* const CHOOSE_STATUS_TYPE =
+            "Choose your status type [pick 1 or 2 or 3]:\n"
+            "1. Only text\n"
+            "2. Text with image\n"
+            "3. Text with Video\n";
     constexpr static const char* const ADD_STATUS_TEXT_MSG= "Enter text for status [max 200 characters]: ";
     constexpr static const char* const ENTER_USER_THEN_FANPAGE = "First enter the user name, then the fan page name!\n";
     constexpr static const char* const UNKNOWN_ERROR_MSG = "Unknown error occurred!\n";
@@ -61,10 +68,13 @@ private:
 
     // small Utility functions
     string getNameAsString() const;
+    string getAssetUrl(string assetName) const;
     void getBirthDate(int* day, int* month, int* year) const;
     void getChoice(int* choice) const;
+    void getStatusChoice(int* statusChoice) const;
     string getStatusTextAsString() const;
     bool validateChoice(int choice) const;
+    bool validateStatusChoice(int statusChoice) const;
 
 public:
     // c'tors and d'tor

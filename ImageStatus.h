@@ -8,11 +8,15 @@ class ImageStatus : public Status
 protected:
     string imgSrc;
 
-public:
+public: // Constructor
     ImageStatus(const string& text, const string &imgSrc);
 
-public:
+public: // Public methods
     virtual void showStatus() const override;
+
+public: // Operators
+    virtual bool operator==(const Status& other) const override;
+    virtual bool operator!=(const Status& other) const override;
 };
 
 #endif //FACEBOOK_ACADEMIC_IMAGESTATUS_H

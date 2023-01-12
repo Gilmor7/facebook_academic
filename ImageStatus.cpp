@@ -13,3 +13,21 @@ void ImageStatus::showStatus() const
 
     delete[] cmd;
 }
+
+bool ImageStatus::operator==(const Status &other) const
+{
+    if(Status::operator!=(other))
+        return false;
+
+    const ImageStatus *otherStatus = dynamic_cast<const ImageStatus *>(&other);
+    if(otherStatus == nullptr)
+        return false;
+
+    else
+        return this->imgSrc == otherStatus->imgSrc;
+}
+
+bool ImageStatus::operator!=(const Status &other) const
+{
+    return !(*this == other);
+}

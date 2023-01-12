@@ -13,3 +13,21 @@ void VideoStatus::showStatus() const
 
     delete[] cmd;
 }
+
+bool VideoStatus::operator==(const Status &other) const
+{
+    if (Status::operator!=(other))
+        return false;
+
+    const VideoStatus *otherStatus = dynamic_cast<const VideoStatus *>(&other);
+    if (otherStatus == nullptr)
+        return false;
+
+    else
+        return this->videoSrc == otherStatus->videoSrc;
+}
+
+bool VideoStatus::operator!=(const Status &other) const
+{
+    return !(*this == other);
+}
