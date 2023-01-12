@@ -44,9 +44,9 @@ void Page::showStatuses(int amount) const
     }
 }
 
-void Page::addStatus(const Status &newStatus)
+void Page::addStatus(Status* const newStatus)
 {
-    this->statuses.push_back(new Status(newStatus));    // need to check if working properly
+    this->statuses.push_back(newStatus);    // need to check if working properly
 }
 
 

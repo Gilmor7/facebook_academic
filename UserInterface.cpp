@@ -63,12 +63,12 @@ void UserInterface::addStatus(BookFace &system) noexcept(false)
     if(choice == 1)
     {
         FriendPage user(name, dummyDate);
-        system.addStatusToPage(user, *status);
+        system.addStatusToPage(user, status);
     }
     else if(choice == 2)
     {
         FanPage page(name);
-        system.addStatusToPage(page, *status);
+        system.addStatusToPage(page, status);
     }
 }
 

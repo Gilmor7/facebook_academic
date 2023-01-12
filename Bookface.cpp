@@ -34,7 +34,7 @@ void BookFace::showAllRegistered() const
         pageItr->second.show();
 }
 
-void BookFace::addStatusToPage(const Page &page, const Status& status) noexcept(false)
+void BookFace::addStatusToPage(const Page &page, Status* const status) noexcept(false)
 {
     const FriendPage* temp1 = dynamic_cast<const FriendPage*>(&page);
     const FanPage* temp2 = dynamic_cast<const FanPage*>(&page);

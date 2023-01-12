@@ -30,7 +30,7 @@ public:
     // regular methods
     void showStatuses(int amount = ALL) const;
     void showFollowers() const;
-    void addStatus(const Status& newStatus);
+    void addStatus (Status* const newStatus);
     const string& getName() const;
 
     // operators
