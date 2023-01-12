@@ -1,5 +1,7 @@
 
 #include "UserInterface.h"
+#include "ImageStatus.h"
+#include "VideoStatus.h"
 #include "Exceptions.h"
 
 /// functions
@@ -29,6 +31,7 @@ void UserInterface::showAllRegistered(BookFace &system) const
 void UserInterface::addStatus(BookFace &system) noexcept(false)
 {
     int choice;
+    int statusChoice;
     string name;
     string text;
     this->getChoice(&choice);
@@ -36,18 +39,36 @@ void UserInterface::addStatus(BookFace &system) noexcept(false)
         throw INVALID_CHOICE_MSG;
 
     name = this->getNameAsString();
+
+    this->getStatusChoice(&statusChoice);
+    if(!this->validateStatusChoice(statusChoice))
+        throw INVALID_CHOICE_MSG;
+
     text = this->getStatusTextAsString();
-    Status status(text);
+
+    Status* status;
+    switch(statusChoice)
+    {
+        case eStatusType::TEXT_STATUS:
+            status = new Status(text);
+            break;
+        case eStatusType::IMAGE_STATUS:
+            status = new ImageStatus(text, getAssetUrl("image"));
+            break;
+        case eStatusType::VIDEO_STATUS:
+            status = new VideoStatus(text, getAssetUrl("video"));
+            break;
+    };
 
     if(choice == 1)
     {
         FriendPage user(name, dummyDate);
-        system.addStatusToPage(user, status);
+        system.addStatusToPage(user, *status);
     }
     else if(choice == 2)
     {
         FanPage page(name);
-        system.addStatusToPage(page, status);
+        system.addStatusToPage(page, *status);
     }
 }
 
@@ -255,6 +276,13 @@ void UserInterface::getChoice(int* choice) const
     cin.get();
 }
 
+void UserInterface::getStatusChoice(int *statusChoice) const
+{
+    cout << CHOOSE_STATUS_TYPE;
+    cin >> *statusChoice;
+    cin.get();
+}
+
 string UserInterface::getStatusTextAsString() const
 {
     string text;
@@ -265,11 +293,29 @@ string UserInterface::getStatusTextAsString() const
     return text;
 }
 
+string UserInterface::getAssetUrl(string assetName) const
+{
+    string url;
+
+    cout << "Please enter " << assetName << " url including file suffix: ";
+    getline(cin, url);
+
+    return url;
+}
+
 bool UserInterface::validateChoice(int choice) const
 {
     if(choice != 1 && choice != 2)
         return false;
 
     return true;
+}
+
+bool UserInterface::validateStatusChoice(int statusChoice) const
+{
+    return (
+            statusChoice == eStatusType::IMAGE_STATUS ||
+            statusChoice == eStatusType::TEXT_STATUS ||
+            statusChoice == eStatusType::VIDEO_STATUS);
 }
 
