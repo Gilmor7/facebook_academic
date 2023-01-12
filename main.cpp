@@ -27,7 +27,7 @@ int main()
     eli.addStatus(s);
     eli.addStatus(is);
     eli.addStatus(vs);
-    eli.save(output);
+    eli.save(output);   //
     output.close();
 
     ifstream input("test.bin", ios::binary);
