@@ -10,6 +10,10 @@ Status::Status(const std::string& text) noexcept(false)
     this->statusTime = time(nullptr);
 }
 
+Status::Status(ifstream &in)
+{
+    in.read((char*)this, sizeof(*this));
+}
 
 void Status::showStatus() const
 {
@@ -33,4 +37,9 @@ char *Status::getCommand(const string &srcPath) const {
     strcpy(cmd, s_cmd.c_str());
 
     return cmd;
+}
+
+void Status::save(ofstream& out) const
+{
+    out.write((char*)this, sizeof(*this));
 }

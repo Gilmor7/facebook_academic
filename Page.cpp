@@ -49,11 +49,14 @@ void Page::addStatus(const Status &newStatus)
     this->statuses.push_back(new Status(newStatus));    // need to check if working properly
 }
 
-
-
 void Page::show() const
 {
     cout << "Name: " << this->pageName << endl;
+}
+
+void Page::saveToBinFile(ifstream &in) const
+{
+
 }
 
 const string& Page::getName() const

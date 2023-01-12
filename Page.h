@@ -26,6 +26,7 @@ public:
 
     // virtual methods
     virtual void show() const;
+    virtual void saveToBinFile(ifstream& in) const;
 
     // regular methods
     void showStatuses(int amount = ALL) const;
