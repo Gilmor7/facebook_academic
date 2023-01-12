@@ -9,14 +9,30 @@ int main()
 //    UserInterface interface;
 //    int option;
 
-//    Status s1("test");
+//    ImageStatus s1("test", "/test.png");
 //    ofstream output("Status.bin", ios::binary | ios::trunc);
 //    s1.save(output);
 //    output.close();
 
-    ifstream input("Status.bin", ios::binary);
-    Status s1(input);
-    s1.showStatus();
+//    ifstream input("Status.bin", ios::binary);
+//    ImageStatus s1(input);
+//    s1.showStatus();
+//    input.close();
+
+    ofstream output("test.bin", ios::binary | ios::trunc);
+    FanPage eli("Eli");
+    Status s("text status");
+    ImageStatus is("Image status", "image.bob");
+    VideoStatus vs("Video status", "video.koko");
+    eli.addStatus(s);
+    eli.addStatus(is);
+    eli.addStatus(vs);
+    eli.save(output);
+    output.close();
+
+    ifstream input("test.bin", ios::binary);
+    FanPage eli2(input);
+    eli2.showStatuses();
     input.close();
 
 //    initilizeStartingDataIntoSystem(system);

@@ -2,6 +2,8 @@
 
 /// statuses methods
 
+FanPage::FanPage(ifstream &in) : Page(in) {}
+
 const FanPage& FanPage::operator+=(const FriendPage &user) noexcept(false)
 {
     auto itr = std::find(this->followers.begin(), this->followers.end(), &user);

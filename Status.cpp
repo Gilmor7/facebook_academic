@@ -43,3 +43,10 @@ void Status::save(ofstream& out) const
 {
     out.write((char*)this, sizeof(*this));
 }
+
+void Status::saveType(ofstream &out) const
+{
+    char type[TYPE_LEN+1];
+    strncpy(type, typeid(*this).name(), TYPE_LEN);
+    out.write((char*)&type[0], TYPE_LEN);
+}

@@ -10,19 +10,19 @@ void initilizeStartingDataIntoSystem(BookFace& system)
     FanPage p2 =  FanPage("c++ programmers");
     FanPage p3 =  FanPage("The cup 'O' coffee drinkers");
 
-    Status* f1s1 =  new Status("I don't feel so good mr Stark - peter parker");
-    Status* f1s2 =  new Status("love and passion for the profession");
-    Status* f2s1 =  new Status("another good game today!");
-    Status* f2s2 =  new Status("the LA lakers are the best team in the NBA!");
-    Status* f3s1 =  new Status("Hello world...?");
-    Status* f3s2 =  new Status("Time is money!");
-    Status* f3s3 =  new Status("I think, therefore I am :)");
-    Status* p1s1 =  new Status("Wow!!!!! such a great game from Labron today");
-    Status* p1s2 =  new Status("We got the new Labron merchandise!!!!");
-    Status* p2s1 =  new Status("new c++ update coming out next week!");
-    Status* p2s2 =  new Status("class is a struct with functions... change my mind");
-    Status* p3s1 =  new Status("The best kind of coffee, is an irish coffee ;)");
-    Status* p3s2 =  new Status("if you like decaff coffee... please unfollow this page");
+    Status f1s1 = Status("I don't feel so good mr Stark - peter parker");
+    Status f1s2 = Status("love and passion for the profession");
+    Status f2s1 = Status("another good game today!");
+    Status f2s2 = Status("the LA lakers are the best team in the NBA!");
+    Status f3s1 = Status("Hello world...?");
+    Status f3s2 = Status("Time is money!");
+    Status f3s3 = Status("I think, therefore I am :)");
+    Status p1s1 = Status("Wow!!!!! such a great game from Labron today");
+    Status p1s2 = Status("We got the new Labron merchandise!!!!");
+    Status p2s1 = Status("new c++ update coming out next week!");
+    Status p2s2 = Status("class is a struct with functions... change my mind");
+    Status p3s1 = Status("The best kind of coffee, is an irish coffee ;)");
+    Status p3s2 = Status("if you like decaff coffee... please unfollow this page");
 
 
 

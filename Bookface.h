@@ -7,6 +7,7 @@
 #include <list>
 #include <unordered_map>
 #include <iostream>
+#include "ImageStatus.h"
 using namespace std;
 
 class BookFace
@@ -29,7 +30,7 @@ public:
     void addUser(FriendPage& newUser) noexcept(false);
     void addPage(FanPage& newFanPage) noexcept(false);
     void showAllRegistered() const;
-    void addStatusToPage(const Page& page, Status* const status) noexcept(false);
+    void addStatusToPage(const Page &page, const Status& status) noexcept(false);
     void showAllStatusesFromPage(const Page& page) const noexcept(false);
     void showAllStatusesFromUsersFriends(FriendPage& user) const noexcept(false);
     void connectUsers(FriendPage& user1, FriendPage& user2) noexcept(false);

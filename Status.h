@@ -17,10 +17,13 @@ protected:
     time_t statusTime;
 
 public:
+    static const int TYPE_LEN = 3;
+
     Status(const string& text) noexcept(false);
     Status(ifstream& in);
     virtual void showStatus() const;
     virtual void save(ofstream& out) const;
+    virtual void saveType(ofstream& out) const;
 
     virtual bool operator==(const Status& other) const;
     virtual bool operator!=(const Status& other) const;

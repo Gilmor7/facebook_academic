@@ -3,7 +3,8 @@
 #define FACEBOOK_ACADEMIC_PAGE_H
 #include <string.h>
 #include <iostream>
-#include "Status.h"
+#include "VideoStatus.h"
+#include "ImageStatus.h"
 #include <vector>
 #include "Exceptions.h"
 #include <algorithm>
@@ -20,18 +21,19 @@ protected:
 
     // make Page abstract class
     Page(const string& pageName) noexcept(false);
+    Page(ifstream& in);
 public:
     // virtual D'tor
     virtual ~Page();
 
     // virtual methods
     virtual void show() const;
-    virtual void saveToBinFile(ifstream& in) const;
+    virtual void save(ofstream& out) const;
 
     // regular methods
     void showStatuses(int amount = ALL) const;
     void showFollowers() const;
-    void addStatus (Status* const newStatus);
+    void addStatus(const Status& status);
     const string& getName() const;
 
     // operators

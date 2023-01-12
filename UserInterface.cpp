@@ -60,15 +60,20 @@ void UserInterface::addStatus(BookFace &system) noexcept(false)
             break;
     };
 
-    if(choice == 1)
-    {
-        FriendPage user(name, dummyDate);
-        system.addStatusToPage(user, status);
+    try {
+        if (choice == 1) {
+            FriendPage user(name, dummyDate);
+            system.addStatusToPage(user, *status);
+        } else if (choice == 2) {
+            FanPage page(name);
+            system.addStatusToPage(page, *status);
+        }
+        delete status;
     }
-    else if(choice == 2)
+    catch(AddNewStatusBookFaceException& e)
     {
-        FanPage page(name);
-        system.addStatusToPage(page, status);
+        e.what();
+        delete status;
     }
 }
 
