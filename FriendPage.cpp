@@ -6,6 +6,8 @@ using namespace std;
 FriendPage::FriendPage(const string& name, Date birthDate) noexcept(false):
     birthDate(birthDate), Page(name){}
 
+FriendPage::FriendPage(ifstream &in) : Page(in), birthDate(in){}
+
 void FriendPage::show() const
 {
     Page::show();
@@ -34,6 +36,29 @@ void FriendPage::showFriendsStatuses(int amount) const
     }
 }
 
+void FriendPage::saveFollowship(ofstream &out) const
+{
+    int len1 = this->pageName.size();
+    auto itr = this->fanPages.begin();
+    auto itrEnd = this->fanPages.end();
+    for(; itr != itrEnd; ++itr)
+    {
+        int len2 = itr->second->getName().size();
+
+        out.write((char*)&len1, sizeof(len1));
+        out.write(&pageName[0], len1);
+
+        out.write((char*)&len2, sizeof(len2));
+        out.write(&itr->second->getName()[0], len2);
+    }
+}
+
+void FriendPage::save(ofstream &out) const
+{
+    Page::save(out);
+    out.write((char*)&birthDate, sizeof(birthDate));
+}
+
 // Operators
 const FriendPage& FriendPage::operator+=(const FriendPage& other) noexcept(false)
 {
@@ -58,22 +83,21 @@ const FriendPage& FriendPage::operator-=(const FriendPage& other) noexcept(false
 }
 
 const FriendPage &FriendPage::operator+=(const FanPage &page) noexcept(false) {
-    auto itr = std::find(this->fanPagesArr.begin(), this->fanPagesArr.end(), &page);
-    if(itr != this->fanPagesArr.end())
+    auto itr = this->fanPages.find(page.getName());
+    if(itr != this->fanPages.end())
         throw FollowNewFanPageUserException();
 
-    this->fanPagesArr.push_back(&page);
+    this->fanPages.insert(make_pair(page.getName(), &page));
     return (*this);
 }
 
 const FriendPage &FriendPage::operator-=(const FanPage &page) noexcept(false) {
-    auto itr = std::find(this->fanPagesArr.begin(), this->fanPagesArr.end(), &page);
-    if(itr == this->fanPagesArr.end())
+    auto itr = this->fanPages.find(page.getName());
+    if(itr == this->fanPages.end())
         throw UnfollowFanPageUserException();
 
     // Remove page in O(1)
-    swap(*itr, this->fanPagesArr.back());
-    this->fanPagesArr.pop_back();
+    this->fanPages.erase(itr);
     return (*this);
 }
 

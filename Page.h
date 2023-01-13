@@ -22,6 +22,7 @@ protected:
     // make Page abstract class
     Page(const string& pageName) noexcept(false);
     Page(ifstream& in);
+
 public:
     // virtual D'tor
     virtual ~Page();
@@ -34,7 +35,10 @@ public:
     void showStatuses(int amount = ALL) const;
     void showFollowers() const;
     void addStatus(const Status& status);
+    void saveConnections(ofstream& out) const;
     const string& getName() const;
+
+    void clearStatusesVector() {statuses.clear();}
 
     // operators
     bool operator>(const Page& other) const;

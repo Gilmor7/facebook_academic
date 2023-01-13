@@ -16,8 +16,8 @@ public:
     static constexpr int NUM_OF_FRIENDS_STATUSESS = 10;
 
 private:
-    unordered_map<string,FriendPage> users;
-    unordered_map<string, FanPage> fanPages;
+    unordered_map<string, FriendPage*> users;
+    unordered_map<string, FanPage*> fanPages;
     bool is_running;
 
 
@@ -25,6 +25,7 @@ public:
     BookFace();
     BookFace(const BookFace& other) = delete;
     BookFace(BookFace&& other) = delete;
+    ~BookFace();
 
     // main system methods
     void addUser(FriendPage& newUser) noexcept(false);
@@ -38,9 +39,21 @@ public:
     void followFanPage(FriendPage& user, FanPage& fanPage) noexcept(false);
     void unfollowFanPage(FriendPage& user, FanPage& fanPage) noexcept(false);
     void showAllFollowersOfPage(const Page& page) const noexcept(false);
-    void stopTheProgram() {this->is_running = false;}
+    void stopTheProgram();
 
-    void save(ofstream& out) const;
+    // save functions
+    void save() const;
+    void saveConnections(ofstream& out) const;
+    void saveFollowship(ofstream& out) const;
+    void saveUsers(ofstream& out) const;
+    void savePages(ofstream& out) const;
+
+    // load functions
+    void load();
+    void loadUsers(ifstream& in);
+    void loadPages(ifstream& in);
+    void loadConnections(ifstream& in);
+    void loadFollowship(ifstream& in);
 
     // getters
     bool getRunningState() const {return this->is_running;}

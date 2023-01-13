@@ -59,3 +59,16 @@ void initilizeStartingDataIntoSystem(BookFace& system)
     system.followFanPage(f1,p1);
 
 }
+
+void resetFiles()
+{
+    ofstream usersOut("Users.bin", ios::binary | ios::trunc);
+    ofstream pagesOut("FanPages.bin", ios::binary | ios::trunc);
+    ofstream connectionsOut("Connections.bin", ios::binary | ios::trunc);
+    ofstream followshipOut("Followships.bin", ios::binary | ios::trunc);
+
+    usersOut.close();
+    pagesOut.close();
+    connectionsOut.close();
+    followshipOut.close();
+}

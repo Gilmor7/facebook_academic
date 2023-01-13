@@ -14,6 +14,11 @@ Date::Date(int day, int month, int year)
     this->year = year;
 }
 
+Date::Date(ifstream &in)
+{
+    in.read((char*)(this), sizeof(*this));
+}
+
 void Date::showDate() const
 {
     cout << (day < 10 ? "0" : "")

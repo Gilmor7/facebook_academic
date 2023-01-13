@@ -1,6 +1,9 @@
 #ifndef FACEBOOK_ACADEMIC_DATE_H
 #define FACEBOOK_ACADEMIC_DATE_H
 
+#include <fstream>
+using namespace std;
+
 class Date
 {
 private:
@@ -8,6 +11,7 @@ private:
 
 public:
     Date(int day, int month, int year);
+    Date(ifstream& in);
     int getDay() const {return day;}
     int getMonth() const {return month;}
     int getYear() const {return year;}

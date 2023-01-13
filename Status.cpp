@@ -12,7 +12,11 @@ Status::Status(const std::string& text) noexcept(false)
 
 Status::Status(ifstream &in)
 {
-    in.read((char*)this, sizeof(*this));
+    int textLen;
+    in.read((char*)&textLen, sizeof(textLen));
+    this->text.resize(textLen);
+    in.read(&text[0], textLen);
+    in.read((char*)&statusTime, sizeof(::time_t));
 }
 
 void Status::showStatus() const
@@ -41,7 +45,10 @@ char *Status::getCommand(const string &srcPath) const {
 
 void Status::save(ofstream& out) const
 {
-    out.write((char*)this, sizeof(*this));
+    int textLen = this->text.size();
+    out.write((char*)&textLen, sizeof(textLen));
+    out.write(&text[0], textLen);
+    out.write((char*)&this->statusTime, sizeof(::size_t));
 }
 
 void Status::saveType(ofstream &out) const

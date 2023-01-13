@@ -110,6 +110,23 @@ void Page::save(ofstream &out) const
     }
 }
 
+void Page::saveConnections(ofstream &out) const
+{
+    int len1 = this->pageName.size();
+    auto itr = this->followers.begin();
+    auto itrE = this->followers.end();
+    for(; itr != itrE; ++itr)
+    {
+        int len2 = itr->second->getName().size();
+        // save current objects name
+        out.write((char*)&len1, sizeof(len1));
+        out.write(&pageName[0], len1);
+        // save follower name
+        out.write((char*)&len2, sizeof(len2));
+        out.write(&itr->second->getName()[0], len2);
+    }
+}
+
 const string& Page::getName() const
 {
     return this->pageName;
