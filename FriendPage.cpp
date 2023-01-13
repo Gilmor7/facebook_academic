@@ -30,31 +30,30 @@ void FriendPage::showFriendsStatuses(int amount) const
     auto itrEnd = this->followers.end();
 
     for (; itr != itrEnd; ++itr) {
-        (*itr)->showStatuses(amount);
+        itr->second->showStatuses(amount);
     }
 }
 
 // Operators
 const FriendPage& FriendPage::operator+=(const FriendPage& other) noexcept(false)
 {
-    auto itr = std::find(this->followers.begin(), this->followers.end(), &other);
+    auto itr = this->followers.find(other.getName());
     if(itr != this->followers.end())
         throw AddFriendToUserUserException();
 
-    this->followers.push_back(&other);
+    this->followers.insert(make_pair(other.getName(), &other));
     return (*this);
 }
 
 const FriendPage& FriendPage::operator-=(const FriendPage& other) noexcept(false)
 {
 
-    auto itr = std::find(this->followers.begin(), this->followers.end(), &other);
+    auto itr = this->followers.find(other.getName());
     if(itr == this->followers.end())
         throw RemoveFriendFromUserUserException();
 
     // Remove friend in O(1)
-    swap(*itr, this->followers.back());
-    this->followers.pop_back();
+    this->followers.erase(itr);
     return (*this);
 }
 

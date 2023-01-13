@@ -55,7 +55,7 @@ void Page::showFollowers() const
     auto itrEnd = this->followers.end();
     for(; itr != itrEnd; ++itr)
     {
-        (*itr)->show();
+        itr->second->show();
     }
 }
 

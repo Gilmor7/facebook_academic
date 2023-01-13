@@ -6,9 +6,9 @@ FanPage::FanPage(ifstream &in) : Page(in) {}
 
 const FanPage& FanPage::operator+=(const FriendPage &user) noexcept(false)
 {
-    auto itr = std::find(this->followers.begin(), this->followers.end(), &user);
+    auto itr = this->followers.find(user.getName());
     if(itr == this->followers.end()) {
-        this->followers.push_back(&user);
+        this->followers.insert(make_pair(user.getName(), &user));
         return *this;
     }
     else
@@ -17,10 +17,9 @@ const FanPage& FanPage::operator+=(const FriendPage &user) noexcept(false)
 
 const FanPage& FanPage::operator-=(const FriendPage &user) noexcept(false)
 {
-    auto itr = std::find(this->followers.begin(), this->followers.end(), &user);
+    auto itr = this->followers.find(user.getName());
     if(itr != this->followers.end()) {
-        swap(*itr, this->followers.back());
-        this->followers.pop_back();
+        this->followers.erase(itr);
         return *this;
     }
     else

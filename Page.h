@@ -7,7 +7,7 @@
 #include "ImageStatus.h"
 #include <vector>
 #include "Exceptions.h"
-#include <algorithm>
+#include <unordered_map>
 using namespace std;
 
 constexpr int ALL = -1;
@@ -16,7 +16,7 @@ class Page
 {
 protected:
     string pageName;
-    vector<const Page*> followers;      // will use polymorphism to store followers/friends (depend on the page)
+    unordered_map<string, const Page*> followers;      // will use polymorphism to store followers/friends (depend on the page)
     vector<Status*> statuses;           // * for later support of polymorphism in statuses
 
     // make Page abstract class

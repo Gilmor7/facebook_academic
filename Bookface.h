@@ -40,6 +40,8 @@ public:
     void showAllFollowersOfPage(const Page& page) const noexcept(false);
     void stopTheProgram() {this->is_running = false;}
 
+    void save(ofstream& out) const;
+
     // getters
     bool getRunningState() const {return this->is_running;}
 

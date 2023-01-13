@@ -19,21 +19,21 @@ int main()
 //    s1.showStatus();
 //    input.close();
 
-    ofstream output("test.bin", ios::binary | ios::trunc);
-    FanPage eli("Eli");
-    Status s("text status");
-    ImageStatus is("Image status", "image.bob");
-    VideoStatus vs("Video status", "video.koko");
-    eli.addStatus(s);
-    eli.addStatus(is);
-    eli.addStatus(vs);
-    eli.save(output);   //
-    output.close();
-
-    ifstream input("test.bin", ios::binary);
-    FanPage eli2(input);
-    eli2.showStatuses();
-    input.close();
+//    ofstream output("test.bin", ios::binary | ios::trunc);
+//    FanPage eli("Eli");
+//    Status s("text status");
+//    ImageStatus is("Image status", "image.bob");
+//    VideoStatus vs("Video status", "video.koko");
+//    eli.addStatus(s);
+//    eli.addStatus(is);
+//    eli.addStatus(vs);
+//    eli.save(output);
+//    output.close();
+//
+//    ifstream input("test.bin", ios::binary);
+//    FanPage eli2(input);
+//    eli2.showStatuses();
+//    input.close();
 
 //    initilizeStartingDataIntoSystem(system);
 //
