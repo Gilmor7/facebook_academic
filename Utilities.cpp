@@ -1,6 +1,7 @@
 
 #include "Utilities.h"
 void initilizeStartingDataIntoSystem(BookFace& system)
+/// this function is for debugging and inserting starting data into the system (NOT THE FILES)
 {
     FriendPage f1 =  FriendPage("Eli", Date(12,9,1998));
     FriendPage f2 =  FriendPage("Labron james", Date(30,12,1984));
@@ -61,11 +62,13 @@ void initilizeStartingDataIntoSystem(BookFace& system)
 }
 
 void resetFiles()
+/// for debugging only and resting the files
 {
     ofstream usersOut("Users.bin", ios::binary | ios::trunc);
     ofstream pagesOut("FanPages.bin", ios::binary | ios::trunc);
     ofstream connectionsOut("Connections.bin", ios::binary | ios::trunc);
     ofstream followshipOut("Followships.bin", ios::binary | ios::trunc);
+
 
     usersOut.close();
     pagesOut.close();

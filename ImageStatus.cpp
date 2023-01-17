@@ -17,7 +17,7 @@ void ImageStatus::showStatus() const
     cout << "Opening Image..." << endl;
 
     char* cmd = Status::getCommand(this->imgSrc);
-//    system(cmd);
+    system(cmd);
 
     delete[] cmd;
 }

@@ -17,7 +17,7 @@ void VideoStatus::showStatus() const
     cout << "Opening Video..." << endl;
 
     char* cmd = Status::getCommand(this->videoSrc);
-//    system(cmd);
+    system(cmd);
 
     delete[] cmd;
 }

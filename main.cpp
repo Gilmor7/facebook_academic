@@ -3,14 +3,13 @@
 #include "Utilities.h"
 Date UserInterface::dummyDate(1,1,2000);
 
+/// PLEASE NOTICE: the files already contain data! (if you want to reset the data, look at utilities.h)
 int main()
 {
-//    resetFiles();
-
     BookFace system;
     UserInterface interface;
-    int option;
 
+    int option;
 
     do
     {

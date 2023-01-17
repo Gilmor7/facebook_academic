@@ -3,8 +3,8 @@
 
 Page::Page(const string &pageName) noexcept(false)
 {
-//    if(pageName == "")
-//        throw CreatePageException
+    if(pageName.empty())
+        throw CreateNewPageFanPageException();
     this->pageName = pageName;
 }
 

@@ -299,16 +299,21 @@ void BookFace::loadConnections(ifstream &in)
     string name1, name2;
     while(true)
     {
+        // get first name
         in.read((char*)&len1, sizeof(len1));
         name1.resize(len1);
         in.read(&name1[0], len1);
 
+        // get second name
         in.read((char*)&len2, sizeof(len2));
         name2.resize(len2);
         in.read(&name2[0], len2);
 
+        // find users in users.arr
         auto u1 = this->users.find(name1);
         auto u2 = this->users.find(name2);
+
+        // add user2 to user1 friends
         *u1->second += *u2->second;
 
         if(in.peek() == ios::traits_type::eof())
